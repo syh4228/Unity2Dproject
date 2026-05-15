@@ -4,7 +4,6 @@ public class Player_Controller : MonoBehaviour
 {
     [Header("플레이어 설정")]
     [SerializeField] private float _moveSpeed = 5f; // 이동속도(기본 달리기)
-    [SerializeField] private float _walkSpeed = 2f; // 걷기 속도
 
     [Header("점프 및 물리")]
     [SerializeField] private float _jumpForce = 7f; // 점프 힘

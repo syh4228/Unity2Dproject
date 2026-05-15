@@ -1,6 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UtilRemove
+public static class UtilRemove
 {
-    
+    public static void RemoveComponent<T>(this GameObject obj) where T : Component
+    {
+        T component = obj.GetComponent<T>();
+        if (component != null)
+        {
+            UtillLogRemove.Warning($"{obj.name} 오브젝트에서 {typeof(T).Name} 컴포넌트가 제거되었습니다.");
+            Object.Destroy(component);
+        }
+    }
 }
