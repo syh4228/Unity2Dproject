@@ -51,7 +51,7 @@ public class AnimationController : MonoBehaviour
             if(Animator_Control == null)
             {
                 // 디버그 로그 띄우기
-                Debug.LogError("애니메이터가 연결되지 않았습니다! 확인해주세요.");
+                UtillLogRemove.Error("애니메이터가 연결되지 않았습니다! 확인해주세요.");
             }
         }
     }
@@ -80,7 +80,7 @@ public class AnimationController : MonoBehaviour
         else
         {
             // 딕셔너리에 저장안된 함수 호출시 로그 호출
-            Debug.LogWarning($"{newState} 연결된 애니메이션이 없습니다.");
+            UtillLogRemove.Warning($"{newState} 연결된 애니메이션이 없습니다.");
         }
     }
 
