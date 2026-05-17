@@ -105,7 +105,7 @@ public class Player_Controller : MonoBehaviour
     {
         // A(-1),D(1) 입력을 받아 좌우 움직임
         float x = Input.GetAxisRaw("Horizontal");
-        
+
         if (x == 0) // 만약 좌우 입력이 없을때
         {
             // 애니매이션 대기 실행

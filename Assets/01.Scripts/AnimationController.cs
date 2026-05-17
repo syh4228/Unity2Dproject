@@ -40,7 +40,7 @@ public class AnimationController : MonoBehaviour
         _animationActions.Add(AllState.Attack, AllAttackAnimation);
     }
 
-    private void Start() 
+    private void Start()
     {
         // 시작할때 만약 연결된 애니메이션이 없다면
         if (Animator_Control == null)
@@ -49,7 +49,7 @@ public class AnimationController : MonoBehaviour
             Animator_Control = GetComponent<Animator>();
 
             // 만약 애니메이션을 못찾으면
-            if(Animator_Control == null)
+            if (Animator_Control == null)
             {
                 // 디버그 로그 띄우기
                 UtillLogRemove.Error("애니메이터가 연결되지 않았습니다! 확인해주세요.");
@@ -64,7 +64,7 @@ public class AnimationController : MonoBehaviour
         if (newState == _currentState)
         {
             // 만약  현재상태가 공격이 아니면
-            if (newState  != AllState.Attack)
+            if (newState != AllState.Attack)
             {
                 return; // 반환
             }
@@ -73,8 +73,8 @@ public class AnimationController : MonoBehaviour
         // 만약 현재상태가 딕셔너리에 있다면
         if (_animationActions.TryGetValue(newState, out Action action))
         {
-            // 현재상태 맞는 함수 실행
-            _animationActions[newState].Invoke();
+            // 액션 실행
+            action.Invoke();
             // 현재상태를 다음상태로 저장
             _currentState = newState;
         }
@@ -89,7 +89,7 @@ public class AnimationController : MonoBehaviour
     {
         if (Animator_Control != null)
         {
-            Animator_Control.SetBool(AnimationIsGrounded, isGrounded);
+            SafeSetBool(AnimationIsGrounded, isGrounded);
         }
     }
 
@@ -103,43 +103,61 @@ public class AnimationController : MonoBehaviour
     {
         ResetAllBoolParameters();
         // 걷기 애니메이션 실행
-        Animator_Control.SetBool(AnimationIsWalk, true);
-    } 
+        SafeSetBool(AnimationIsWalk, true);
+    }
 
     private void AllRunAnimation() // 달리기 애니메이션 함수
     {
         ResetAllBoolParameters();
         // 달리기 애니메이션 실행
-        Animator_Control.SetBool(AnimationIsRun, true);
+        SafeSetBool(AnimationIsRun, true);
     }
 
     private void AllDeadAnimation() // 죽음 애니메이션 함수
     {
         ResetAllBoolParameters();
         // 죽음 애니메이션 실행
-        Animator_Control.SetBool(AnimationIsDead, true);
+        SafeSetBool(AnimationIsDead, true);
     }
 
     private void AllAttackAnimation() // 공격 애니메이션 함수
     {
         ResetAllBoolParameters();
         // 공격 애니메이션 실행
-        Animator_Control.SetBool(AnimationIsAttack, true);
+        SafeSetBool(AnimationIsAttack, true);
     }
 
     // 상태 초기화 함수
     private void ResetAllBoolParameters()
     {
         // 걷기 애니메이션 끄기
-        Animator_Control.SetBool(AnimationIsWalk, false);
+        SafeSetBool(AnimationIsWalk, false);
         // 달리기 애니메이션 끄기
-        Animator_Control.SetBool(AnimationIsRun, false);
+        SafeSetBool(AnimationIsRun, false);
         // 죽음 애니메이션 끄기
-        Animator_Control.SetBool(AnimationIsDead, false);
+        SafeSetBool(AnimationIsDead, false);
         // 공격 애니메이션 끄기
-        Animator_Control.SetBool(AnimationIsAttack, false);
-        // 리셋시 지면 체크 트루 기본값 설정
-        Animator_Control.SetBool(AnimationIsGrounded, true);
+        SafeSetBool(AnimationIsAttack, false);
     }
 
+    // 애니메이션 파라미터 조정 함수
+    private void SafeSetBool(int parameterHash, bool value)
+    {
+        if (Animator_Control == null) // 애니메이션 컨트롤러가 없으면
+        {
+            return; // 반환
+        }
+
+        // 애니메이터가 가진 파라미터 목록을 하니씩 검사
+        foreach (AnimatorControllerParameter param in Animator_Control.parameters)
+        {
+            // 해시 번호 바꾸려는 번호와 맞는지 체크
+            if (param.nameHash == parameterHash)
+            {
+                // 스위치가 실제로 있을때만 값 변경
+                Animator_Control.SetBool(parameterHash, value);
+                return; // 반환
+            }
+        }
+    }
 }

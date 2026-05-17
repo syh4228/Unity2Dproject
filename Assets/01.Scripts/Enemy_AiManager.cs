@@ -30,7 +30,8 @@ public class Enemy_AiManager : MonoBehaviour
             statManager = GetComponent<Enemy_StatManager>(); // 찾기
         }
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        // 자식 오브젝트에서 스프라이트 랜더러 가져오기
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         // 플레이어 태그 가진 오브젝트 찾기
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -39,10 +40,20 @@ public class Enemy_AiManager : MonoBehaviour
         {
             playerTransform = playerObj.transform; // 플레이어 위치 찾기
         }
+        else
+        {
+            // 만약 플레이어 태그를 못 찾으면 에러 띄우기
+            UtillLogRemove.Error("플레이어를 찾을 수 없습니다! 플레이어 오브젝트의 Tag가 'Player'인지 확인해주세요.");
+        }
     }
 
     private void Update()
     {
+        if (playerTransform == null) // 플레이어를 못찾았으면
+        {
+            return; // 반환
+        }
+
         if (statManager  != null) // 스탯 매니저가 연결되있고
         {
             if (statManager.currentHp <= 0) // 현재 체력이 0이면
@@ -55,7 +66,12 @@ public class Enemy_AiManager : MonoBehaviour
         {
             attackTime += Time.deltaTime; // 쿨타임 시작
 
-            if(attackTime >= attackCooldown)  // 쿨타임 시간이 끝나면
+            if (attackTime >= 0.1f) // 공격 시작하고, 0.5초 후
+            {
+                animController.SetState(AllState.Idle); // 대기 애니메이션으로 전환
+            }
+
+            if (attackTime >= attackCooldown)  // 쿨타임 시간이 끝나면
             {
                 isAttack = false; // 공격 가능
                 attackTime = 0f; // 쿨 초기화
@@ -83,7 +99,7 @@ public class Enemy_AiManager : MonoBehaviour
 
     private void ChasePlayer() // 플레이어 추적 함수
     {
-        animController.SetState(AllState.Walk); // 달리기 애니매이션 실행
+        animController.SetState(AllState.Run); // 달리기 애니매이션 실행
 
         // 만약 플레이어가 나보다 왼쪽에 있으면
         if (playerTransform.position.x < transform.position.x)
