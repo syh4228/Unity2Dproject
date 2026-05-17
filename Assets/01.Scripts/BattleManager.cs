@@ -11,13 +11,13 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) // 만약 인스턴스가 널이면
-        { 
+        {
             Instance = this; // 인스턴스는 자기자신
         }
         else // 아니면
-        { 
+        {
             Object.Destroy(gameObject); // 게임오브젝트 삭제
-        } 
+        }
     }
 
     private void Start()
@@ -55,14 +55,14 @@ public class BattleManager : MonoBehaviour
     }
 
     // 적 처지 및 점수 보상 지급 함수
-    public void OnEnemyDefeated(int scoreReward) 
+    public void OnEnemyDefeated(int scoreReward)
     {
         score = score + scoreReward; // 점수 계산
 
         UtillLogRemove.Warning($"적 처치! 현재 점수: {score}");
 
         // 만약 UI매니저 인스턴스가 있으면
-        if (UIManager.Instance != null) 
+        if (UIManager.Instance != null)
         {
             // UI매니저 인스턴스 점수 업데이트 함수 호출
             UIManager.Instance.UpdateScoreUI(score);
