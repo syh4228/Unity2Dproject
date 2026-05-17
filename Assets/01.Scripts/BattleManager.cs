@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     {
         if (UIManager.Instance != null) // UI매니저 인스턴스가 있으면
         {
-            UIManager.Instance.UpdateScoreUI(score); // UI 매니저 스코어 점수 함수 호출
+            UIManager.Instance.UpdateScore(score); // UI 매니저 스코어 점수 함수 호출
         }
     }
 
@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour
         if (UIManager.Instance != null)
         {
             // UI매니저 인스턴스 점수 업데이트 함수 호출
-            UIManager.Instance.UpdateScoreUI(score);
+            UIManager.Instance.UpdateScore(score);
         }
     }
 
