@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // ESC키 누르면
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame(); // 게임종료
+        }
+
         if (isGameOver) // 게임오버 상태면
         {
             return; // 반환
@@ -109,5 +115,13 @@ public class GameManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         // 씬 호출
         SceneManager.LoadScene(currentScene.buildIndex);
+    }
+
+    // 게임종료 함수
+    public void QuitGame() 
+    {
+        UtillLogRemove.Log("게임 종료 실행됨");
+
+        Application.Quit(); // 실제 종료 실행
     }
 }
