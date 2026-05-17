@@ -28,6 +28,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        // 게임매니저가 있고, 게임매니저에서 게임오버가 트루일때
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver == true)
+        {
+            return;
+        }
+
         // 만약 플레이어 트랜스폼이 없으면
         if (playerTransform == null)
         {

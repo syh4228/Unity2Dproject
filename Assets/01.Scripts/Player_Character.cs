@@ -23,6 +23,12 @@ public class Player_Character : MonoBehaviour
         {
             playerController = GetComponent<Player_Controller>();
         }
+
+        if (UIManager.Instance != null) // UI매니저 있으면
+        {
+            // UI매니저 함수 호출
+            UIManager.Instance.UpdatePlayerHp(currentHp, MaxHp);
+        }
     }
 
     public void TakeDamage(int damage) // 외부에서 대미지 받아오는 함수
@@ -33,7 +39,13 @@ public class Player_Character : MonoBehaviour
         }
 
         currentHp -= damage; // 대미지 만큼 체력 감소
-        UtillLogRemove.Log("플레이어 피격, 남은 체력:{currentHp}");
+        UtillLogRemove.Log($"플레이어 피격, 남은 체력:{currentHp}");
+
+        if (UIManager.Instance != null) // 만약 UI 매니저 있으면
+        {
+            // UI 매니저 함수 호출
+            UIManager.Instance.UpdatePlayerHp(currentHp, MaxHp);
+        }
 
         if (currentHp <= 0) // 만약 체력이 0이하면
         {
@@ -50,6 +62,11 @@ public class Player_Character : MonoBehaviour
     private void Die() // 사망 함수
     {
         _isDead = true; // 죽음 처리
+
+        if (GameManager.Instance != null) // 게임매니저 싱글턴 있으면
+        {
+            GameManager.Instance.GameOver(); // 게임오버 함수 호출
+        }
 
         if (playerController != null) // 만약 플레이어 컨트롤러가 연결 되있으면
         { 

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text scoreText; // 스코어 점수
     [SerializeField] private Text highScoreText; // 최고 점수
     [SerializeField] private Text timerText; // 타이머
+    [SerializeField] private Text playerHpText; // 플레이어 체력
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
         {
             Instance = this; // 자체 싱글턴 
 
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -54,7 +55,7 @@ public class UIManager : MonoBehaviour
         }
         if (gameOverCanvas != null) // 게임오버 UI 있으면
         {
-            gameOverCanvas.SetActive(true); // 비활성화
+            gameOverCanvas.SetActive(true); // 활성화
         }
     }
 
@@ -84,6 +85,14 @@ public class UIManager : MonoBehaviour
         {
             // 남은 시간 받아오기
             timerText.text = $"남은 시간 {Mathf.CeilToInt(time)}";
+        }
+    }
+
+    public void UpdatePlayerHp(int currentHp, int maxHp)
+    {
+        if (playerHpText != null) // 플레이어 체력 택스트 있으면
+        {
+            playerHpText.text = "HP: " + currentHp + " / " + maxHp;
         }
     }
 }

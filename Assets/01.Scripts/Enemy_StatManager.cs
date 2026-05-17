@@ -69,5 +69,14 @@ public class Enemy_StatManager : MonoBehaviour
 
         // 사망시 더이상 몬스터와 충돌 방지
         gameObject.layer = LayerMask.NameToLayer("EnemyDead");
+
+        // 배틀매니저가 있으면
+        if (BattleManager.Instance != null)
+        {
+            // 배틀매니저 함수 호출
+            BattleManager.Instance.OnEnemyDefeated(10);
+        }
+
+        Destroy(gameObject, 0.5f);
     }
 }

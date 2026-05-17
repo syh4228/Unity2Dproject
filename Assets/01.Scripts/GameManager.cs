@@ -103,6 +103,8 @@ public class GameManager : MonoBehaviour
     // 재시작 함수
     public void RestartGame()
     {
+        Time.timeScale = 1f; // 게임오버에 멈춘 시간 다시 흐르기
+
         // 액션 씬 가져오기
         Scene currentScene = SceneManager.GetActiveScene();
         // 씬 호출

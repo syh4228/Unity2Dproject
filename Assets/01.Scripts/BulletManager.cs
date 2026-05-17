@@ -6,29 +6,45 @@ public class BulletManager : MonoBehaviour
     public int damage = 20;   // 총알 대미지
 
     private Rigidbody2D bulletRigidbody; // 총알 리지디바디 받기
+    private SpriteRenderer bulletSpriteRenderer; // 총알 스프라이트 받기
 
     private void Awake()
     {
         // 리지디바디 가져오기
         bulletRigidbody = GetComponent<Rigidbody2D>();
+        // 총알 스프라이트 받기
+        bulletSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // 총알 발사 방향 함수
     public void SetDirection(float directionX)
     {
-        // 총알 속도 계산
-        bulletRigidbody.linearVelocity = new Vector2(directionX * speed, 0f);
-
-        // 총알 발사 위치가 x 보다 작으면
-        if (directionX < 0)
+        if (bulletRigidbody == null) // 리지드바디 없으면
         {
-            // 총알 방향 뒤집기
-            GetComponent<SpriteRenderer>().flipX = true;
+            //리지드바디 가져오기
+            bulletRigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        if (bulletRigidbody != null)  // 리지드바디 있으면
+        {
+            // 총알 속도 계산
+            bulletRigidbody.linearVelocity = new Vector2(directionX * speed, 0f);
+        }
+
+        if (bulletSpriteRenderer != null) // 스프라인트 있으면
+        {
+            // directionX가 0보다 작으면(왼쪽) true, 아니면 flase
+            bulletSpriteRenderer.flipX = (directionX < 0);
         }
         else // 아니면
         {
-            // 뒤집지 않음
-            GetComponent<SpriteRenderer>().flipX = false;
+            // 자식에서 스프라이트 가져오기
+            bulletSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            //  스프라이트 있으면
+            if (bulletSpriteRenderer != null)
+            {   
+                bulletSpriteRenderer.flipX = (directionX < 0);
+            }
         }
     }
 

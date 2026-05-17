@@ -3,7 +3,11 @@
 public class Player_Controller : MonoBehaviour
 {
     [Header("플레이어 설정")]
-    [SerializeField] private float _moveSpeed = 5f; // 이동속도(기본 달리기)
+    [SerializeField] private float _moveSpeed = 2f; // 이동속도(기본 달리기)
+
+    [Header("공격 설정")]
+    [SerializeField] private float _attackCooldown = 0.5f; // 공격 쿨타임
+    private float _cooldownTimer = 0f; // 쿨타임 계산
 
     [Header("점프 및 물리")]
     [SerializeField] private float _jumpForce = 7f; // 점프 힘
@@ -13,6 +17,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Rigidbody2D Rigidbody_Player; // 리지드바디
     [SerializeField] private GroundCheck GroundCheckObject; // 지면체크 스크립트를 연결한 자식 오브젝트
     [SerializeField] private AnimationController AnimatorController; // 애니메이션 
+    [SerializeField] private WeaponManager weaponManager; // 웨폰 매니저 연결
 
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
@@ -65,13 +70,35 @@ public class Player_Controller : MonoBehaviour
         {
             UtillLogRemove.Warning("플레이어 지면체크 오브젝트 연결 확인 요망");
         }
+
+        if (weaponManager == null)
+        {
+            weaponManager = GetComponent<WeaponManager>();
+
+            if (weaponManager == null)
+            {
+                UtillLogRemove.Error("플레이어 웨폰 매니저(WeaponManager) 연결 확인 요망!");
+            }
+        }
     }
 
     private void Update()
     {
+        // 게임매니저 싱글턴이 있고, 게임오버상태이면
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver == true)
+        {
+            return; 
+        }
+
         if (_isDead) // 만약 죽었다면
         {
-            return; // 반환
+            return;
+        }
+
+        if (_cooldownTimer > 0f) // 만약 쿨타임이 0 보다 크면
+        {
+            // 쿨타임 시작
+            _cooldownTimer = _cooldownTimer - Time.deltaTime;
         }
 
         // 만약 쉬프트 누르면
@@ -97,7 +124,10 @@ public class Player_Controller : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // 마우스 클릭하면
         {
-            StartAttack(); // 공격 함수 호출
+            if (_cooldownTimer <= 0f) // 쿨타임이 0이거나 0보다 작으면
+            {
+                StartAttack(); // 공격 함수 호출
+            }
         }
     }
 
@@ -170,6 +200,14 @@ public class Player_Controller : MonoBehaviour
     {
         // 공격 애니메이션 호출
         AnimatorController.SetState(AllState.Attack);
+
+        if (weaponManager != null) // 웨폰매니저가 있으면
+        {
+            // 총알 발사 함수 호출
+            weaponManager.FireBullet(!_isFaceRight);
+        }
+
+        _cooldownTimer = _attackCooldown; // 쿨타임 초기화
     }
 
     private void OnGroundTriggered(bool isGrounded) // 지면 체크 센서 트리거 함수
