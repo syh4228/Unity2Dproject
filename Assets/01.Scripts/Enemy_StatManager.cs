@@ -9,7 +9,8 @@ public class Enemy_StatManager : MonoBehaviour
     public int Attack = 5; // 공격력
 
     [Header("컴포넌트 연결")]
-    [SerializeField] private Player_Controller enemyController; // 실제 사망처리할 플레이어 컨트롤러 연결
+    [SerializeField] private Enemy_AiManager enemyAI; // 적 Ai 와 연결
+    [SerializeField] private AnimationController animController; // 애니메이션 컨트롤러 연결
 
     private bool _isDead = false; // 죽음 체크
 
@@ -19,9 +20,14 @@ public class Enemy_StatManager : MonoBehaviour
     {
         currentHp = MaxHp; // 시작시 최대체력은 = 현재체력
 
-        if (enemyController == null)
+        if (enemyAI == null)
         {
-            enemyController = GetComponent<Enemy_AiManager>();
+            enemyAI = GetComponent<Enemy_AiManager>();
+        }
+
+        if (animController == null)
+        {
+            animController = GetComponent<AnimationController>();
         }
     }
 
@@ -51,9 +57,14 @@ public class Enemy_StatManager : MonoBehaviour
     {
         _isDead = true; // 죽음 처리
 
-        if (enemyController != null) // 만약 플레이어 컨트롤러가 연결 되있으면
+        if (animController != null) // 만약 애니메이션 연결 되있으면
         {
-            enemyController.Die(); // 플레이어 컨트롤러 죽음 함수 호출
+            animController.SetState(AllState.Dead); // 사망 애니메이션 실행
+        }
+
+        if (enemyAI != null) // 적 Ai 연결되있으면
+        {
+            enemyAI.enabled = false; // 연결 해제
         }
 
         // 사망시 더이상 몬스터와 충돌 방지
