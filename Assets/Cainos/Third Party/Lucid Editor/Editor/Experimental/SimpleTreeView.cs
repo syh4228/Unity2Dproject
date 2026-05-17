@@ -1,3 +1,4 @@
+﻿#pragma warning disable 0618 // [추가] 이 파일에서는 구형 API 경고(CS0618)를 무시합니다.
 using System;
 using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
