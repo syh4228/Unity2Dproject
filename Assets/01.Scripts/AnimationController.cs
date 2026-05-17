@@ -24,7 +24,8 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationIsRun = Animator.StringToHash("IsRun");
     private static readonly int AnimationIsDead = Animator.StringToHash("IsDead");
     private static readonly int AnimationIsAttack = Animator.StringToHash("IsAttack");
-    private static readonly int AnimationIsWalk = Animator.StringToHash("ISWalk");
+    private static readonly int AnimationIsWalk = Animator.StringToHash("IsWalk");
+    private static readonly int AnimationIsGrounded = Animator.StringToHash("isGrounded");
 
     private void Awake()
     {
@@ -84,6 +85,14 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    public void SetGrounded(bool isGrounded) // 점프 애니메이션 함수
+    {
+        if (Animator_Control != null)
+        {
+            Animator_Control.SetBool(AnimationIsGrounded, isGrounded);
+        }
+    }
+
     private void AllIdleAnimation() // 대기애니메이션 함수
     {
         // 상태 초기화 함수 호출
@@ -129,6 +138,8 @@ public class AnimationController : MonoBehaviour
         Animator_Control.SetBool(AnimationIsDead, false);
         // 공격 애니메이션 끄기
         Animator_Control.SetBool(AnimationIsAttack, false);
+        // 리셋시 지면 체크 트루 기본값 설정
+        Animator_Control.SetBool(AnimationIsGrounded, true);
     }
 
 }

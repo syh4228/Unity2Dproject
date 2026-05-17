@@ -161,6 +161,9 @@ public class Player_Controller : MonoBehaviour
         // 점프
         Rigidbody_Player.linearVelocity = new Vector2(Rigidbody_Player.linearVelocity.x, _jumpForce);
         _isGrounded = false;
+
+        // 애니메이션 컨트롤러에, 점프 애니메이션 실행 신호 보냄
+        AnimatorController.SetGrounded(false);
     }
 
     void StartAttack() // 공격함수
@@ -173,6 +176,14 @@ public class Player_Controller : MonoBehaviour
     {
         // 지면 체크 결과 저장
         _isGrounded = isGrounded;
+
+        if (_isGrounded == true) // 땅 체크가 트루면
+        {
+            // 애니메이션컨트롤러에 지상도착 알림
+            AnimatorController.SetGrounded(true);
+            // 대기 애니메이션 실행
+            AnimatorController.SetState(AllState.Idle);
+        }
     }
 
     private void Flip() // 캐릭터 반전 함수
