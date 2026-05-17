@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,9 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverCanvas; // 게임오버 UI
 
     [Header("UI 텍스트")]
-    [SerializeField] private TMP_Text scoreText; // 스코어 점수
-    [SerializeField] private TMP_Text highScoreText; // 최고 점수
-    [SerializeField] private TMP_Text timerText; // 타이머
+    [SerializeField] private Text scoreText; // 스코어 점수
+    [SerializeField] private Text highScoreText; // 최고 점수
+    [SerializeField] private Text timerText; // 타이머
 
     private void Awake()
     {
