@@ -43,14 +43,12 @@ public class BulletManager : MonoBehaviour
 
             if (enemyStat != null) // 스탯 매니저를 받았으면
             {
-                enemyStat.currentHp -= damage; // 체력 감소
-
-                if (enemyStat.currentHp < 0) // 현재체력이 0보다 작으면
+                // 배틀매니저 인스턴스가 있으면
+                if (BattleManager.Instance != null) 
                 {
-                    enemyStat.currentHp = 0; // 현재체력 0
+                    // 배틀매니저에서 함수 호출
+                    BattleManager.Instance.ProcessPlayerAttack(enemyStat, damage);
                 }
-
-                UtillLogRemove.Log($"적에게 대미지 {damage}를 주었습니다! 남은 체력: {enemyStat.currentHp}");
             }
 
             gameObject.DeactivateSafe(); // 총알 비활성화

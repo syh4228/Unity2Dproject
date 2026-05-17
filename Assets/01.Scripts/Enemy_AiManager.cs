@@ -135,6 +135,30 @@ public class Enemy_AiManager : MonoBehaviour
         animController.SetState(AllState.Attack); // 공격 애니메이션 실행
         isAttack = true; // 공격 쿨타임 시작
 
+        // 공격범위 가져오기
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
+
+        // 콜라이더2D가 공격범위에 들어오면
+        foreach (Collider2D col in hitPlayers)
+        {
+            if (col.CompareTag("Player")) // 만약 플레이어라면
+            {
+                // 플래이어 컴포넌트 가져오기
+                Player_Character playerStat = col.GetComponent<Player_Character>();
+                // 플레이어 컴포넌트가 있고, 스탯매니저가 있으면
+                if (playerStat != null && statManager != null)
+                {
+                    // 만약 배틀매니저가 있으면
+                    if (BattleManager.Instance != null)
+                    {
+                        // 배틀매니저에서 함수 호출
+                        BattleManager.Instance.ProcessEnemyAttack(playerStat, statManager.Attack);
+                    }
+                }
+                break;
+            }
+        }
+
     }
 
 }
