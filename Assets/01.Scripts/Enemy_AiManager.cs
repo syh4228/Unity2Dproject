@@ -12,7 +12,8 @@ public class Enemy_AiManager : MonoBehaviour
     [SerializeField] private AnimationController animController; // 애니메이터 컨트롤러 연결
     [SerializeField] private Enemy_StatManager statManager; // 스탯 매니저 연결
     
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer; // 스프라이트 랜더러 받기
+    private Rigidbody2D enemyRigidbody; // 리지드바디 받기
 
     private Transform playerTransform; // 플레이어 위치 받기
     private bool isAttack = false; // 공격중인지 확인
@@ -32,6 +33,8 @@ public class Enemy_AiManager : MonoBehaviour
 
         // 자식 오브젝트에서 스프라이트 랜더러 가져오기
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        enemyRigidbody = GetComponent<Rigidbody2D>(); // 리지디바디 가져오기
 
         // 플레이어 태그 가진 오브젝트 찾기
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -58,12 +61,17 @@ public class Enemy_AiManager : MonoBehaviour
         {
             if (statManager.currentHp <= 0) // 현재 체력이 0이면
             {
+                // 죽으면 속도 0
+                enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
                 return; // 반환
             }
         }
 
         if (isAttack == true)
         {
+            // 공격중에는 속도 0
+            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
+
             attackTime += Time.deltaTime; // 쿨타임 시작
 
             if (attackTime >= 0.1f) // 공격 시작하고, 0.5초 후
@@ -85,6 +93,8 @@ public class Enemy_AiManager : MonoBehaviour
 
         if (distanceToPlayer <= attackRange) // 만약 공격 사거리 안에 있으면
         {
+            // 공격 시전시 속도 0
+            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
             AttackPlayer(); // 공격 함수 호출
         }
         else if (distanceToPlayer <= detectRange) // 만약 추적 사거리 안에 있으면
@@ -93,6 +103,8 @@ public class Enemy_AiManager : MonoBehaviour
         }
         else // 둘다 아니면
         {
+            // 속도 0 
+            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
             animController.SetState(AllState.Idle); // 대기
         }
     }
@@ -101,21 +113,21 @@ public class Enemy_AiManager : MonoBehaviour
     {
         animController.SetState(AllState.Run); // 달리기 애니매이션 실행
 
+        float directionX = 1f; // 이동 방향을 저장 변수
+
         // 만약 플레이어가 나보다 왼쪽에 있으면
         if (playerTransform.position.x < transform.position.x)
         {
             spriteRenderer.flipX = true; //  스프라이트 그대로 
+            directionX = -1f; // 왼쪽 보기
         }
         else
         {
             spriteRenderer.flipX = false; // 반대면 스프라이트 반전
+            directionX = 1f; // 오른쪽 보기
         }
 
-        // 플레이어 추적
-        Vector2 targetPosition = new Vector2(playerTransform.position.x, transform.position.y);
-
-        // 이동 속도 계산
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        enemyRigidbody.linearVelocity = new Vector2(directionX * moveSpeed, enemyRigidbody.linearVelocity.y);
     }
 
     private void AttackPlayer() // 공격 함수
