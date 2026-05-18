@@ -42,18 +42,6 @@ public class BattleManager : MonoBehaviour
         player.TakeDamage(finalDamage); // 플레이어 대미지 적용 함수 호출
     }
 
-    // 적 처지 및 점수 보상 지급 함수
-    public void OnEnemyDefeated(int scoreReward)
-    {
-        UtillLogRemove.Warning($"적 처치! 보상 점수: {scoreReward}");
-
-        if (GameManager.Instance != null) // 게임매니저 있으면
-        {
-            // 게임매니저에 추가 점수 호출
-            GameManager.Instance.AddScore(scoreReward);
-        }
-    }
-
     // 플레이어 사망 함수
     public void OnPlayerDead()
     {
