@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleUI : MonoBehaviour
+public class BattleUIManager : MonoBehaviour
 {
     [Header("프로필 : 체력바")]
     [SerializeField] private Text hpText; // 텍스트로 표기할 HP

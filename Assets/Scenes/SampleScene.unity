@@ -845,7 +845,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478972411}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1244,8 +1244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce53167577e3efc4894f709e727bb08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  mainUI: {fileID: 448256505}
-  gameOverCanvas: {fileID: 1437250093}
+  mainUI: {fileID: 645336521}
+  gameOverCanvas: {fileID: 1312051101}
+  battleUI: {fileID: 0}
   scoreText: {fileID: 144522062}
   highScoreText: {fileID: 391120821}
   timerText: {fileID: 2049310520}
@@ -1608,7 +1609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.96981126, g: 0.8729552, b: 0.012808777, a: 1}
+  m_Color: {r: 0.90943396, g: 0.8711213, b: 0.51992166, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1650,7 +1651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &957051161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1725,7 +1726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1120942680
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2490,6 +2491,7 @@ GameObject:
   - component: {fileID: 1312051105}
   - component: {fileID: 1312051104}
   - component: {fileID: 1312051103}
+  - component: {fileID: 1312051106}
   m_Layer: 0
   m_Name: BattleUI
   m_TagString: Untagged
@@ -2582,6 +2584,29 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1312051106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312051101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5253900acad352d409c4a7488dd75f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
+  hpText: {fileID: 1187499354}
+  hpFillImage: {fileID: 1906575969}
+  hpTempFillImage: {fileID: 824032316}
+  tempHpColor: {r: 0.98490566, g: 0.96661955, b: 0.5259024, a: 0}
+  gun01_MagazineText: {fileID: 478972413}
+  gun01_ReserveText: {fileID: 553757317}
+  gun02_MagazineText: {fileID: 720930583}
+  gun02_ReserveText: {fileID: 265725113}
+  grenadeImage: {fileID: 957051162}
+  medkitImage: {fileID: 1749540214}
+  pillsImage: {fileID: 1120942681}
 --- !u!1 &1329268597
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,7 +3189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1749540213
 RectTransform:
   m_ObjectHideFlags: 0
