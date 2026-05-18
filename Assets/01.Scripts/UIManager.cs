@@ -8,12 +8,18 @@ public class UIManager : MonoBehaviour
     [Header("UI 컴포넌트")]
     [SerializeField] private GameObject mainUI; // 메인 UI
     [SerializeField] private GameObject gameOverCanvas; // 게임오버 UI
+    [SerializeField] private BattleUI battleUI; // 배틀UI
 
     [Header("UI 텍스트")]
     [SerializeField] private Text scoreText; // 스코어 점수
     [SerializeField] private Text highScoreText; // 최고 점수
     [SerializeField] private Text timerText; // 타이머
     [SerializeField] private Text playerHpText; // 플레이어 체력
+    
+    public BattleUI GetBattleUI() // 배틀UI 주는 함수
+    { 
+        return battleUI; // 배틀UI 반환
+    }
 
     private void Awake()
     {
