@@ -20,7 +20,7 @@ public class Player_Character : MonoBehaviour
     [SerializeField] private AnimationController animatorController; // 애니메이션 컨트롤러 연결
 
     private bool _isDead = false; // 죽음 체크
-    private bool IsStunned = false; // 피격 체크
+    public bool isStunned = false; // 피격 체크
 
     public event Action<int, int> OnHpChanged; // UI에 최대체력과, 현재 체력 알려주기
 
@@ -156,7 +156,7 @@ public class Player_Character : MonoBehaviour
     // 피격시 경직 함수
     private IEnumerator HitStunCharacter()
     {
-        IsStunned = true;
+        isStunned = true;
 
         if (animatorController != null)
         {
@@ -165,7 +165,7 @@ public class Player_Character : MonoBehaviour
 
         yield return new WaitForSeconds(stunTime);
 
-        IsStunned = false;
+        isStunned = false;
 
         // 애니메이션 대기로 전환
         animatorController.SetState(AllState.Idle);

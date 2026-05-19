@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class Player_Controller : MonoBehaviour
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
     private bool _isWalk = false; // 걷기 체크
+
+    public bool IsDead
+    {
+        get { return _isDead; }
+    }
 
     private void OnEnable()
     {
@@ -215,6 +221,8 @@ public class Player_Controller : MonoBehaviour
         _isDead = true;
         Rigidbody_Player.linearVelocity = Vector2.zero;
         AnimatorController.SetState(AllState.Dead);
+
+        StartCoroutine(DieRoutine()); // 사망 코루틴 함수 호출
     }
 
     void StartJump() // 점프 함수 
@@ -281,5 +289,10 @@ public class Player_Controller : MonoBehaviour
         {
             return false;// false 반환
         }
+    }
+
+    private IEnumerator DieRoutine() // 사망 코투틴 함수
+    {
+        yield return new WaitForSeconds(0.3f);
     }
 }

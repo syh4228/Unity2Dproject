@@ -67,6 +67,23 @@ public class Enemy_AiManager : MonoBehaviour
             return; // 반환
         }
 
+        if (playerTransform != null) // 플레이어 트랜스폼이 있으면
+        {
+            // 플레이어 컴포넌트 정보 가져오기
+            Player_Controller player = playerTransform.GetComponent<Player_Controller>();
+
+            if (player != null) // 플레이어가 있으면
+            {
+                if (player.IsDead == true) // 플레이어가 죽었으면
+                {
+                    // 속도 0 (멈추기)
+                    enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
+                    animController.SetState(AllState.Idle); // 대기애니메이션 실행
+                    return; // 반환
+                }
+            }
+        }
+
         if (statManager != null) // 스탯 매니저가 연결되있고
         {
             if (statManager.currentHp <= 0) // 현재 체력이 0이면
