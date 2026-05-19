@@ -95,21 +95,18 @@ public class Enemy_AiManager : MonoBehaviour
         // 본인과 플레이어 위치 계산
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
-        if (distanceToPlayer <= attackRange) // 만약 공격 사거리 안에 있으면
+        if (distanceToPlayer <= 0.8f) // 만약 플레이어가 0.8f 보다 가까이 있으면
         {
-            // 공격 시전시 속도 0
-            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
+            enemyRigidbody.linearVelocity = Vector2.zero; // 이동속도 0
+            animController.SetState(AllState.Idle); // 대기 애니메이션 실행
+        }
+        else if(distanceToPlayer <= attackRange) // 만약 플레이어가 공격 사거리 안에 있으면
+        {
             AttackPlayer(); // 공격 함수 호출
         }
-        else if (distanceToPlayer <= detectRange) // 만약 추적 사거리 안에 있으면
+        else if(distanceToPlayer  <= detectRange) // 만약 플레이어가 추적 사거리 안에 있으면
         {
             ChasePlayer(); // 추적 함수 호출
-        }
-        else // 둘다 아니면
-        {
-            // 속도 0 
-            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
-            animController.SetState(AllState.Idle); // 대기
         }
     }
 

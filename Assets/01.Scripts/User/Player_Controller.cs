@@ -135,6 +135,16 @@ public class Player_Controller : MonoBehaviour
     {
         // A(-1),D(1) 입력을 받아 좌우 움직임
         float x = Input.GetAxisRaw("Horizontal");
+        
+        bool isBlocked = false; // 길 막힘 체크
+
+        if (x != 0) // 만약 입력이 있으면
+        {
+            if (IsblodckedByEnemy(x)) // 만약 길막힘 함수 호출 되면
+            {
+                isBlocked = true; // 길 막힘 체크 트루
+            }
+        }
 
         if (x == 0) // 만약 좌우 입력이 없을때
         {
@@ -146,14 +156,35 @@ public class Player_Controller : MonoBehaviour
             if (_isWalk == true) // 만약 걷기 상태면
             {
                 AnimatorController.SetState(AllState.Walk); // 애니메이션 걷기 실행
-                float walkSpeed = _moveSpeed / 2f; // 걷기 속도 절반 감소
-                Rigidbody_Player.linearVelocity = new Vector2(x * walkSpeed, Rigidbody_Player.linearVelocity.y); // 속도 계산
             }
             else // 걷기 상태 아니면
             {
                 AnimatorController.SetState(AllState.Run); // 애니메이션 달리기 실행
-                Rigidbody_Player.linearVelocity = new Vector2(x * _moveSpeed, Rigidbody_Player.linearVelocity.y); // 속도 계산
             }
+        }
+
+        if (isBlocked == true) // 만약 길이 막혔다면
+        {
+            // 속도는 0
+            Rigidbody_Player.linearVelocity = new Vector2(0, Rigidbody_Player.linearVelocity.y);
+        }
+        else // 안 막혔다면
+        {
+            float speed; // 속도 변수 저장
+
+            if (_isWalk == true) // 만약 걷고 있다면
+            {
+                // 움직임 속도의 절반
+                speed = _moveSpeed / 2f;
+            }
+            else
+            {
+                // 움직임 속도 그대로
+                speed = _moveSpeed;
+            }
+
+            // 속도 계산
+            Rigidbody_Player.linearVelocity = new Vector2(x * speed, Rigidbody_Player.linearVelocity.y);
         }
 
         if (x > 0) // 만약 오른쪽으로 가고 있으면
@@ -230,5 +261,25 @@ public class Player_Controller : MonoBehaviour
         Vector3 scaler = transform.localScale; // 캐릭터 정보 저장
         scaler.x *= -1; // 실제로 캐릭터 보는 방향 뒤집기
         transform.localScale = scaler; // 뒤집은 캐릭터 정보 저장
+    }
+    
+    // 적이 길을 막고 있는지 체크 함수
+    private bool IsblodckedByEnemy(float direction)
+    {
+        // 거리 저장
+        float checkDistance = 0.5f;
+        // 갈 방향 저장
+        Vector2 raycastDirection = new Vector2(direction, 0);
+        // 플레이어로 부터 저장한 거리까지 레이캐스트를 쏘고, 레이캐스트에 적이 맞으면 저장
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, raycastDirection, checkDistance, LayerMask.GetMask("Enemy"));
+        
+        if (hit.collider != null) // 저장된 콜라이더가 있으면
+        {
+            return true; // true 반환
+        }
+        else // 아니면
+        {
+            return false;// false 반환
+        }
     }
 }

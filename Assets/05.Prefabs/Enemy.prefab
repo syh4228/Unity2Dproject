@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_AiManager
   moveSpeed: 1
   detectRange: 8
-  attackRange: 1.5
+  attackRange: 1
   attackCooldown: 2
   stunTime: 0.5
   isStunned: 0
