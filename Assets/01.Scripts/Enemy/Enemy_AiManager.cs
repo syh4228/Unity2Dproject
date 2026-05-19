@@ -16,13 +16,12 @@ public class Enemy_AiManager : MonoBehaviour
     [Header("컴포넌트")]
     [SerializeField] private AnimationController animController; // 애니메이터 컨트롤러 연결
     [SerializeField] private Enemy_StatManager statManager; // 스탯 매니저 연결
-    
+
     private SpriteRenderer spriteRenderer; // 스프라이트 랜더러 받기
     private Rigidbody2D enemyRigidbody; // 리지드바디 받기
 
     private Transform playerTransform; // 플레이어 위치 받기
     private bool isAttack = false; // 공격중인지 확인
-    private float attackTime = 0f; // 공격 쿨타임 재기
 
     private void Start()
     {
@@ -68,7 +67,7 @@ public class Enemy_AiManager : MonoBehaviour
             return; // 반환
         }
 
-        if (statManager  != null) // 스탯 매니저가 연결되있고
+        if (statManager != null) // 스탯 매니저가 연결되있고
         {
             if (statManager.currentHp <= 0) // 현재 체력이 0이면
             {
@@ -87,21 +86,8 @@ public class Enemy_AiManager : MonoBehaviour
 
         if (isAttack == true)
         {
-            // 공격중에는 속도 0
-            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
-
-            attackTime += Time.deltaTime; // 쿨타임 시작
-
-            if (attackTime >= 0.1f) // 공격 시작하고, 0.5초 후
-            {
-                animController.SetState(AllState.Idle); // 대기 애니메이션으로 전환
-            }
-
-            if (attackTime >= attackCooldown)  // 쿨타임 시간이 끝나면
-            {
-                isAttack = false; // 공격 가능
-                attackTime = 0f; // 쿨 초기화
-            }
+            // 공격중 이동 금지
+            enemyRigidbody.linearVelocity = Vector2.zero;
 
             return; // 반환
         }
@@ -150,33 +136,16 @@ public class Enemy_AiManager : MonoBehaviour
 
     private void AttackPlayer() // 공격 함수
     {
-        animController.SetState(AllState.Attack); // 공격 애니메이션 실행
-        isAttack = true; // 공격 쿨타임 시작
-
-        // 공격범위 가져오기
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
-
-        // 콜라이더2D가 공격범위에 들어오면
-        foreach (Collider2D col in hitPlayers)
+        if (isAttack) // 공격 중이면 
         {
-            if (col.CompareTag("Player")) // 만약 플레이어라면
-            {
-                // 플래이어 컴포넌트 가져오기
-                Player_Character playerStat = col.GetComponent<Player_Character>();
-                // 플레이어 컴포넌트가 있고, 스탯매니저가 있으면
-                if (playerStat != null && statManager != null)
-                {
-                    // 만약 배틀매니저가 있으면
-                    if (BattleManager.Instance != null)
-                    {
-                        // 배틀매니저에서 함수 호출
-                        BattleManager.Instance.ProcessEnemyAttack(playerStat, statManager.Attack);
-                    }
-                }
-                break;
-            }
+            return; // 반환
         }
 
+        isAttack = true; //  공격 상태 변환
+        // 공격 애니메이션 실행
+        animController.SetState(AllState.Attack);
+        // 공격 쿨타임 함수호출
+        StartCoroutine(AttackRoutine());
     }
 
     // 피격 트리거 함수
@@ -207,6 +176,67 @@ public class Enemy_AiManager : MonoBehaviour
 
         yield return new WaitForSeconds(stunTime); // 경직
 
+        if (animController != null)
+        {
+            animController.SetState(AllState.Idle);
+        }
+
         isStunned = false; // 피격 확인 끝
+    }
+
+    // 공격 쿨타임 함수
+    private IEnumerator AttackRoutine()
+    {
+        // 0.3초 뒤에 (공격 모션과 맞게 대미지 주기)
+        yield return new WaitForSeconds(0.3f);
+        // 플레이어 맞는지 확인 함수 호출
+        ApplyDamageToPlayer();
+
+        // 0.2초 후에 ( 공격 애니메이션 끝나기 기다리기)
+        yield return new WaitForSeconds(0.2f);
+        // 대기 애니메이션 재생 호출
+        animController.SetState(AllState.Idle);
+
+        // 디버그 쿨타임은 어택 쿨 - 0.5f (0.5초보다 공격 쿨이 작을경우 방지)
+        float DebugCooldown = attackCooldown - 0.5f;
+
+        if (DebugCooldown > 0) // 만약 디버그 쿨타임이 0보다 크면
+        {
+            // 디버그 쿨타임 시작
+            yield return new WaitForSeconds(DebugCooldown);
+        }
+
+        // 공격 가능
+        isAttack = false;
+    }
+
+    // 공격 범위에 있는게 플레이어인지 확인하는 함수
+    public void ApplyDamageToPlayer()
+    {
+        // 공격범위 안에 있는 물체 정보 가져오기
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRange);
+
+        // 찾은 물체 하나씩 확인
+        foreach (Collider2D col in hitPlayers)
+        {
+            // 태그가 플레이어면
+            if (col.CompareTag("Player"))
+            {
+                // 컴포넌트 가져오기
+                Player_Character playerStat = col.GetComponent<Player_Character>();
+
+                // 컴포넌트 가져왔으면
+                if (playerStat != null)
+                {
+                    if (statManager != null) // 스탯매니저가 있으면
+                    {
+                        // 배틀매니저에 플레이어 대미지 주는 함수 호출
+                        BattleManager.Instance.ProcessEnemyAttack(playerStat, statManager.Attack);
+
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

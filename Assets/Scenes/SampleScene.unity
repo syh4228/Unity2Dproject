@@ -557,6 +557,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &468222377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5598661589226123953, guid: 107583f8d68639645b7974aec86e2cbb, type: 3}
+  m_PrefabInstance: {fileID: 2691780289583742249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526684153b710dd4db332ea874b5c411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationController
 --- !u!1 &478972411
 GameObject:
   m_ObjectHideFlags: 0
@@ -3379,6 +3390,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4868846582767130456, guid: 107583f8d68639645b7974aec86e2cbb, type: 3}
+      propertyPath: stunTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868846582767130456, guid: 107583f8d68639645b7974aec86e2cbb, type: 3}
+      propertyPath: tempHpDecayRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868846582767130456, guid: 107583f8d68639645b7974aec86e2cbb, type: 3}
+      propertyPath: animatorController
+      value: 
+      objectReference: {fileID: 468222377}
     - target: {fileID: 5306923219983096738, guid: 107583f8d68639645b7974aec86e2cbb, type: 3}
       propertyPath: m_Size.y
       value: 1.1

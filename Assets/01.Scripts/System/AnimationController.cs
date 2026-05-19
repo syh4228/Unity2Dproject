@@ -173,7 +173,7 @@ public class AnimationController : MonoBehaviour
     // 파라미터 트리거 함수
     private void SafeSetTrigger(int parameterHash)
     {
-        if (Animator_Control != null) // 널 체크
+        if (Animator_Control == null) // 널 체크
         {
             return;
         }

@@ -97,6 +97,11 @@ public class Player_Character : MonoBehaviour
             currentHp = 0; // 현재 체력 0
             Die(); // 사망함수 호출
         }
+        else
+        {
+            // 피격 시 스턴 함수 호출
+            StartCoroutine(HitStunCharacter());
+        }
 
         if (OnHpChanged != null) // OnHpChanged가 있으면
         {
