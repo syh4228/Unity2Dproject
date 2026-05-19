@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
             mainUI.SetActive(true); // 메인 UI 활성화
         }
 
-        Debug.Log("로딩 종료 -> 메인 UI 전환 완료 (정석 함수 실행됨)");
+        UtillLogRemove.Log("로딩 종료 -> 메인 UI 전환 완료 (정석 함수 실행됨)");
     }
 
     // 게임오버 UI 호출 함수

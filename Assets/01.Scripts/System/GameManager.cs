@@ -27,6 +27,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (UIManager.Instance != null) // 만약 UI매니저 인스턴스가 있으면
+        {
+            UIManager.Instance.showStartUI(); // UI매니저의 스타트UI 호출 함수 호출
+        }
+    }
+
     private void Update()
     {
         // ESC키 누르면
