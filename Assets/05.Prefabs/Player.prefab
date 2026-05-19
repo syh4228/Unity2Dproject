@@ -303,6 +303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_Character
   MaxHp: 100
   currentHp: 0
+  currentTempHp: 0
+  tempHpDecayRate: 2
   playerController: {fileID: 8169979982465481556}
 --- !u!114 &8169979982465481556
 MonoBehaviour:
@@ -317,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Controller
   _moveSpeed: 2
+  _attackCooldown: 0.5
   _jumpForce: 7
   _isGrounded: 0
   Rigidbody_Player: {fileID: 6702451743114155574}

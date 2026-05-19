@@ -982,12 +982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   mainUI: {fileID: 645336521}
-  gameOverCanvas: {fileID: 1312051101}
-  battleUI: {fileID: 0}
-  scoreText: {fileID: 0}
-  highScoreText: {fileID: 0}
-  timerText: {fileID: 0}
-  playerHpText: {fileID: 0}
+  gameOverCanvas: {fileID: 1437250093}
+  battleUI: {fileID: 1312051106}
 --- !u!4 &645336523
 Transform:
   m_ObjectHideFlags: 0
