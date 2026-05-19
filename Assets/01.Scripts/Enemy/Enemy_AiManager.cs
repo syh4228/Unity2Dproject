@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Enemy_AiManager : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class Enemy_AiManager : MonoBehaviour
     public float detectRange = 8f; // 감지 범위
     public float attackRange = 1.5f; // 공격 범위
     public float attackCooldown = 2f; // 공격 쿨타임
+
+    [Header("경직 설정")]
+    [SerializeField] private float stunTime = 0.5f; // 경직 시간
+    public bool isStunned = false; // 피격 확인
 
     [Header("컴포넌트")]
     [SerializeField] private AnimationController animController; // 애니메이터 컨트롤러 연결
@@ -71,6 +76,13 @@ public class Enemy_AiManager : MonoBehaviour
                 enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
                 return; // 반환
             }
+        }
+
+        if (isStunned == true) // 피격이 트루면
+        {
+            // 밀리는 힘은 받되, 스스로 걷지는 못하게 속도 0으로 고정
+            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
+            return;
         }
 
         if (isAttack == true)
@@ -167,4 +179,34 @@ public class Enemy_AiManager : MonoBehaviour
 
     }
 
+    // 피격 트리거 함수
+    public void TriggerHitStun()
+    {
+        // 스택매니저가 있고
+        if (statManager != null)
+        {
+            // 체력이 0이 아니면
+            if (statManager.currentHp > 0) { }
+            {
+                // 스턱 시간 함수 호출
+                StartCoroutine(HitStunRoutine());
+            }
+        }
+    }
+
+    private IEnumerator HitStunRoutine()
+    {
+        isStunned = true; // 피격 확인
+        isAttack = false; // 공격중 맞았다면 공격 취소
+
+        if (animController != null)  // 애니메이이션 컨트롤러 있으면
+        {
+            // 피격 애니메이션 실행
+            animController.AllHitAnimation();
+        }
+
+        yield return new WaitForSeconds(stunTime); // 경직
+
+        isStunned = false; // 피격 확인 끝
+    }
 }

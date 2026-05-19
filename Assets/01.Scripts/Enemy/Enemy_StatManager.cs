@@ -46,6 +46,16 @@ public class Enemy_StatManager : MonoBehaviour
             currentHp = 0; // 현재 체력 0
             Die(); // 사망함수 호출
         }
+        else // 죽지 않았다면
+        {
+            // 적 ai매니저에서 컴포넌트 받아오기
+            Enemy_AiManager aiManager = GetComponent<Enemy_AiManager>();
+
+            if(aiManager != null) // 컴포넌트 받아 왔으면
+            {
+                aiManager.TriggerHitStun(); // ai매니저 피격함수 호출
+            }
+        }
 
         if (OnHpChanged != null) // OnHpChanged가 있으면
         {

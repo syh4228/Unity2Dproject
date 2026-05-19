@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum AllState // 플레이어 상태
 {
@@ -26,6 +27,7 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationIsAttack = Animator.StringToHash("IsAttack");
     private static readonly int AnimationIsWalk = Animator.StringToHash("IsWalk");
     private static readonly int AnimationIsGrounded = Animator.StringToHash("isGrounded");
+    private static readonly int AnimationIsHit = Animator.StringToHash("IsHit");
 
     private void Awake()
     {
@@ -156,6 +158,32 @@ public class AnimationController : MonoBehaviour
             {
                 // 스위치가 실제로 있을때만 값 변경
                 Animator_Control.SetBool(parameterHash, value);
+                return; // 반환
+            }
+        }
+    }
+
+    public void AllHitAnimation() // 피격 애니메이션 함수
+    {
+        ResetAllBoolParameters();
+        // 피격 애니메이션 실행
+        SafeSetTrigger(AnimationIsHit);
+    }
+
+    // 파라미터 트리거 함수
+    private void SafeSetTrigger(int parameterHash)
+    {
+        if (Animator_Control != null) // 널 체크
+        {
+            return;
+        }
+
+        foreach (AnimatorControllerParameter param in Animator_Control.parameters)
+        {
+            if (param.nameHash == parameterHash)
+            {
+                // 트리거 작동
+                Animator_Control.SetTrigger(parameterHash);
                 return; // 반환
             }
         }

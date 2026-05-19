@@ -244,6 +244,8 @@ MonoBehaviour:
   detectRange: 8
   attackRange: 1.5
   attackCooldown: 2
+  stunTime: 0.5
+  isStunned: 0
   animController: {fileID: 229794550658920205}
   statManager: {fileID: 5408942040629497800}
 --- !u!114 &5408942040629497800

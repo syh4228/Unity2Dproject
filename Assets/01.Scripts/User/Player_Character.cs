@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player_Character : MonoBehaviour
@@ -9,12 +10,17 @@ public class Player_Character : MonoBehaviour
 
     [Header("임시 체력 설정")]
     public float currentTempHp = 0f; // 현재 임시체력
-    [SerializeField]public float tempHpDecayRate = 2f; // 임시체력 지속력
+    [SerializeField] public float tempHpDecayRate = 2f; // 임시체력 지속력
+
+    [Header("경직 설정")]
+    [SerializeField] private float stunTime = 0.5f;// 경직시간
 
     [Header("컴포넌트 연결")]
     [SerializeField] private Player_Controller playerController; // 실제 사망처리할 플레이어 컨트롤러 연결
+    [SerializeField] private AnimationController animatorController; // 애니메이션 컨트롤러 연결
 
     private bool _isDead = false; // 죽음 체크
+    private bool IsStunned = false; // 피격 체크
 
     public event Action<int, int> OnHpChanged; // UI에 최대체력과, 현재 체력 알려주기
 
@@ -140,5 +146,23 @@ public class Player_Character : MonoBehaviour
                 UIManager.Instance.GetBattleUI().UpdateHealthUI(currentHp, Mathf.CeilToInt(currentTempHp), MaxHp);
             }
         }
+    }
+
+    // 피격시 경직 함수
+    private IEnumerator HitStunCharacter()
+    {
+        IsStunned = true;
+
+        if (animatorController != null)
+        {
+            animatorController.AllHitAnimation();
+        }
+
+        yield return new WaitForSeconds(stunTime);
+
+        IsStunned = false;
+
+        // 애니메이션 대기로 전환
+        animatorController.SetState(AllState.Idle);
     }
 }
