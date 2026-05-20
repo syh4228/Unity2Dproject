@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleUIManager : MonoBehaviour
 {
     [Header("프로필 : 체력바")]
-    [SerializeField] private Text hpText; // 텍스트로 표기할 HP
+    [SerializeField] private TextMeshProUGUI hpText; // 텍스트로 표기할 HP
     [SerializeField] private Image hpFillImage; // 체력바 표기할 HP
     [SerializeField] private Image hpTempFillImage; // 임시 체력바 표기할 HP
     [SerializeField] private Color tempHpColor; // 임시 체력바 고정 색깔
 
     [Header("총기 UI")]
-    [SerializeField] private Text gun01_MagazineText; // 현재 탄창 총알 표기
-    [SerializeField] private Text gun01_ReserveText; // 총 총알 표기
-    [SerializeField] private Text gun02_MagazineText;
-    [SerializeField] private Text gun02_ReserveText;
+    [SerializeField] private TextMeshProUGUI gun01_MagazineText; // 현재 탄창 총알 표기
+    [SerializeField] private TextMeshProUGUI gun01_ReserveText; // 총 총알 표기
+    [SerializeField] private TextMeshProUGUI gun02_MagazineText;
+    [SerializeField] private TextMeshProUGUI gun02_ReserveText;
 
     [Header("아이템 슬롯")]
-    [SerializeField] private Image grenadeImage; // 투척류 아이템 표기
-    [SerializeField] private Image medkitImage; // 힐팩 아이템 표기
-    [SerializeField] private Image pillsImage; // 임시 체력 회복 템 표기
+    [SerializeField] private RawImage grenadeImage; // 투척류 아이템 표기
+    [SerializeField] private RawImage medkitImage; // 힐팩 아이템 표기
+    [SerializeField] private RawImage pillsImage; // 임시 체력 회복 템 표기
 
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
@@ -84,9 +85,7 @@ public class BattleUIManager : MonoBehaviour
             {
                 gun01_MagazineText.text = magazine.ToString(); // 텍스트 추력
             }
-        }
-        if (gunSlot == 1)
-        {
+
             if (gun01_ReserveText != null)
             {
                 gun01_ReserveText.text = reserve.ToString();
@@ -99,10 +98,7 @@ public class BattleUIManager : MonoBehaviour
             {
                 gun02_MagazineText.text = magazine.ToString();
             }
-        }
 
-        if (gunSlot == 2)
-        {
             if (gun02_ReserveText != null)
             {
                 gun02_ReserveText.text = reserve.ToString();

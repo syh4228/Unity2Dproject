@@ -4,10 +4,10 @@ using System.Collections;
 using TMPro;
 using System;
 
-public class LoadingManager : MonoBehaviour
+public class StartUIManager : MonoBehaviour
 {
     [Header("컴포넌트 연결")]
-    [SerializeField] private Slider LoadingBar; // 로딩바 연결
+    [SerializeField] private Image LoadingBar; // 로딩바 연결
     [SerializeField] private TextMeshProUGUI LoadingText; // 택스트 연결
 
     // UI매니저에서 호출하면 시작하는 함수
@@ -30,7 +30,7 @@ public class LoadingManager : MonoBehaviour
         yield return StartCoroutine(FillLoadingBar(0.5f, 1f, 0.5f, "기지 도착!"));
 
         // 택스트 출력
-        LoadingText.text = "기지 도착! [엔터를 치세요]";
+        LoadingText.text = "기지 도착! [엔터를 치면 이동합니다.]";
 
         while (true)
         {
@@ -44,9 +44,9 @@ public class LoadingManager : MonoBehaviour
             yield return null;
         }
 
-        if (onComplete != null) // 연결 되있으면
+        if (onComplete != null) // 콜백 연결 되있으면
         {
-            onComplete.Invoke(); // 실행
+            onComplete.Invoke(); // 콜백 실행
         }
     }
 
@@ -59,9 +59,9 @@ public class LoadingManager : MonoBehaviour
         {
             timer += Time.deltaTime; // 0에 시간 플러스
             // 로딩바 진행 계산
-            LoadingBar.value = Mathf.Lerp(start, end, timer / duration);
+            LoadingBar.fillAmount = Mathf.Lerp(start, end, timer / duration);
             yield return null; // 반복
         }
-        LoadingBar.value = end;
+        LoadingBar.fillAmount = end;
     }
 }

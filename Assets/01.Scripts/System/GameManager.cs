@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         if (UIManager.Instance != null) // 만약 UI매니저 인스턴스가 있으면
         {
+            UIManager.Instance.ResetUI(); // UI 리셋 함수 실행
             UIManager.Instance.showStartUI(); // UI매니저의 스타트UI 호출 함수 호출
         }
     }

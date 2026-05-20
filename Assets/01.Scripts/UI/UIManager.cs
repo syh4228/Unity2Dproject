@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverCanvas; // 게임오버 UI
     [SerializeField] private BattleUIManager battleUI; // 배틀UI
     [SerializeField] private GameObject startUI; //  스타트 UI
-    [SerializeField] private LoadingManager loadingManager; // 스타트 UI 로딩 연출
+    [SerializeField] private StartUIManager loadingManager; // 스타트 UI 로딩 연출
 
     public BattleUIManager GetBattleUI() // 배틀UI 주는 함수
     {
@@ -53,6 +53,11 @@ public class UIManager : MonoBehaviour
     // 스타트 UI 호출 함수
     public void showStartUI()
     {
+        if (startUI != null) // 만약 스타트 UI가 있으면
+        {
+            startUI.SetActive(true); // 스타트 UI 활성화
+        }
+
         if (loadingManager != null) // 로딩 매니저가 있으면
         {
             // 로딩매니저 스타트 로딩 함수 호출
