@@ -7,9 +7,6 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; } // 싱글턴 선언
 
-    [Header("맵 컴포넌트")]
-    [SerializeField] private GameObject[] mapPrefabs; // 맵 프리팹을 배열로 연결
-
     private GameObject currentMapInstance; // 현재 사용하고 있는 맵 저장
 
     private AsyncOperationHandle<GameObject> mapHandle; // 어드레서블로 맵가져와 저장

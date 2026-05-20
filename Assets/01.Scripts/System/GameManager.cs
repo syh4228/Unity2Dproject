@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } // 싱글턴 선언
 
-    public GameState currentState; // 현재 게임 상태 저장 변수
+    public GameState currentState; // 현재 게임 상태 저장
+
+    private string currentMapAddress; // 현재 어드레서블로 불러올 맵 저장
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
 
         if (currentState == GameState.Score) // 스코어UI 상태에서
         {
-            if (!Input.GetKeyUp(KeyCode.Return)) // 엔터키 누르면
+            if (Input.GetKeyUp(KeyCode.Return)) // 엔터키 누르면
             {
                 ChangeState(GameState.Lobby); // 로비 UI로 변환
             }
@@ -94,6 +96,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 맵 선택 호출 함수
+    public void SelectMap(string mapAddress)
+    {
+        // 선택 한맵 저장
+        currentMapAddress = mapAddress;
+        UtillLogRemove.Log($"맵 선택됨: {currentMapAddress}");
+    }
+
     public void BtnClick_Play() // 플레이 버튼 이벤트 함수
     { 
         ChangeState(GameState.Lobby); // 로비UI로 변환
@@ -122,22 +132,24 @@ public class GameManager : MonoBehaviour
     // 로딩 UI 게임 맵, 플레이어 준비 함수
     private async UniTaskVoid LoadingRoutineAsync()
     {
-        UIManager.Instance.CallLoadingUI(); // 로딩 UI 호출
+        // UI매니저에서 로딩UI 함수 호출
+        UIManager.Instance.CallLoadingUI();
+        // UniUask실행
+        await UniTask.Yield();
 
-        await UniTask.Yield(); // Unitask 실행
+        // 맵매니저에서 선택된맵 어드레서블로 가져오기
+        Transform spawnPoint = await MapManager.Instance.SpawnSelectedMap(currentMapAddress);
 
-        // 맵 매니저에서 플레이어 스타트 위치 정보 가져오기
-        Transform spawnPoint = MapManager.Instance.SpawnSelectedMap();
-        if (spawnPoint != null) // 만약 스폰 포인트 있으면
+        if (spawnPoint != null) // 만약 스타지 지점이 있으면
         {
-            // 캐릭터 매니저에서 캐릭터 정보 가져오기
+            // 캐릭터매니저에서 선택된 캐릭터 생성
             CharacterManager.Instance.SpawnSelectedCharacter(spawnPoint);
         }
 
-        // Unitask로 대기 시간 실행
+        // UniTask로 로딩 대기 2초
         await UniTask.Delay(TimeSpan.FromSeconds(2f));
 
-        // 배틀씬으로 전환
+        // 배틀 씬 상태로 전환
         ChangeState(GameState.Battle);
     }
 }
