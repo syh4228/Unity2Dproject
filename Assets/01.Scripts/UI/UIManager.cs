@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Object.Destroy(gameObject);
+            gameObject.DestroySafe();
         }
     }
 
