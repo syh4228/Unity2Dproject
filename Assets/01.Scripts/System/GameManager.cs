@@ -34,7 +34,36 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(GameState.Start); // 시작시 겜이 시작 상태로 바꾸기
+        // 로딩 프로세스함수 호출
+        StartLoadingProcess().Forget();
+    }
+    
+    // 스타트 로딩 프로세스 함수
+    private async UniTaskVoid StartLoadingProcess()
+    {
+        // UI매니저가 있으면
+        if (UIManager.Instance != null)
+        {
+            // 스타트UI 매니저 가져오기
+            StartUIManager startUI = UIManager.Instance.GetStartUI();
+
+            if (startUI != null) // 있으면
+            {
+                // 스타트로딩 함수 호출
+                await startUI.StartLoading();
+            }
+            else // 없으면
+            {
+                UtillLogRemove.Warning("StartUIManager가 연결되지 않았습니다!");
+            }
+        }
+        else // 없으면
+        {
+            UtillLogRemove.Warning("UIManager 인스턴스를 찾을 수 없습니다!");
+        }
+
+        // 로딩이 완료되면 메인으로 이동합니다.
+        ChangeState(GameState.Main);
     }
 
     private void Update()

@@ -6,12 +6,19 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; } // 싱글턴 선언
 
     [Header("UI 컴포넌트")]
-    [SerializeField] private GameObject startUI; //  스타트 UI
+    [SerializeField] private StartUIManager startUIManager; //  스타트 UI 외부로 정보 주기
+    [SerializeField] private GameObject startUI; //스타트 UI
     [SerializeField] private GameObject mainUI; // 메인 UI
     [SerializeField] private GameObject LobbyUI; // 로비 UI
     [SerializeField] private GameObject LoadingUI; // 로딩 UI
     [SerializeField] private GameObject battleUI; // 배틀UI
     [SerializeField] private GameObject scoreUI; // 점수UI
+
+    // 스타트UI 매니저 정보를 주는 함수
+    public StartUIManager GetStartUI()
+    {
+        return startUIManager;
+    }
 
     private void Awake()
     {
