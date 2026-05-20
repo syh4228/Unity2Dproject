@@ -1,16 +1,60 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Cysharp.Threading.Tasks;
 
 public class MapManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static MapManager Instance { get; private set; } // 싱글턴 선언
+
+    [Header("맵 컴포넌트")]
+    [SerializeField] private GameObject[] mapPrefabs; // 맵 프리팹을 배열로 연결
+
+    private GameObject currentMapInstance; // 현재 사용하고 있는 맵 저장
+
+    private AsyncOperationHandle<GameObject> mapHandle; // 어드레서블로 맵가져와 저장
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            gameObject.DestroySafe ();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // 실제 맵과 플레이어 지점을 호출 하는 함수
+    public async UniTask<Transform> SpawnSelectedMap(string mapAddress)
     {
-        
+        // 호출 된 맵이 있다면
+        if (mapHandle.IsValid())
+        {
+            // 지워라
+            Addressables.Release(mapHandle);
+        }
+
+        // 어드레서블을 사용하여 맵 불러오기
+        mapHandle = Addressables.InstantiateAsync(mapAddress);
+
+        // 가져오는 동안 기다리기
+        await mapHandle;
+
+        // 가져온 맵 변수 저장
+        currentMapInstance = mapHandle.Result;
+
+        // 맵에서 플레이어 스타트 지점 찾기
+        Transform spawnPoint = currentMapInstance.transform.Find("StartPoint");
+
+        // 스타트 지점이 없으면
+        if (spawnPoint == null)
+        {
+            UtillLogRemove.Warning("맵 안에 'StartPoint'라는 이름의 빈 오브젝트가 없습니다!");
+            return currentMapInstance.transform; // 반환
+        }
+
+        return spawnPoint; // 반환
     }
 }
