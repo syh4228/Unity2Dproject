@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -139,5 +140,40 @@ public class UIManager : MonoBehaviour
 
         // 게임 매니저에게 종료 버튼 눌렸다 알림
         GameManager.Instance.BtnClick_ExitGame();
+    }
+
+    // 선택 캠패인 정보 넘겨주기 함수
+    public void RequestSelectCampaign(string StageId)
+    {
+        // 게임매니저에 선택 캠페인 알림
+        GameManager.Instance.SelectCampaign(StageId);
+    }
+
+    // 선택 챕터 정보 넘겨주기 함수
+    public void RequestSelectChapter(int chapter) 
+    { 
+        // 게임매니저에 선택 챕터 알림
+        GameManager.Instance.SelectChapter(chapter); 
+    }
+
+    // 선택 난이도 정보 넘겨주기 함수
+    public void RequestSelectDifficulty(int diff)
+    {
+        // 게임매니저에 선택 난이도 알림
+        GameManager.Instance.SetDifficulty(diff); 
+    }
+
+    // 선택 캐릭터 정보 넘겨주기 함수
+    public void RequestSelectCharacter(string charId)
+    {
+        // 게임매니저에 선택 캐릭터 알림
+        GameManager.Instance.SetCharacter(charId);
+    }
+
+    // 로딩UI로 호출 함수
+    public void RequestLoading()
+    {
+        // 게임매니저에 로딩UI로 상태 변화 알림
+        GameManager.Instance.ChangeState(GameState.Loading);
     }
 }

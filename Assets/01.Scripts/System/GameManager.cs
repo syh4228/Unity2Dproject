@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
 
     private string currentMapAddress; // 현재 어드레서블로 불러올 맵 저장
 
+    private string selectedCampaign; // 선택 캠페인 저장
+    private int selectedChapter; // 선택 챕터 저장
+    private int selectedDifficulty; // 선택 난이도 저장
+    private string selectedCharacter; // 선택 캐릭터 저장
+
     private void Awake()
     {
         if (Instance == null)
@@ -181,5 +186,25 @@ public class GameManager : MonoBehaviour
 
         // 배틀 씬 상태로 전환
         ChangeState(GameState.Battle);
+    }
+
+    public void SelectCampaign(string StageId)
+    {
+        selectedCampaign = StageId;
+    }
+
+    public void SelectChapter(int chapter)
+    { 
+        selectedChapter = chapter;
+    }
+
+    public void SetDifficulty(int diff)
+    {
+        selectedDifficulty = diff;
+    }
+
+    public void SetCharacter(string id) 
+    {
+        selectedCharacter = id; 
     }
 }
