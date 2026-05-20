@@ -125,4 +125,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void RequestPlayGame() // 캠페인버튼 이벤트 함수
+    {
+        Allcolse(); //  모든 UI 닫기 함수 호출
+
+        // 게임 매니저에 캠페인 버튼 눌렸다 알림
+        GameManager.Instance.BtnClick_Play();
+    }
+
+    public void ExitGameWithUI() // 종료버튼 이벤트 함수
+    {
+        Allcolse(); // 모든 UI 닫기 함수 호출
+
+        // 게임 매니저에게 종료 버튼 눌렸다 알림
+        GameManager.Instance.BtnClick_ExitGame();
+    }
 }

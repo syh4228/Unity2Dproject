@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
         Application.Quit(); // 게임 종료
     }
 
+
     // 로딩 UI 게임 맵, 플레이어 준비 함수
     private async UniTaskVoid LoadingRoutineAsync()
     {
