@@ -73,10 +73,10 @@ public class WaitingRoomUIManager : MonoBehaviour
     }
 
     // 캠페인 선택 이벤트 함수
-    public void OnSelectCampaign(string map)
+    public void OnSelectCampaign(string StageId)
     {
         // UI매니저에 선택한 캠페인 알리기
-        UIManager.Instance.RequestSelectCampaign(map);
+        UIManager.Instance.RequestSelectCampaign(StageId);
         CloseCurrentList(); // 리스트 닫기
     }
 

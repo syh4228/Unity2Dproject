@@ -113,10 +113,12 @@ public class Player_Character : MonoBehaviour
     {
         _isDead = true; // 죽음 처리
 
+        /*
         if (GameManager.Instance != null) // 게임매니저 싱글턴 있으면
         {
             GameManager.Instance.GameOver(); // 게임오버 함수 호출
         }
+        */
 
         if (playerController != null) // 만약 플레이어 컨트롤러가 연결 되있으면
         { 

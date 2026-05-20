@@ -19,10 +19,14 @@ public class BattleManager : MonoBehaviour
     // 플레이어가 총으로 적을 맞췄을 때 호출되는 함수
     public void ProcessPlayerAttack(Enemy_StatManager enemy, int baseBulletDamage)
     {
-        // GameManager가 있고, 게임오버 상태라면 공격 무효화
-        if (enemy == null || (GameManager.Instance != null && GameManager.Instance.IsGameOver))
+        // 적이 없고
+        if (enemy == null)
         {
-            return; // 반환
+            // 게임매니저가 있고, 게임매니저가 게임오버면
+            if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == false)
+            {
+                return; // 반환
+            } 
         }
 
         int finalDamage = baseBulletDamage; // 대미지 계산
@@ -33,24 +37,26 @@ public class BattleManager : MonoBehaviour
     public void ProcessEnemyAttack(Player_Character player, int enemyBaseAttack)
     {
         // GameManager가 있고, 게임오버 상태라면 공격 무효화
-        if (player == null || (GameManager.Instance != null && GameManager.Instance.IsGameOver))
+        if (player == null)
         {
-            return;
+            if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == false)
+            {
+                return;
+            }
         }
-
         int finalDamage = enemyBaseAttack; // 대미지 계산
         player.TakeDamage(finalDamage); // 플레이어 대미지 적용 함수 호출
     }
 
     // 플레이어 사망 함수
-    public void OnPlayerDead()
+   public void OnPlayerDead()
     {
         if (GameManager.Instance != null) // 게임 매니저 있으면
         {
             // 게임매니저에 게임오버 호출
-            GameManager.Instance.GameOver();
+           // GameManager.Instance.GameOver();
         }
 
         UtillLogRemove.Error("GAME OVER");
-    }
+    } 
 }

@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     [Header("UI 컴포넌트")]
     [SerializeField] private StartUIManager startUIManager; //  스타트 UI 외부로 정보 주기
+    [SerializeField] private BattleUIManager battleUIManager; // 배틀UI
     [SerializeField] private GameObject startUI; //스타트 UI
     [SerializeField] private GameObject mainUI; // 메인 UI
     [SerializeField] private GameObject LobbyUI; // 로비 UI
@@ -20,6 +21,12 @@ public class UIManager : MonoBehaviour
     {
         return startUIManager;
     }
+
+    public BattleUIManager GetBattleUI()
+    {
+        return battleUIManager;
+    }
+
 
     private void Awake()
     {

@@ -91,7 +91,7 @@ public class Player_Controller : MonoBehaviour
     private void Update()
     {
         // 게임매니저 싱글턴이 있고, 게임오버상태이면
-        if (GameManager.Instance != null && GameManager.Instance.IsGameOver == true)
+        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == false)
         {
             return; 
         }

@@ -57,7 +57,7 @@ public class Enemy_AiManager : MonoBehaviour
     private void Update()
     {
         // 게임매니저가 있고, 게임매니저에서 게임오버가 트루일때
-        if (GameManager.Instance != null && GameManager.Instance.IsGameOver == true)
+        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == true)
         {
             return;
         }

@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     private int selectedDifficulty; // 선택 난이도 저장
     private string selectedCharacter; // 선택 캐릭터 저장
 
+    public bool IsBattleActive // 실제 게임 플레이 중인지 확인(전투)
+    {
+        get; private set; // 외부로 알리기
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -101,6 +106,9 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newstate) // 상태 변환 함수
     {
         currentState = newstate; // 현재 상태 저장
+
+        // 현재 상태가 배틀이면 저장
+        IsBattleActive = (currentState == GameState.Battle);
 
         switch (currentState)
         {
