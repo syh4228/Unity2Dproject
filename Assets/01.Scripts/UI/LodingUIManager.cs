@@ -18,12 +18,12 @@ public class LodingUIManager : MonoBehaviour
 
     // UniTask 멈추게 하기위한 변수저장
     private CancellationTokenSource cts;
-    
+
     private bool isDataLoad = false; // 맵과 플레이어 생성이 끝났는지 확인 위한 변수
 
     private void OnEnable()
     {
-       if (loadingBar != null) // 로딩바 있으면
+        if (loadingBar != null) // 로딩바 있으면
         {
             // 로딩바 0에서 시작
             loadingBar.fillAmount = 0f;
@@ -41,7 +41,7 @@ public class LodingUIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        if (cts  != null) // 널이 아니면
+        if (cts != null) // 널이 아니면
         {
             cts.Cancel(); // 취소
             cts.Dispose(); // 처분
@@ -60,7 +60,7 @@ public class LodingUIManager : MonoBehaviour
             if (loadingBar != null) // 로딩바가 있으면
             {
                 // 로딩바 채우기 계산
-                loadingBar.fillAmount = Mathf.Lerp(0f, 0.9f,timer / loadingbartimer);
+                loadingBar.fillAmount = Mathf.Lerp(0f, 0.9f, timer / loadingbartimer);
             }
 
             // 대기
@@ -87,7 +87,7 @@ public class LodingUIManager : MonoBehaviour
 
         while (!token.IsCancellationRequested) // 토큰 정지 명령이 없으면
         {
-            if (loadingText  != null) // 로딩 텍스트 있으면
+            if (loadingText != null) // 로딩 텍스트 있으면
             {
                 // 점이 3개 까지만 나오는 계산 
                 string dots = new string(' ', dotCount % 4);
@@ -99,5 +99,10 @@ public class LodingUIManager : MonoBehaviour
             // 깜박임 대기 시간
             await UniTask.Delay(TimeSpan.FromSeconds(0.4f), cancellationToken: token);
         }
+    }
+
+    public void SetDataLoaded()
+    {
+        isDataLoad = true;
     }
 }

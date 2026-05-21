@@ -97,10 +97,10 @@ public class WaitingRoomUIManager : MonoBehaviour
     }
 
     // 캐릭터 선택 이벤트 함수
-    public void OnSelectCharacter(string charId) 
+    public void OnSelectCharacter(int charIndex) 
     { 
         // UI매니저에 선택한 캐릭터 알리기
-        UIManager.Instance.RequestSelectCharacter(charId);
+        UIManager.Instance.RequestSelectCharacter(charIndex);
         CloseCurrentList();
     }
 

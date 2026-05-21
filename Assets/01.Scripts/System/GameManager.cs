@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
+using static UnityEngine.Rendering.VolumeComponent;
 
 public enum GameState // 게임 현재 상태
 {
@@ -16,19 +17,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } // 싱글턴 선언
 
+    [Header("게임 상태")]
     public GameState currentState; // 현재 게임 상태 저장
 
-    private string currentMapAddress; // 현재 어드레서블로 불러올 맵 저장
-
+    [Header("연결 데이터")]
+    private string currentMapName; // (캠페인 + 챕터)  = 실제 맵 주소
     private string selectedCampaign; // 선택 캠페인 저장
     private int selectedChapter; // 선택 챕터 저장
     private int selectedDifficulty; // 선택 난이도 저장
-    private string selectedCharacter; // 선택 캐릭터 저장
+    private int selectedCharacterIndex; // 캐릭터 고유 번호 저장
 
     public bool IsBattleActive // 실제 게임 플레이 중인지 확인(전투)
     {
         get; private set; // 외부로 알리기
     }
+
 
     private void Awake()
     {
@@ -137,15 +140,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-    // 맵 선택 호출 함수
-    public void SelectMap(string mapAddress)
-    {
-        // 선택 한맵 저장
-        currentMapAddress = mapAddress;
-        UtillLogRemove.Log($"맵 선택됨: {currentMapAddress}");
-    }
-
+    
     public void BtnClick_Play() // 플레이 버튼 이벤트 함수
     { 
         ChangeState(GameState.Lobby); // 로비UI로 변환
@@ -171,26 +166,31 @@ public class GameManager : MonoBehaviour
         Application.Quit(); // 게임 종료
     }
 
-
     // 로딩 UI 게임 맵, 플레이어 준비 함수
     private async UniTaskVoid LoadingRoutineAsync()
     {
         // UI매니저에서 로딩UI 함수 호출
         UIManager.Instance.CallLoadingUI();
-        // UniUask실행
+        // 대기
         await UniTask.Yield();
 
-        // 맵매니저에서 선택된맵 어드레서블로 가져오기
-        Transform spawnPoint = await MapManager.Instance.SpawnSelectedMap(currentMapAddress);
+        currentMapName = ($"Map_{selectedCampaign}_{selectedChapter}");
+        UtillLogRemove.Log($"조립된 맵 주소: {currentMapName}");
 
-        if (spawnPoint != null) // 만약 스타지 지점이 있으면
+        Transform SpawnPoint = await MapManager.Instance.SpawnSelectedMap(currentMapName);
+
+        if (SpawnPoint != null) // 만약 스타지 지점이 있으면
         {
             // 캐릭터매니저에서 선택된 캐릭터 생성
-            CharacterManager.Instance.SpawnSelectedCharacter(spawnPoint);
+            CharacterManager.Instance.SpawnSelectedCharacter(selectedCharacterIndex, SpawnPoint);
         }
 
-        // UniTask로 로딩 대기 2초
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        if (UIManager.Instance.GetLodingUI() != null)
+        {
+            UIManager.Instance.GetLodingUI().SetDataLoaded();
+        }
+        // UniTask로 로딩 대기
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
 
         // 배틀 씬 상태로 전환
         ChangeState(GameState.Battle);
@@ -211,8 +211,8 @@ public class GameManager : MonoBehaviour
         selectedDifficulty = diff;
     }
 
-    public void SetCharacter(string id) 
+    public void SetCharacter(int Index) 
     {
-        selectedCharacter = id; 
+        selectedCharacterIndex = Index; 
     }
 }

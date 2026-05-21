@@ -6,9 +6,12 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; } // 싱글턴 선언
 
-    [Header("UI 컴포넌트")]
-    [SerializeField] private StartUIManager startUIManager; //  스타트 UI 외부로 정보 주기
+    [Header("정보전달 컴포넌트")]
+    [SerializeField] private StartUIManager startUIManager; //  스타트 UI
     [SerializeField] private BattleUIManager battleUIManager; // 배틀UI
+    [SerializeField] private LodingUIManager loadingUIManager; // 로딩 UI
+
+    [Header("연결 컴포넌트")]
     [SerializeField] private GameObject startUI; //스타트 UI
     [SerializeField] private GameObject mainUI; // 메인 UI
     [SerializeField] private GameObject LobbyUI; // 로비 UI
@@ -25,6 +28,11 @@ public class UIManager : MonoBehaviour
     public BattleUIManager GetBattleUI()
     {
         return battleUIManager;
+    }
+
+    public LodingUIManager GetLodingUI()
+    {
+        return loadingUIManager;
     }
 
 
@@ -171,10 +179,10 @@ public class UIManager : MonoBehaviour
     }
 
     // 선택 캐릭터 정보 넘겨주기 함수
-    public void RequestSelectCharacter(string charId)
+    public void RequestSelectCharacter(int charIndex)
     {
         // 게임매니저에 선택 캐릭터 알림
-        GameManager.Instance.SetCharacter(charId);
+        GameManager.Instance.SetCharacter(charIndex);
     }
 
     // 로딩UI로 호출 함수

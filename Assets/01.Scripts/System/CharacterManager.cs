@@ -30,7 +30,7 @@ public class CharacterManager : MonoBehaviour
     }
 
     // 로딩UI에서 맵의 스타트 지점에 캐릭터 호출 함수
-    public void SpawnSelectedCharacter(Transform spawnPoint)
+    public void SpawnSelectedCharacter(int characterIndex, Transform spawnPoint)
     {
         // 현재 캐릭터가 있으면
         if (currentCharact != null)
@@ -40,7 +40,7 @@ public class CharacterManager : MonoBehaviour
         }
 
         // 프리팹에서 선택 캐릭터 가져와 스타트지점에 생성
-        currentCharact = Instantiate(characterPrefabs[selectedIndex], spawnPoint.position, spawnPoint.rotation);
+        currentCharact = Instantiate(characterPrefabs[characterIndex], spawnPoint.position, spawnPoint.rotation);
 
         UtillLogRemove.Log("캐릭터 소환 완료!");
     }
