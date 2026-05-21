@@ -101,7 +101,23 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.Escape)) // esc 누르면
             {
-                ChangeState(GameState.Lobby); // 로비 UI로 변환
+                // UI매니저에 팝업 켜져있는지 물어보고
+                bool isPopupActive = UIManager.Instance.IsExitPopupActive();
+                // UI매니저에 팝업을 켜져있으면 끄고, 꺼져있으면 키라고 알림
+                UIManager.Instance.ShowExitpopup(!isPopupActive);
+            }
+
+            // UI매니저에 팝업이 켜져있는지 묻고
+            if (UIManager.Instance.IsExitPopupActive())
+            {
+                // 엔터를 입력하면
+                if (Input.GetKeyUp(KeyCode.Return))
+                {
+                    // UI매니저에 팝업 닫으라고 알림
+                    UIManager.Instance.ShowExitpopup(false);
+                    // 게임상태 로비로 전환
+                    ChangeState(GameState.Lobby) ;
+                }
             }
         }
     }

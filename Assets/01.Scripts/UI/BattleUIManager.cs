@@ -21,6 +21,9 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private RawImage medkitImage; // 힐팩 아이템 표기
     [SerializeField] private RawImage pillsImage; // 임시 체력 회복 템 표기
 
+    [Header("나가기 팝업")]
+    [SerializeField] private GameObject exitpopup; // 나가기창 연결
+
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
     private Color warningColor = Color.yellow; // 주의 노랑
@@ -132,5 +135,35 @@ public class BattleUIManager : MonoBehaviour
                 pillsImage.gameObject.SetActive(true); // 이미지 활성화
             }
         }
+    }
+
+    // 나가기 팝업 관리 함수
+    public void ShowExitPopup(bool isActive)
+    {
+        if (exitpopup  != null) // 팝업이 있으면
+        {
+            // 팝업 켜고,크기
+            exitpopup.SetActive(isActive);
+        }
+    }
+
+    // 팝업의 상태 확인 함수
+    public bool IsExitPopupActive()
+    {
+        if (exitpopup != null) // 팝업이 있으면
+        {
+            // 현재 팝업이 켜져있는지 꺼져있느지 확인
+            return exitpopup.activeSelf;
+        }
+
+        // 끄기
+        return false;
+    }
+
+    // 나가기 버튼 이벤트 함수
+    public void OnClick_ConfirmExit()
+    {
+        ShowExitPopup(false); // 팝업 끄기
+        UIManager.Instance.RequestExitBattle(); // UI매니저에 이벤트 알림
     }
 }

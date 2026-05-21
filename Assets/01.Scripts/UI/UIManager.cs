@@ -191,4 +191,34 @@ public class UIManager : MonoBehaviour
         // 게임매니저에 로딩UI로 게임 시작 알림
         GameManager.Instance.BtnClick_GameStart();
     }
+
+    // 나가기 팝업 호출 함수
+    public void ShowExitpopup(bool isActive)
+    {
+        if (battleUIManager != null) // 배틀UI 매니저가 있으면
+        {
+            // 배틀UI 매니저에서 나가기 함수 호출
+            battleUIManager.ShowExitPopup(isActive);
+        }
+    }
+
+    // 나가기 팝업 켜져있는지 묻는 함수
+    public bool IsExitPopupActive()
+    {
+        // 배틀UI 매니저가 있으면
+        if (battleUIManager != null)
+        {
+            // 배틀매니저에 나가기 팝업 켜져있는지 확인하는 함수 호출
+            return battleUIManager.IsExitPopupActive();
+        }
+
+        return false;
+    }
+
+    // 나가기 버튼 이벤트 알림 함수
+    public void RequestExitBattle()
+    {
+        // 게임매니저에게 게임상태 로비로 바꿔야한다고 알림
+        GameManager.Instance.ChangeState(GameState.Lobby);   
+    }
 }
