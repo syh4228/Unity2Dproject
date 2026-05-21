@@ -28,8 +28,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        // 게임매니저가 있고, 게임매니저에서 게임오버가 트루일때
-        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == true)
+        // 게임매니저가 있고, 게임매니저에서 전투중이 아닐때
+        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == false)
         {
             return;
         }
@@ -37,7 +37,18 @@ public class EnemySpawner : MonoBehaviour
         // 만약 플레이어 트랜스폼이 없으면
         if (playerTransform == null)
         {
-            return; // 반환
+            // 플레이어 태그 가진 오브젝트 찾기
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+            if (playerObj != null) // 있으면
+            {
+                // 트랜스폼 정보 가져오기
+                playerTransform = playerObj.transform; 
+            }
+            else // 없으면
+            {
+                return; // 반환
+            }
         }
 
         // 스폰 쿨타임 
