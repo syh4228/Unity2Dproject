@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
-using static UnityEngine.Rendering.VolumeComponent;
 
 public enum GameState // 게임 현재 상태
 {
@@ -45,12 +44,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async void Start()
     {
-        // 로딩 프로세스함수 호출
+        await UniTask.Yield(); // 대기
         StartLoadingProcess().Forget();
     }
-    
+
     // 스타트 로딩 프로세스 함수
     private async UniTaskVoid StartLoadingProcess()
     {
@@ -195,11 +194,19 @@ public class GameManager : MonoBehaviour
 
         Transform SpawnPoint = await MapManager.Instance.SpawnSelectedMap(currentMapName);
 
-        if (SpawnPoint != null) // 만약 스타지 지점이 있으면
+        if (SpawnPoint == null) // 만약 스타지 지점이 없으면
         {
-            // 캐릭터매니저에서 선택된 캐릭터 생성
-            CharacterManager.Instance.SpawnSelectedCharacter(selectedCharacterIndex, SpawnPoint);
+            // 에러 알림
+            UtillLogRemove.Error("맵 로드에 실패했습니다. 로비로 돌아갑니다.");
+
+            ChangeState(GameState.Lobby); // 로비로 이동
+            return; // 반환
         }
+
+        // 캐릭터매니저에서 선택된 캐릭터 생성
+        GameObject Player = CharacterManager.Instance.SpawnSelectedCharacter(selectedCharacterIndex, SpawnPoint);
+
+        Camera.main.GetComponent<Player_CameraController>().SetTarget(Player.transform);
 
         if (UIManager.Instance.GetLodingUI() != null)
         {

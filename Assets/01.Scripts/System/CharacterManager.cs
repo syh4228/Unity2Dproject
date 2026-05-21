@@ -30,7 +30,7 @@ public class CharacterManager : MonoBehaviour
     }
 
     // 로딩UI에서 맵의 스타트 지점에 캐릭터 호출 함수
-    public void SpawnSelectedCharacter(int characterIndex, Transform spawnPoint)
+    public GameObject SpawnSelectedCharacter(int characterIndex, Transform spawnPoint)
     {
         // 현재 캐릭터가 있으면
         if (currentCharact != null)
@@ -43,5 +43,7 @@ public class CharacterManager : MonoBehaviour
         currentCharact = Instantiate(characterPrefabs[characterIndex], spawnPoint.position, spawnPoint.rotation);
 
         UtillLogRemove.Log("캐릭터 소환 완료!");
+
+        return currentCharact;
     }
 }

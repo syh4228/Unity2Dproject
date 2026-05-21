@@ -38,20 +38,30 @@ public class MapManager : MonoBehaviour
 
         // 가져오는 동안 기다리기
         await mapHandle;
+        
+        // 만약 맵가져오는 대 성공하면
+        if (mapHandle.Status == AsyncOperationStatus.Succeeded)
+        {   // 가져온 맵 변수 저장
+            currentMapInstance = mapHandle.Result;
 
-        // 가져온 맵 변수 저장
-        currentMapInstance = mapHandle.Result;
+            // 맵에서 플레이어 스타트 지점 찾기
+            Transform spawnPoint = currentMapInstance.transform.Find("StartPoint");
 
-        // 맵에서 플레이어 스타트 지점 찾기
-        Transform spawnPoint = currentMapInstance.transform.Find("StartPoint");
+            // 스타트 지점이 없으면
+            if (spawnPoint == null)
+            {
+                UtillLogRemove.Warning("맵 안에 'StartPoint'라는 이름의 빈 오브젝트가 없습니다!");
+                return currentMapInstance.transform; // 반환
+            }
 
-        // 스타트 지점이 없으면
-        if (spawnPoint == null)
-        {
-            UtillLogRemove.Warning("맵 안에 'StartPoint'라는 이름의 빈 오브젝트가 없습니다!");
-            return currentMapInstance.transform; // 반환
+            return spawnPoint; // 반환
         }
-
-        return spawnPoint; // 반환
+        else
+        {
+            // 로딩 실패시 에러 알림
+            UtillLogRemove.Error($"맵 로드 실패! 주소 확인 요망: {mapAddress}");
+            Addressables.Release(mapHandle); // 반환
+            return null; // 널 반환
+        }
     }
 }

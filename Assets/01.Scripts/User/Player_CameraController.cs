@@ -16,6 +16,12 @@ public class Player_CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true; // 마우스 커서 보임
 
+        if (!GameManager.Instance.IsBattleActive)
+        {
+            this.enabled = false;
+            return;
+        }
+
         if (_target == null )
         {
             UtillLogRemove.Warning("카메라 추적할 대상 연결 확인 요망!");
@@ -38,8 +44,8 @@ public class Player_CameraController : MonoBehaviour
         transform.position = newPosition; // 실제 카메라 이동
     }
 
-    public void SetTarget(Transform newTarget) // 카메라 타겟이 바뀔때 사용 함수
+    public void SetTarget(Transform SetTarget) // 카메라 타겟이 바뀔때 사용 함수
     {
-        _target = newTarget;
+        _target = SetTarget;
     }
 }

@@ -56,10 +56,14 @@ public class Enemy_AiManager : MonoBehaviour
 
     private void Update()
     {
-        // 게임매니저가 있고, 게임매니저에서 게임오버가 트루일때
-        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == true)
+        // 게임매니저가 있고
+        if (GameManager.Instance != null)
         {
-            return;
+            // 게임매니저에서 전투중이 아닐때
+            if (!GameManager.Instance.IsBattleActive)
+            {
+                return;
+            }
         }
 
         if (playerTransform == null) // 플레이어를 못찾았으면

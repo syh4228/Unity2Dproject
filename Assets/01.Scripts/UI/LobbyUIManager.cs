@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class WaitingRoomUIManager : MonoBehaviour
 {
@@ -8,7 +9,48 @@ public class WaitingRoomUIManager : MonoBehaviour
     [SerializeField] private GameObject difficultyList; // 난이도
     [SerializeField] private GameObject characterList; // 캐릭터
 
+    [Header("버튼 연결")]
+    [SerializeField] private Button btnCampaign;
+    [SerializeField] private Button btnChapter;
+    [SerializeField] private Button btnDifficulty;
+    [SerializeField] private Button btnCharacter;
+    [SerializeField] private Button btnStart;
+    [SerializeField] private Button btnBack;
+
     private GameObject currentActiveList; // 현재 활성화된 리스트 저장
+
+    private void Start()
+    {
+        if (btnCampaign != null)
+        {
+            btnCampaign.onClick.AddListener(OpenCampaign);
+        }
+
+        if (btnChapter != null)
+        {
+            btnChapter.onClick.AddListener(OpenChapter);
+        }
+
+        if (btnDifficulty != null)
+        {
+            btnDifficulty.onClick.AddListener(OpenDifficulty);
+        }
+
+        if (btnCharacter != null)
+        {
+            btnCharacter.onClick.AddListener(OpenCharacter);
+        }
+
+        if (btnStart != null)
+        {
+            btnStart.onClick.AddListener(OnClickStart);
+        }
+
+        if (btnBack != null)
+        {
+            btnBack.onClick.AddListener(OnClickBack);
+        }
+    }
 
     private void Update()
     {
@@ -24,7 +66,7 @@ public class WaitingRoomUIManager : MonoBehaviour
     private void CloseCurrentList()
     {
         // 만약 현재 활성화된 리스트가 없으면
-        if (currentActiveList != null)
+        if (currentActiveList == null)
         {
             return; // 반환
         }

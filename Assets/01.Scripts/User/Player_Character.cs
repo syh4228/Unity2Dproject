@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -109,24 +110,33 @@ public class Player_Character : MonoBehaviour
         }
     }
 
-    private void Die() // 사망 함수
+    private async void Die() // 사망 함수
     {
-        _isDead = true; // 죽음 처리
-
-        /*
-        if (GameManager.Instance != null) // 게임매니저 싱글턴 있으면
+        if (_isDead) // 죽어있다면
         {
-            GameManager.Instance.GameOver(); // 게임오버 함수 호출
-        }
-        */
-
-        if (playerController != null) // 만약 플레이어 컨트롤러가 연결 되있으면
-        { 
-            playerController.Die(); // 플레이어 컨트롤러 죽음 함수 호출
+            return; // 반환
         }
 
-        // 사망시 더이상 몬스터와 충돌 방지
+        _isDead = true;
+
+        // 플레이어 컨트롤러가 있으면
+        if (playerController != null)
+        {
+            // 플레이어 컨트롤러 다이 함수 호출
+            playerController.Die();
+        }
+
         gameObject.layer = LayerMask.NameToLayer("PlayerDead");
+
+        // 죽고 나서 대기
+        await UniTask.Delay(1000);
+
+        // 게임매니저가 있으면
+        if (GameManager.Instance != null)
+        {
+            // 플레이어 사망 이벤트 호출
+            GameManager.Instance.BtnClick_PlayerDie();
+        }
     }
 
     // 임시체력 추가 적용 함수
