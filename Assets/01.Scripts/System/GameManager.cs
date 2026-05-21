@@ -21,10 +21,10 @@ public class GameManager : MonoBehaviour
 
     [Header("연결 데이터")]
     private string currentMapName; // (캠페인 + 챕터)  = 실제 맵 주소
-    private string selectedCampaign; // 선택 캠페인 저장
-    private int selectedChapter; // 선택 챕터 저장
-    private int selectedDifficulty; // 선택 난이도 저장
-    private int selectedCharacterIndex; // 캐릭터 고유 번호 저장
+    private string selectedCampaign = ""; // 선택 캠페인 저장
+    private int selectedChapter = -1; // 선택 챕터 저장
+    private int selectedDifficulty = -1; // 선택 난이도 저장
+    private int selectedCharacterIndex = -1; // 캐릭터 고유 번호 저장
 
     public bool IsBattleActive // 실제 게임 플레이 중인지 확인(전투)
     {
@@ -167,8 +167,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void BtnClick_GameStart() // 게임 시작 버튼 이벤트 함수
-    { 
-        ChangeState(GameState.Loading); // 로딩UI로 변환
+    {
+        // 캠페인,챕터,난이도,캐릭터중 하나라도 안고르면
+        if (string.IsNullOrEmpty(selectedCampaign) || selectedChapter == -1 || selectedDifficulty == -1 || selectedCharacterIndex == -1)
+        {
+            UtillLogRemove.Warning("캠페인, 챕터, 난이도, 캐릭터를 모두 선택해야 게임을 시작할 수 있습니다!");
+
+            if (UIManager.Instance != null) // ui매니저 있으면
+            {
+                // ui매니저에 경고창 이벤트 알림 함수 호출
+                UIManager.Instance.ShowLobbyWarning();
+            }
+
+            return; // 반환
+        }
+
+        ChangeState(GameState.Loading); ; // 로딩UI로 변환
     }
 
     public void BtnClick_PlayerDie() // 플레이어 죽음 이벤트 함수

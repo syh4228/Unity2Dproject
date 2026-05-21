@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private StartUIManager startUIManager; //  스타트 UI
     [SerializeField] private BattleUIManager battleUIManager; // 배틀UI
     [SerializeField] private LodingUIManager loadingUIManager; // 로딩 UI
+    [SerializeField] private WaitingRoomUIManager lobbyUIManager; // 로비 UI
 
     [Header("연결 컴포넌트")]
     [SerializeField] private GameObject startUI; //스타트 UI
@@ -220,5 +221,14 @@ public class UIManager : MonoBehaviour
     {
         // 게임매니저에게 게임상태 로비로 바꿔야한다고 알림
         GameManager.Instance.ChangeState(GameState.Lobby);   
+    }
+
+    public void ShowLobbyWarning() // 경고창 이벤트 알림 함수
+    {
+        if (lobbyUIManager != null) // 로비UI매니저가 있으면
+        {
+            // 경고창 열기함수 호출
+            lobbyUIManager.ShowWarningPopup();
+        }
     }
 }
