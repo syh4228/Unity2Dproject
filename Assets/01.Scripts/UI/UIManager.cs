@@ -180,7 +180,7 @@ public class UIManager : MonoBehaviour
     // 로딩UI로 호출 함수
     public void RequestLoading()
     {
-        // 게임매니저에 로딩UI로 상태 변화 알림
-        GameManager.Instance.ChangeState(GameState.Loading);
+        // 게임매니저에 로딩UI로 게임 시작 알림
+        GameManager.Instance.BtnClick_GameStart();
     }
 }
