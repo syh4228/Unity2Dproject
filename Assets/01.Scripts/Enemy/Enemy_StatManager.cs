@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 public class Enemy_StatManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Enemy_StatManager : MonoBehaviour
     private bool _isDead = false; // 죽음 체크
 
     public event Action<int, int> OnHpChanged; // UI에 최대체력과, 현재 체력 알려주기
+
+
 
     private void Start()
     {
@@ -80,6 +83,35 @@ public class Enemy_StatManager : MonoBehaviour
         // 사망시 더이상 몬스터와 충돌 방지
         gameObject.layer = LayerMask.NameToLayer("EnemyDead");
 
-        Destroy(gameObject, 0.5f);
+        // 비활성화 함수 호출
+        StartCoroutine(DeactivateRoutine(0.5f));
+    }
+
+
+    // 비활성화 함수
+    private IEnumerator DeactivateRoutine(float delay)
+    {
+        yield return new WaitForSeconds(delay); // 대기
+        gameObject.SetActive(false); // 오브젝트 풀 반환
+    }
+
+    // 적 리셋 함수
+    public void ResetEnemy()
+    {
+        _isDead = false; // 죽지 안았다면
+        currentHp = MaxHp; // 체력 회복
+
+        gameObject.layer = LayerMask.NameToLayer("Enemy"); // 레이어 복구
+
+        if (enemyAI != null)
+        {
+            enemyAI.enabled = true; // 적 AI 연결
+        }
+
+        if (animController != null)
+        {
+            animController.SetState(AllState.Idle); // 대기 모션으로
+        }
+
     }
 }

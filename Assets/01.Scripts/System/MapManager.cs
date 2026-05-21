@@ -64,4 +64,15 @@ public class MapManager : MonoBehaviour
             return null; // 널 반환
         }
     }
+
+    // 맵 정리 함수
+    public void ClearMap()
+    {
+        if (mapHandle.IsValid()) // 호출된 맵이 있다면
+        {
+            Addressables.Release(mapHandle); // 메모리 해제 및 오브젝트 파괴
+            currentMapInstance = null; 
+            UtillLogRemove.Log("기존 배틀 맵이 리리즈(삭제) 되었습니다.");
+        }
+    }
 }

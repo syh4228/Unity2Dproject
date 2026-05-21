@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Lobby: // 로비 상태시
+                ClearAllBattleRemnants(); // 로비UI로 이동전에 전투씬 청소
                 UIManager.Instance.CallLobbyUI(); // 로비 UI 호출
                 break;
 
@@ -251,5 +252,47 @@ public class GameManager : MonoBehaviour
     public void SetCharacter(int Index) 
     {
         selectedCharacterIndex = Index; 
+    }
+
+    // 배틀씬 청소 함수
+    private void ClearAllBattleRemnants()
+    {
+        // 맵 매니저가 있으면
+        if (MapManager.Instance != null)
+        {
+            // 맵매니저에서 맵정리 함수 호출
+            MapManager.Instance.ClearMap();
+        }
+
+        // 만약 캐릭터 매니저가 있으면
+        if (CharacterManager.Instance != null)
+        {
+            // 캐릭터 매니저에서 캐릭터 정리 함수 호출
+            CharacterManager.Instance.ClearCharacter();
+        }
+
+        // 적 스탯매니저를 컴포넌트를 달고 있으면 찾아서 배열로 저장
+        Enemy_StatManager[] remainingEnemies = FindObjectsByType<Enemy_StatManager>(FindObjectsSortMode.None);
+
+        foreach (var enemy in remainingEnemies) // 배열안의 적을 하나씩 꺼내서 확인
+        {
+            if (enemy != null) // 적이 있으면
+            {
+                Destroy(enemy.gameObject); // 삭제
+            }
+        }
+
+        // 총알매니저 컴포넌트를 달고 있으면 찾아서 배열로 저장
+        BulletManager[] remainingBullets = FindObjectsByType<BulletManager>(FindObjectsSortMode.None);
+
+        foreach (var bullet in remainingBullets) // 배열안에 총알을 하나씩 꺼내서 확인
+        {
+            if (bullet != null) // 총알이 있으면
+            {
+                bullet.gameObject.SetActive(false); // 비활성화
+            }
+        }
+
+        UtillLogRemove.Log(" 전투 구역의 모든 잔해(플레이어, 맵, 풀링된 적) 청소 완료!");
     }
 }

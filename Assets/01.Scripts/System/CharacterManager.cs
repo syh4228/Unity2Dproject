@@ -46,4 +46,15 @@ public class CharacterManager : MonoBehaviour
 
         return currentCharact;
     }
+
+    // 캐릭터 청소 함수
+    public void ClearCharacter() 
+    {
+        if (currentCharact != null) // 캐릭터가 있다면
+        {
+            currentCharact.DestroySafe(); // 플레이어 파괴
+            currentCharact = null;
+            UtillLogRemove.Log("기존 플레이어 오브젝트가 파괴되었습니다.");
+        }
+    }
 }
