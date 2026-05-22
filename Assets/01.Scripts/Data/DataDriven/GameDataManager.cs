@@ -11,6 +11,8 @@ public class GameDataManager : MonoBehaviour
     private void Awake()
     {
         Instance = this; // 인스턴스
+
+        GameUtill.LoadFullData(); // 모든 데이터 받아오기
     }
 
     [Serializable]
@@ -21,31 +23,29 @@ public class GameDataManager : MonoBehaviour
         public List<T> items; // 파일의 루트 키 이름을 지정
     }
 
-    // 딕셔너리에 정보 받아오기
-    public Dictionary<string, CharacterData> CharacterDataList { get; private set; }
-    public Dictionary<string, SkillData> SkillDataList { get; private set; }
-    public Dictionary<string, WeaponData> WeaponDataList { get; private set; }
-    public Dictionary<string, CostumeData> CostumeDataList { get; private set; }
-
-    private GameDataManager() // 받아온 정보 변수로 저장
-    {
-        CharacterDataList = new Dictionary<string, CharacterData>();
-        SkillDataList = new Dictionary<string, SkillData>();
-        WeaponDataList = new Dictionary<string, WeaponData>();
-        CostumeDataList = new Dictionary<string, CostumeData>();
-    }
+    // 딕셔너리에 정보 받아오고 변수로 저장
+    public Dictionary<string, CharacterData> CharacterDataList { get; private set; } = new Dictionary<string, CharacterData>();
+    public Dictionary<string, SkillData> SkillDataList { get; private set; } = new Dictionary<string, SkillData>();
+    public Dictionary<string, WeaponData> WeaponDataList { get; private set; } = new Dictionary<string, WeaponData>();
+    public Dictionary<string, CostumeData> CostumeDataList { get; private set; } = new Dictionary<string, CostumeData>();
+    // 필요한 Json파일 생성후 연결 해주지 파일이름 + DataList
 
     // 제네릭(T)을 사용하여 모든 데이터 타입을 한 번에 처리 함수
-    private Dictionary<string, T> LoadData<T>(string jsonPath) where T : GameDataBase
+    private Dictionary<string, T> LoadData<T>(string tableName) where T : GameDataBase
     {
-        if (!File.Exists(jsonPath)) // 파일이 없다면
+        string resourcePath = $"JsonOutput/{tableName}"; // 경로 설정
+
+        TextAsset textAsset = Resources.Load<TextAsset>(resourcePath); // 리소스 로드
+
+        if (textAsset == null) // 파일이 없다면
         {
-            UtillLogRemove.Error($"[Error] 파일을 찾을 수 없습니다: {jsonPath}");
+            UtillLogRemove.Error($"[Error] 파일을 찾을 수 없습니다: {resourcePath}");
             return new Dictionary<string, T>(); // 딕셔너리에 새로 저장
         }
         try // 있으면
         {
-            string jsonString = File.ReadAllText(jsonPath); // 문자열로 파일 가져오기
+            string jsonString = textAsset.text; // 문자열로 파일 가져오기
+
             // Json을 읽을 수 있도록 배열의 형태의 껍대기를 씌워주기
             string wrappedJson = "{\"items\":" + jsonString + "}"; 
             // 리스트 형태로 변환
@@ -55,7 +55,7 @@ public class GameDataManager : MonoBehaviour
             {
                 UtillLogRemove.Log($"{typeof(T).Name} 데이터를 {wrapper.items.Count}개 로드했습니다.");
                 // Id 속성의 키값을 아이템으로 변환하여 딕셔너리 저장
-                return wrapper.items.ToDictionary(item => item.Id);
+                return wrapper.items.ToDictionary(item => item.Id.ToString());
             }
         }
         catch (Exception ex) // 실패시
@@ -87,6 +87,8 @@ public class GameDataManager : MonoBehaviour
         CostumeDataList = LoadData<CostumeData>(jsonPath);
     }
 
+    // 로드데이타 부분도 새로 파일했으면 넣어줘야함
+
     // Id 를 이용하여 데이터 찾아오기
     public CharacterData GetCharacterData(string id)
     {
@@ -114,4 +116,6 @@ public class GameDataManager : MonoBehaviour
 
         return CostumeDataList.TryGetValue(id, out var data) ? data : null;
     }
+
+    // 추가시 여기도 맞게 넣어주기
 }

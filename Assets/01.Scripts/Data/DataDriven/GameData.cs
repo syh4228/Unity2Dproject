@@ -7,6 +7,10 @@ public class GameDataBase
     public string Id;
 }
 
+// Syste.Text.Json대신 유니티 내장 JsonUtility를 사용
+// 따라서 프로퍼티말고 그냥 일반 public 멤버변수로 변경함
+// [System.Serializable]가 없다면 JsonUtility는 데이터를 무시
+
 [System.Serializable]
 public class CharacterData : GameDataBase
 {
