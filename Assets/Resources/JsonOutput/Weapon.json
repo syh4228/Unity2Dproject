@@ -1,0 +1,112 @@
+[
+  {
+    "Id": "Weapon_PT_1",
+    "Name": "PT",
+    "Description": "기본적인 한손 권총으로 가볍고, 반동이 적어 사용감이 좋다",
+    "Damage": 20,
+    "RPM": 50,
+    "EffectiveRange": 40,
+    "Capacity": 8,
+    "Capacity2": null,
+    "IconPath": "Icon/Icon_PT"
+  },
+  {
+    "Id": "Weapon_PT2_2",
+    "Name": "PT2",
+    "Description": "PT 권총에서 강한 화력을 보강해, 일반 좀비는 한방에 보내버린다.",
+    "Damage": 50,
+    "RPM": 50,
+    "EffectiveRange": 50,
+    "Capacity": 8,
+    "Capacity2": null,
+    "IconPath": "Icon/Icon_RT2"
+  },
+  {
+    "Id": "Weapon_R0_3",
+    "Name": "R0",
+    "Description": "사격 속도, 데미지, 탄창량 무엇하나 뛰어나지는 않지만, 꿇리지도 않는다.",
+    "Damage": 35,
+    "RPM": 60,
+    "EffectiveRange": 65,
+    "Capacity": 30,
+    "Capacity2": 150,
+    "IconPath": "Icon/Icon_R0"
+  },
+  {
+    "Id": "Weapon_SG_4",
+    "Name": "SG",
+    "Description": "적이 멀리 있을 수록 데미지는 떨어지지만, 가까이 있다면 한번에 죽이기도 쉽다. ",
+    "Damage": 100,
+    "RPM": 50,
+    "EffectiveRange": 30,
+    "Capacity": 12,
+    "Capacity2": 72,
+    "IconPath": "Icon/Icon_SG"
+  },
+  {
+    "Id": "Weapon_MG_5",
+    "Name": "MG",
+    "Description": "빠른 사격 속도에 중점을 둔 화기로 총알이 금세 동나고 한다.",
+    "Damage": 25,
+    "RPM": 100,
+    "EffectiveRange": 50,
+    "Capacity": 50,
+    "Capacity2": 200,
+    "IconPath": "Icon/Icon_MG"
+  },
+  {
+    "Id": "Weapon_SR_6",
+    "Name": "SR",
+    "Description": "느리지만 확실하게 한발에 여러마리의 적을 한방에 죽인다.",
+    "Damage": 100,
+    "RPM": 20,
+    "EffectiveRange": 80,
+    "Capacity": 10,
+    "Capacity2": 50,
+    "IconPath": "Icon/Icon_SR"
+  },
+  {
+    "Id": "Weapon_GN_7",
+    "Name": "GN",
+    "Description": "뭉쳐있는 적에 효과적인 투척무기",
+    "Damage": 100,
+    "RPM": 0,
+    "EffectiveRange": 0,
+    "Capacity": 0,
+    "Capacity2": 0,
+    "IconPath": "Icon/Icon_GN"
+  },
+  {
+    "Id": "Weapon_HK_8",
+    "Name": "HK",
+    "Description": "체력을 회복할 수 있는 키트. 사용하는 동안 무방비에 조심하자.",
+    "Damage": 0,
+    "RPM": 0,
+    "EffectiveRange": 0,
+    "Capacity": 0,
+    "Capacity2": 0,
+    "IconPath": "Icon/Icon_HK"
+  },
+  {
+    "Id": "Weapon_MK_9",
+    "Name": "MD",
+    "Description": "체력을 빠르게 회복할 수 있지만 효과는 일시적이다.",
+    "Damage": 0,
+    "RPM": 0,
+    "EffectiveRange": 0,
+    "Capacity": 0,
+    "Capacity2": 0,
+    "IconPath": "Icon/Icon_MD"
+  },
+  {
+    "Id": "Weapon_AD_10",
+    "Name": "AD",
+    "Description": "체력을 일시적으로 빠르게 회복하며, 지치지 않게 해준다.",
+    "Damage": 0,
+    "RPM": 0,
+    "EffectiveRange": 0,
+    "Capacity": 0,
+    "Capacity2": 0,
+    "IconPath": "Icon/Icon_AD"
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "character_Prey_01",
+    "Name": "Prey",
+    "Description": "주인공 소녀",
+    "SkillList": "skill_fireball_01,skill_normalSword_01",
+    "UseWeaponId": "Weapon_Braclet_1",
+    "BasicCostumeId": "Costume_03"
+  }
+]

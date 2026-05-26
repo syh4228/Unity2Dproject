@@ -15,6 +15,61 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 3fdd9847ca9f0ba4f8a7c6748dfadb0a
   m_SerializeEntries:
+  - m_GUID: 077c36c8cef12234ea6ad360879b86e7
+    m_Address: Icon/Icon_GN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0dfef3c4968dfe9429d6576fb31b7ab1
+    m_Address: Icon/Icon_HK
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18760fde9c2dd2f41b8c041bb35927c7
+    m_Address: Icon/Icon_AD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3444cad14cc40964696d9500e3cef64f
+    m_Address: Icon/Icon_RT2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6179e76a7c828c941aaff729bfd3849c
+    m_Address: Icon/Icon_SG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 690f4507075a5044dae4ba35e657cf4e
+    m_Address: Icon/Icon_R0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 707dfccc9a078af4084705e831182e94
+    m_Address: Icon/Icon_PT
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b05c41a6aedece49aa1ff7780a1e0ee
+    m_Address: Icon/Icon_MD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96b038c71b603f94aae04cd6958db69c
+    m_Address: Icon/Icon_Bullt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: acdc177042cad6748b8d20925ae2d809
+    m_Address: Icon/Icon_SR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b10ff8cf3905c4f419e91d11b3fc96c1
+    m_Address: Icon/Icon_MG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce897477ca3fbe342823004748275e12
     m_Address: Assets/05.Prefabs/Map/Cp_01_Ct_01.prefab
     m_ReadOnly: 0

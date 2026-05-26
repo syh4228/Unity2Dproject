@@ -28,6 +28,13 @@ public class GameDataManager : MonoBehaviour
     public Dictionary<string, SkillData> SkillDataList { get; private set; } = new Dictionary<string, SkillData>();
     public Dictionary<string, WeaponData> WeaponDataList { get; private set; } = new Dictionary<string, WeaponData>();
     public Dictionary<string, CostumeData> CostumeDataList { get; private set; } = new Dictionary<string, CostumeData>();
+
+    public Dictionary<string, DNDialogueGroupData> DialogueGroupDataList { get; private set; } = new Dictionary<string, DNDialogueGroupData>();
+
+    public Dictionary<string, DNDialogueData> DialogueDataList { get; private set; } = new Dictionary<string, DNDialogueData>();
+
+
+
     // 필요한 Json파일 생성후 연결 해주지 파일이름 + DataList
 
     // 제네릭(T)을 사용하여 모든 데이터 타입을 한 번에 처리 함수
@@ -87,6 +94,12 @@ public class GameDataManager : MonoBehaviour
         CostumeDataList = LoadData<CostumeData>(jsonPath);
     }
 
+    public void LoadDNDialogueData()
+    {
+        DialogueGroupDataList = LoadData<DNDialogueGroupData>("DNDialogueGroup");
+        DialogueDataList = LoadData<DNDialogueData>("DNDialogue");
+    }
+
     // 로드데이타 부분도 새로 파일했으면 넣어줘야함
 
     // Id 를 이용하여 데이터 찾아오기
@@ -117,5 +130,18 @@ public class GameDataManager : MonoBehaviour
         return CostumeDataList.TryGetValue(id, out var data) ? data : null;
     }
 
+    public DNDialogueGroupData GetDNDialogueGroupData(string dataId)
+    {
+        if (DialogueGroupDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return DialogueGroupDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public DNDialogueData GetDNDialogueData(string dataId)
+    {
+        if (DialogueDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return DialogueDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
     // 추가시 여기도 맞게 넣어주기
 }

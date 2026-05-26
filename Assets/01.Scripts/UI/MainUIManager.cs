@@ -44,7 +44,7 @@ public class MainUIManager : MonoBehaviour
 
     private void OnBookClick()
     {
-        Debug.Log("도감은 추후 구현 예정");
+        // UIManager.Instance.ItemBookUI;
     }
 
     private void OnOptionClick()

@@ -32,6 +32,12 @@ public class WeaponData : GameDataBase
 {
     public string Name;
     public string Description;
+    public int Damage;
+    public int RPM;
+    public int EffectiveRange;
+    public int Capacity;
+    public int Capacity2;
+    public string IconPath;
 }
 
 [System.Serializable]
@@ -39,4 +45,21 @@ public class CostumeData : GameDataBase
 {
     public string Name;
     public string Description;
+}
+
+[System.Serializable]
+public class DNDialogueGroupData : GameDataBase
+{
+    public List<string> DialogueIdList;
+}
+
+public class DNDialogueData : GameDataBase
+{
+    public string CharacterDataId;
+    public string Description;
+    public string NextDialogueId;
+    public List<string> SelectionNameList;
+    public List<string> SelectionDialogueIdList;
+    public string TexturePath;
+    public string VoicePath;
 }
