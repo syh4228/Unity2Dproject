@@ -26,19 +26,45 @@ public class ItemBookUI : MonoBehaviour
     [Header("슬롯 리스트 영역")]
     [SerializeField] private Transform Transform_SlotRoot; // 스롯이 생성될 곳
 
+    [Header("닫기 버튼")]
+    [SerializeField] private UIButton Button_CloseUI; // 닫기 번튼 연결
+
     // 딕셔너리로 저장관리
     private Dictionary<string, ItemBookSlotUI> _slotList = new Dictionary<string, ItemBookSlotUI>();
 
     private void OnEnable()
     {
-        if (_slotList.Count > 0) // 슬롯이 열려있으면 
-        {
-            return; // 반환
-        }
-
         // UI가 열릴때 스스로, 기본적인 아이템 도감안에 있는 모든 데이터 불러오기
         ReadItemListAndCreateSlot();
 
+        if (Button_CloseUI != null)
+        {
+            Button_CloseUI.BindOnClickButtonEvent(OnClick_CloseGameBookUI);
+        }
+    }
+
+    public void OnClick_CloseGameBookUI()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if (Button_CloseUI != null)
+        {
+            Button_CloseUI.UnBindOnClickButtonEvent(OnClick_CloseGameBookUI);
+        }
+
+        if ( _slotList.Count > 0 )
+        {
+            foreach(var slotKv in _slotList) // 하나씩 꺼내서 
+            {
+                var slot = slotKv.Value; // 컴포넌트지만, 게임오브젝트로 받을 수 있다.
+                DestroyImmediate(slot.gameObject); // 오브젝트 슬롯 파괴
+            }
+
+            _slotList.Clear();
+        }
     }
 
     // 아이템 리스트를 읽고 슬롯 생성 함수
@@ -57,6 +83,15 @@ public class ItemBookUI : MonoBehaviour
             }
 
             CreateGameBookSlot(data.Id); // 슬롯 생성 함수에 아이 전달
+        }
+
+        if (_slotList.Count > 0) // 도감 열떄 한나 도감 내용 활성화
+        {
+            foreach (var slotKv in _slotList)
+            {
+                var slot = slotKv.Value;
+                slot.OnClick_GameBookSlot(); 
+            }
         }
     }
 
