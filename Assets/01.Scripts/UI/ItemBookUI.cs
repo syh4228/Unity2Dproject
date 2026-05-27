@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Cysharp.Threading.Tasks;
 
 public class ItemBookUI : MonoBehaviour
 {
@@ -9,17 +11,17 @@ public class ItemBookUI : MonoBehaviour
 
     [Header("기본 정보 영역")]
     [SerializeField] private Image Image_MainIcon; // 메인 아이콘
-    [SerializeField] private Text Text_MainName; // 메인 이름
-    [SerializeField] private Text Text_Description; // 설명
+    [SerializeField] private TextMeshProUGUI Text_MainName; // 메인 이름
+    [SerializeField] private TextMeshProUGUI Text_Description; // 설명
 
     [Header("상세 정보 영역")]
-    [SerializeField] private Text Text_Damage; // 데미지
+    [SerializeField] private TextMeshProUGUI Text_Damage; // 데미지
     [SerializeField] private Image Image_DamageBar; // 데미지 이미지 바
-    [SerializeField] private Text Text_RPM; // 사속
+    [SerializeField] private TextMeshProUGUI Text_RPM; // 사속
     [SerializeField] private Image Image_RPMBar;
-    [SerializeField] private Text Text_ER; // 사거리
+    [SerializeField] private TextMeshProUGUI Text_ER; // 사거리
     [SerializeField] private Image Image_ERBar;
-    [SerializeField] private Text Text_Capacity; // 총알
+    [SerializeField] private TextMeshProUGUI Text_Capacity; // 총알
 
     [Header("슬롯 리스트 영역")]
     [SerializeField] private Transform Transform_SlotRoot; // 스롯이 생성될 곳
@@ -29,6 +31,11 @@ public class ItemBookUI : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_slotList.Count > 0) // 슬롯이 열려있으면 
+        {
+            return; // 반환
+        }
+
         // UI가 열릴때 스스로, 기본적인 아이템 도감안에 있는 모든 데이터 불러오기
         ReadItemListAndCreateSlot();
 
@@ -73,7 +80,61 @@ public class ItemBookUI : MonoBehaviour
         }
 
         // 자식에서 슬롯 정보 가져오기
-        slotComponent.initSlot(dataId);
+        slotComponent.initSlot(dataId, OnClickchuldSlotSelected);
         _slotList.Add(dataId, slotComponent);
+    }
+
+    // 슬롯 버튼이 눌러졌을때 자식한테서 데이터 받아오기
+    private void OnClickchuldSlotSelected(string slotDataId)
+    {
+        var currentSelectedData = GameDataManager.Instance.GetWeaponData(slotDataId);
+        
+        if (currentSelectedData == null)
+        {
+            return;
+        }
+
+
+        GameUtill.LoadAndSetSpriteImage(Image_MainIcon, currentSelectedData.IconPath).Forget(); 
+        Text_MainName.text = currentSelectedData.Name;
+        Text_Description.text = currentSelectedData.Description;
+
+        // int 형 답을 string으로 받기 위해서 To.String() 붙임
+        Text_Damage.text = currentSelectedData.Damage.ToString();
+        Text_RPM.text = currentSelectedData.RPM.ToString();
+        Text_ER.text = currentSelectedData.EffectiveRange.ToString();
+        // 장탄수 표기
+        if (currentSelectedData.Capacity2 == -1)
+        {
+            // -1 이면 무한대 기호(∞)로 출력
+            Text_Capacity.text = $"{currentSelectedData.Capacity} / ∞";
+        }
+        else if (currentSelectedData.Capacity == 0 && currentSelectedData.Capacity2 == 0)
+        {
+            // 둘 다 0이면 (근접무기, 회복약 등) 대시(-)로 출력
+            Text_Capacity.text = "-";
+        }
+        else
+        {
+            // 일반 총기류는 정상적으로 "10 / 100" 형태로 출력
+            Text_Capacity.text = $"{currentSelectedData.Capacity} / {currentSelectedData.Capacity2}";
+        }
+
+        // int형 답을 받아서 최대 값을 나눠서 이미지 바(fillAmount)에 방영
+        float maxDamage = 100f; // 무기 최대 데미지 기준점
+        Image_DamageBar.fillAmount = currentSelectedData.Damage / maxDamage;
+
+        float maxRPM = 100f;    // 무기 최대 사속 기준점
+        Image_RPMBar.fillAmount = currentSelectedData.RPM / maxRPM;
+
+        float maxER = 100f;     // 무기 최대 사거리 기준점
+        Image_ERBar.fillAmount = currentSelectedData.EffectiveRange / maxER;
+
+        foreach (var slotKv in _slotList) // 하나씩 확인하면서 활성화, 비활성화
+        {
+            var slot = slotKv.Value;
+            var dataId = slot.GetSlotDataId();
+            slot.SetSelectedUI(slotDataId == dataId);
+        }
     }
 }

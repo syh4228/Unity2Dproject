@@ -7,7 +7,7 @@
     "RPM": 50,
     "EffectiveRange": 40,
     "Capacity": 8,
-    "Capacity2": null,
+    "Capacity2": -1,
     "IconPath": "Icon/Icon_PT"
   },
   {
@@ -18,7 +18,7 @@
     "RPM": 50,
     "EffectiveRange": 50,
     "Capacity": 8,
-    "Capacity2": null,
+    "Capacity2": -1,
     "IconPath": "Icon/Icon_RT2"
   },
   {
