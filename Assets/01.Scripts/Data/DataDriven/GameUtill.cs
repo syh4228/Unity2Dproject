@@ -16,10 +16,10 @@ public static class GameUtill
     // 모든 데이터 일괄 로드
     public static void LoadFullData()
     {
-        GameDataManager.Instance.LoadSkillData(GetFullDataPath("Skill"));
-        GameDataManager.Instance.LoadCharacterData(GetFullDataPath("Character"));
-        GameDataManager.Instance.LoadWeaponData(GetFullDataPath("Weapon"));
-        GameDataManager.Instance.LoadCostumeData(GetFullDataPath("Costume"));
+        GameDataManager.Instance.LoadSkillData("Skill");
+        GameDataManager.Instance.LoadCharacterData("Character");
+        GameDataManager.Instance.LoadWeaponData("Weapon");
+        GameDataManager.Instance.LoadCostumeData("Costume");
     }
 
     // Json 파일의 경로를 찾아주는 함수

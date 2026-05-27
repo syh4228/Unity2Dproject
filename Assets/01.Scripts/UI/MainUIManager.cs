@@ -9,6 +9,9 @@ public class MainUIManager : MonoBehaviour
     [SerializeField] private Button optionButton; // 설정 버튼
     [SerializeField] private Button exitButton; // 종료 버튼
 
+    [Header("도감 연결")]
+    [SerializeField] private GameObject itemBook; // 도감 연결
+
     private void Start()
     {
         if (playButton != null)
@@ -44,7 +47,14 @@ public class MainUIManager : MonoBehaviour
 
     private void OnBookClick()
     {
-        // UIManager.Instance.ItemBookUI;
+        if (itemBook != null)
+        {
+            itemBook.SetActive(true);
+        }
+        else
+        {
+            UtillLogRemove.Error("도감 연결 확인요망");
+        }
     }
 
     private void OnOptionClick()
