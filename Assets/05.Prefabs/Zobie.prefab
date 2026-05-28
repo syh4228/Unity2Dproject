@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 1716997328033491087}
   - component: {fileID: 5408942040629497800}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Zobie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

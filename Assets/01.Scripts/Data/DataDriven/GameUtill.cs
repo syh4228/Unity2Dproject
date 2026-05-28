@@ -20,6 +20,7 @@ public static class GameUtill
         GameDataManager.Instance.LoadCharacterData("Character");
         GameDataManager.Instance.LoadWeaponData("Weapon");
         GameDataManager.Instance.LoadCostumeData("Costume");
+        GameDataManager.Instance.LoadDNMonsterData("DNMonster");
     }
 
     // Json 파일의 경로를 찾아주는 함수

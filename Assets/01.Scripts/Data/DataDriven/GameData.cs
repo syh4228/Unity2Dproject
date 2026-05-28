@@ -53,6 +53,7 @@ public class DNDialogueGroupData : GameDataBase
     public List<string> DialogueIdList;
 }
 
+[System.Serializable]
 public class DNDialogueData : GameDataBase
 {
     public string CharacterDataId;
@@ -62,4 +63,17 @@ public class DNDialogueData : GameDataBase
     public List<string> SelectionDialogueIdList;
     public string TexturePath;
     public string VoicePath;
+}
+
+[System.Serializable]
+public class DNMonsterData : GameDataBase
+{
+    public string Name;
+    public string Description;
+    public int BaseHp;
+    public int BaseAtk;
+    public float NormalAtkMultiple;
+    public float SkillAtkMultipleList;
+    public string IconPath;
+    public string PrefabPath;
 }

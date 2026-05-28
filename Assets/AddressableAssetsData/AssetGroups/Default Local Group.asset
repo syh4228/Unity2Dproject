@@ -30,6 +30,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 229746847a7181343a98c0be141cd030
+    m_Address: Icon/Icon_Zobiegir
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d57a7dbe39356046a487fd0e81fe415
+    m_Address: Icon/Icon_Zobie
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3444cad14cc40964696d9500e3cef64f
     m_Address: Icon/Icon_RT2
     m_ReadOnly: 0
@@ -75,6 +85,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Map_Stage1_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4f7d57fe96357941b55944b2869b57a
+    m_Address: 2DObject/Zobie
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ae5b7631374e91b44a823a98c8094b52, type: 2}

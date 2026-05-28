@@ -33,6 +33,8 @@ public class GameDataManager : MonoBehaviour
 
     public Dictionary<string, DNDialogueData> DialogueDataList { get; private set; } = new Dictionary<string, DNDialogueData>();
 
+    public Dictionary<string, DNMonsterData> DNMonsterDataList { get; private set; } = new Dictionary<string, DNMonsterData>();
+
 
 
     // 필요한 Json파일 생성후 연결 해주지 파일이름 + DataList
@@ -100,6 +102,11 @@ public class GameDataManager : MonoBehaviour
         DialogueDataList = LoadData<DNDialogueData>("DNDialogue");
     }
 
+    public void LoadDNMonsterData(string jsonPath)
+    {
+        DNMonsterDataList = LoadData<DNMonsterData>(jsonPath);
+    }
+
     // 로드데이타 부분도 새로 파일했으면 넣어줘야함
 
     // Id 를 이용하여 데이터 찾아오기
@@ -143,5 +150,12 @@ public class GameDataManager : MonoBehaviour
 
         return DialogueDataList.TryGetValue(dataId, out var data) ? data : null;
     }
+
+    public DNMonsterData GetDNMonsterData(string id)
+    {
+        if (DNMonsterDataList == null || string.IsNullOrEmpty(id)) return null;
+        return DNMonsterDataList.TryGetValue(id, out var data) ? data : null;
+    }
+
     // 추가시 여기도 맞게 넣어주기
 }

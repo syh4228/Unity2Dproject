@@ -1,51 +1,93 @@
 [
   {
-    "Id": "mob_slim_1",
-    "Name": "슬라이무",
-    "Description": "슬라이무는 공격을 받을 때마다 딸기맛, 초코맛, 바닐라맛으로 변한다",
-    "BaseHp": 500,
-    "BaseAtk": 20,
-    "NormalAtkMultiple": 1,
+    "Id": "mob_zobie_1",
+    "Name": "좀비",
+    "Description": "수가 많다면 고생하겠지만, 혼자라면 위험이 될 수준은 아니다.",
+    "BaseHp": 100,
+    "BaseAtk": 5,
+    "NormalAtkMultiple": 0,
     "SkillAtkMultipleList": [
-      2
+      0
     ],
-    "IconPath": "Icon/Icon_Slime",
-    "PrefabPath": "2DObject/Monster_Slime"
+    "IconPath": "Icon/Icon_Zobie",
+    "PrefabPath": "2DObject/Zobie"
   },
   {
-    "Id": "mob_dog_1",
-    "Name": "도그",
-    "Description": "도그는 도그다",
-    "BaseHp": null,
-    "BaseAtk": null,
-    "NormalAtkMultiple": null,
-    "SkillAtkMultipleList": null,
+    "Id": "mob_zobie_2",
+    "Name": "여성 좀비",
+    "Description": "수가 많다면 고생하겠지만, 혼자라면 위험이 될 수준은 아니다.",
+    "BaseHp": 100,
+    "BaseAtk": 5,
+    "NormalAtkMultiple": 0,
+    "SkillAtkMultipleList": [
+      0
+    ],
+    "IconPath": "Icon/Icon_Zobiegir",
+    "PrefabPath": null
+  },
+  {
+    "Id": "mob_variationzobie_1",
+    "Name": "비스트",
+    "Description": "4발로 뛰어다니며, 사냥감을 덮치는 위험한 변종",
+    "BaseHp": 250,
+    "BaseAtk": 5,
+    "NormalAtkMultiple": 0,
+    "SkillAtkMultipleList": [
+      0
+    ],
     "IconPath": null,
     "PrefabPath": null
   },
   {
-    "Id": "mob_pigme_1",
-    "Name": "피그미",
-    "Description": "피그미는 충돌하면 사라진다. 간헐적으로 금화가 터져나온다.",
-    "BaseHp": null,
-    "BaseAtk": null,
-    "NormalAtkMultiple": null,
-    "SkillAtkMultipleList": null,
+    "Id": "mob_variationzobie_2",
+    "Name": "바머",
+    "Description": "뚱뚱한 외형에 적을 향해 빠른 속도로 달려와 터지는 변종",
+    "BaseHp": 150,
+    "BaseAtk": 10,
+    "NormalAtkMultiple": 0,
+    "SkillAtkMultipleList": [
+      0
+    ],
     "IconPath": null,
     "PrefabPath": null
   },
   {
-    "Id": "mob_bear_1",
-    "Name": "곰저씨",
-    "Description": "곰 아저씨다. 아무 의미 없다",
-    "BaseHp": 1000,
-    "BaseAtk": 100,
-    "NormalAtkMultiple": 0.5,
+    "Id": "mob_variationzobie_3",
+    "Name": "미믹",
+    "Description": "상자, 쓰레기통등 물건 안에 숨어있다, 적에게 달려드는 변종",
+    "BaseHp": 50,
+    "BaseAtk": 5,
+    "NormalAtkMultiple": 0,
     "SkillAtkMultipleList": [
-      1.5,
-      5
+      0
     ],
-    "IconPath": "Icon/Icon_Bear",
-    "PrefabPath": "2DObject/Monster_Bear"
+    "IconPath": null,
+    "PrefabPath": null
+  },
+  {
+    "Id": "mob_variationzobie_4",
+    "Name": "쓰로머",
+    "Description": "자루를 끌고 다니는 변종, 적을 보면 자루안에 있는 시체파편이나,죽은쥐등을 날린다.",
+    "BaseHp": 200,
+    "BaseAtk": 5,
+    "NormalAtkMultiple": 0,
+    "SkillAtkMultipleList": [
+      0
+    ],
+    "IconPath": null,
+    "PrefabPath": null
+  },
+  {
+    "Id": "mob_variationzobie_5",
+    "Name": "오거",
+    "Description": "거대한 몸집과 괴력을 가진 변종, ",
+    "BaseHp": 3000,
+    "BaseAtk": 10,
+    "NormalAtkMultiple": 0,
+    "SkillAtkMultipleList": [
+      0
+    ],
+    "IconPath": null,
+    "PrefabPath": null
   }
 ]
