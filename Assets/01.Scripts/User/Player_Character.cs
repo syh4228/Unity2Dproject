@@ -13,6 +13,10 @@ public class Player_Character : MonoBehaviour
     public float currentTempHp = 0f; // 현재 임시체력
     [SerializeField] public float tempHpDecayRate = 2f; // 임시체력 지속력
 
+    [Header("스테미너")]
+    public int MaxStamina; // 최대 스테미나
+    public int currentStamina; // 현재 스테미나
+
     [Header("경직 설정")]
     [SerializeField] private float stunTime = 0.5f;// 경직시간
 

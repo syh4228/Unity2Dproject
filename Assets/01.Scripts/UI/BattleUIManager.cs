@@ -9,7 +9,7 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private Image hpFillImage; // 체력바 표기할 HP
     [SerializeField] private Image hpTempFillImage; // 임시 체력바 표기할 HP
     [SerializeField] private Color tempHpColor; // 임시 체력바 고정 색깔
-
+    
     [Header("총기 UI")]
     [SerializeField] private TextMeshProUGUI gun01_MagazineText; // 현재 탄창 총알 표기
     [SerializeField] private TextMeshProUGUI gun01_ReserveText; // 총 총알 표기

@@ -38,6 +38,8 @@ public class WeaponData : GameDataBase
     public int Capacity;
     public int Capacity2;
     public string IconPath;
+    public string PrefabPath;
+    public string UseType;
 }
 
 [System.Serializable]

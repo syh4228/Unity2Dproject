@@ -8,7 +8,9 @@
     "EffectiveRange": 40,
     "Capacity": 8,
     "Capacity2": -1,
-    "IconPath": "Icon/Icon_PT"
+    "IconPath": "Icon/Icon_PT",
+    "PrefabPath": "2DObject/PT_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_PT2_2",
@@ -19,7 +21,9 @@
     "EffectiveRange": 50,
     "Capacity": 8,
     "Capacity2": -1,
-    "IconPath": "Icon/Icon_RT2"
+    "IconPath": "Icon/Icon_RT2",
+    "PrefabPath": "2DObject/RT2_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_R0_3",
@@ -30,7 +34,9 @@
     "EffectiveRange": 65,
     "Capacity": 30,
     "Capacity2": 150,
-    "IconPath": "Icon/Icon_R0"
+    "IconPath": "Icon/Icon_R0",
+    "PrefabPath": "2DObject/R0_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_SG_4",
@@ -41,7 +47,9 @@
     "EffectiveRange": 30,
     "Capacity": 12,
     "Capacity2": 72,
-    "IconPath": "Icon/Icon_SG"
+    "IconPath": "Icon/Icon_SG",
+    "PrefabPath": "2DObject/SG_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_MG_5",
@@ -52,7 +60,9 @@
     "EffectiveRange": 50,
     "Capacity": 50,
     "Capacity2": 200,
-    "IconPath": "Icon/Icon_MG"
+    "IconPath": "Icon/Icon_MG",
+    "PrefabPath": "2DObject/MG_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_SR_6",
@@ -63,7 +73,9 @@
     "EffectiveRange": 80,
     "Capacity": 10,
     "Capacity2": 50,
-    "IconPath": "Icon/Icon_SR"
+    "IconPath": "Icon/Icon_SR",
+    "PrefabPath": "2DObject/SR_Drop",
+    "UseType": "Gun"
   },
   {
     "Id": "Weapon_GN_7",
@@ -74,7 +86,9 @@
     "EffectiveRange": 0,
     "Capacity": 0,
     "Capacity2": 0,
-    "IconPath": "Icon/Icon_GN"
+    "IconPath": "Icon/Icon_GN",
+    "PrefabPath": "2DObject/GN_Drop",
+    "UseType": "Boom"
   },
   {
     "Id": "Weapon_HK_8",
@@ -85,7 +99,9 @@
     "EffectiveRange": 0,
     "Capacity": 0,
     "Capacity2": 0,
-    "IconPath": "Icon/Icon_HK"
+    "IconPath": "Icon/Icon_HK",
+    "PrefabPath": "2DObject/HK_Drop",
+    "UseType": "Heel"
   },
   {
     "Id": "Weapon_MK_9",
@@ -96,7 +112,9 @@
     "EffectiveRange": 0,
     "Capacity": 0,
     "Capacity2": 0,
-    "IconPath": "Icon/Icon_MD"
+    "IconPath": "Icon/Icon_MD",
+    "PrefabPath": "2DObject/MD_Drop",
+    "UseType": "Heel"
   },
   {
     "Id": "Weapon_AD_10",
@@ -107,6 +125,21 @@
     "EffectiveRange": 0,
     "Capacity": 0,
     "Capacity2": 0,
-    "IconPath": "Icon/Icon_AD"
+    "IconPath": "Icon/Icon_AD",
+    "PrefabPath": "2DObject/AD_Drop",
+    "UseType": "Heel"
+  },
+  {
+    "Id": "Weapon_AC_11",
+    "Name": "AC",
+    "Description": "보유하고 있는 무기의 탄약을 체워줍니다.",
+    "Damage": 0,
+    "RPM": 0,
+    "EffectiveRange": 0,
+    "Capacity": 0,
+    "Capacity2": 0,
+    "IconPath": "Icon/Icon_AC",
+    "PrefabPath": "2DObject/AC_Drop",
+    "UseType": "RepleAC"
   }
 ]
