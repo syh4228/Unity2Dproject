@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 55
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -150,10 +150,10 @@ TextureImporter:
       name: Prey_Hit_0
       rect:
         serializedVersion: 2
-        x: 54
-        y: 185
-        width: 62
-        height: 176
+        x: 49
+        y: 189
+        width: 49
+        height: 143
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Prey_Hit_1
       rect:
         serializedVersion: 2
-        x: 201
-        y: 185
-        width: 100
-        height: 171
+        x: 215
+        y: 189
+        width: 71
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: Prey_Hit_2
       rect:
         serializedVersion: 2
-        x: 369
+        x: 392
         y: 189
-        width: 94
-        height: 165
+        width: 66
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: Prey_Hit_3
       rect:
         serializedVersion: 2
-        x: 535
-        y: 187
-        width: 94
-        height: 167
+        x: 555
+        y: 190
+        width: 85
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,10 +238,10 @@ TextureImporter:
       name: Prey_Hit_4
       rect:
         serializedVersion: 2
-        x: 43
-        y: 0
-        width: 76
-        height: 173
+        x: 46
+        y: 28
+        width: 83
+        height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: Prey_Hit_5
       rect:
         serializedVersion: 2
-        x: 207
-        y: 2
-        width: 85
-        height: 173
+        x: 209
+        y: 26
+        width: 71
+        height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,10 +282,10 @@ TextureImporter:
       name: Prey_Hit_6
       rect:
         serializedVersion: 2
-        x: 381
-        y: 0
-        width: 66
-        height: 176
+        x: 406
+        y: 29
+        width: 49
+        height: 143
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -304,10 +304,10 @@ TextureImporter:
       name: Prey_Hit_7
       rect:
         serializedVersion: 2
-        x: 553
-        y: 0
-        width: 64
-        height: 177
+        x: 573
+        y: 29
+        width: 49
+        height: 143
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

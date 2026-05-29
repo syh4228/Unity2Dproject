@@ -14,6 +14,18 @@ TextureImporter:
   - first:
       213: -7553910030338983915
     second: Prey_Drop_3
+  - first:
+      213: -8215830964081549273
+    second: Prey_Drop_4
+  - first:
+      213: -1838880328989116331
+    second: Prey_Drop_5
+  - first:
+      213: -4231568405068713480
+    second: Prey_Drop_6
+  - first:
+      213: -1490427423272458334
+    second: Prey_Drop_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -138,10 +150,10 @@ TextureImporter:
       name: Prey_Drop_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 25
-        width: 103
-        height: 305
+        x: 58
+        y: 184
+        width: 51
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +172,10 @@ TextureImporter:
       name: Prey_Drop_1
       rect:
         serializedVersion: 2
-        x: 201
-        y: 25
-        width: 142
-        height: 273
+        x: 222
+        y: 185
+        width: 52
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,10 +194,10 @@ TextureImporter:
       name: Prey_Drop_2
       rect:
         serializedVersion: 2
-        x: 380
-        y: 25
-        width: 142
-        height: 215
+        x: 378
+        y: 188
+        width: 73
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +216,10 @@ TextureImporter:
       name: Prey_Drop_3
       rect:
         serializedVersion: 2
-        x: 577
-        y: 26
-        width: 103
-        height: 305
+        x: 540
+        y: 190
+        width: 70
+        height: 91
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,6 +230,94 @@ TextureImporter:
       bones: []
       spriteID: 518726889de1b2790800000000000000
       internalID: -7553910030338983915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Drop_4
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 34
+        width: 72
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 720a34b74418bfd80800000000000000
+      internalID: -8215830964081549273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Drop_5
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 30
+        width: 49
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5587626651cfa76e0800000000000000
+      internalID: -1838880328989116331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Drop_6
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 30
+        width: 51
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f1fc1594f27645c0800000000000000
+      internalID: -4231568405068713480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Drop_7
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 30
+        width: 50
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a72858b720f05be0800000000000000
+      internalID: -1490427423272458334
       vertices: []
       indices: 
       edges: []
@@ -240,6 +340,10 @@ TextureImporter:
       Prey_Drop_1: -4981700205873176763
       Prey_Drop_2: -1706820514065377240
       Prey_Drop_3: -7553910030338983915
+      Prey_Drop_4: -8215830964081549273
+      Prey_Drop_5: -1838880328989116331
+      Prey_Drop_6: -4231568405068713480
+      Prey_Drop_7: -1490427423272458334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

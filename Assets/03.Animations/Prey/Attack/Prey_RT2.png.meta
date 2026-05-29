@@ -1,16 +1,31 @@
 fileFormatVersion: 2
-guid: ad0e1fb0d5118464db687db5aa178f82
+guid: dc08dd5c17f22394bbdf3d7b9dae1b89
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8232147110691946216
-    second: Prey_Idle_2_0
+      213: -8069772581494827931
+    second: Prey_RT2_0
   - first:
-      213: 1598915465103363096
-    second: Prey_Idle_2_1
+      213: 8094105512122443115
+    second: Prey_RT2_1
   - first:
-      213: 5408499002195407424
-    second: Prey_Idle_2_2
+      213: 6115947752365471353
+    second: Prey_RT2_2
+  - first:
+      213: 298616084999699095
+    second: Prey_RT2_3
+  - first:
+      213: 2412308427299682300
+    second: Prey_RT2_4
+  - first:
+      213: -4628341417847163745
+    second: Prey_RT2_5
+  - first:
+      213: 8657336842778190869
+    second: Prey_RT2_6
+  - first:
+      213: -6512165110316517892
+    second: Prey_RT2_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prey_Idle_2_0
+      name: Prey_RT2_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 40
-        width: 142
-        height: 476
+        x: 175
+        y: 678
+        width: 466
+        height: 576
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 811c27091d981cd80800000000000000
-      internalID: -8232147110691946216
+      spriteID: 56450d5b798620090800000000000000
+      internalID: -8069772581494827931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Idle_2_1
+      name: Prey_RT2_1
       rect:
         serializedVersion: 2
-        x: 154
-        y: 40
-        width: 142
-        height: 475
+        x: 967
+        y: 678
+        width: 473
+        height: 576
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81c4d53e42d703610800000000000000
-      internalID: 1598915465103363096
+      spriteID: b65e690341a045070800000000000000
+      internalID: 8094105512122443115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Idle_2_2
+      name: Prey_RT2_2
       rect:
         serializedVersion: 2
-        x: 301
-        y: 41
-        width: 142
-        height: 475
+        x: 1741
+        y: 678
+        width: 587
+        height: 576
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,8 +206,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 04279e1ef29de0b40800000000000000
-      internalID: 5408499002195407424
+      spriteID: 976b79cb31630e450800000000000000
+      internalID: 6115947752365471353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_RT2_3
+      rect:
+        serializedVersion: 2
+        x: 2539
+        y: 679
+        width: 404
+        height: 607
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79aff964fb5e42400800000000000000
+      internalID: 298616084999699095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_RT2_4
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 8
+        width: 466
+        height: 588
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf7f0e1dbbd3a7120800000000000000
+      internalID: 2412308427299682300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_RT2_5
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 8
+        width: 466
+        height: 585
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f94fdf1a004d4cfb0800000000000000
+      internalID: -4628341417847163745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_RT2_6
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 8
+        width: 471
+        height: 584
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51422be6df9052870800000000000000
+      internalID: 8657336842778190869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_RT2_7
+      rect:
+        serializedVersion: 2
+        x: 2551
+        y: 8
+        width: 442
+        height: 588
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf534e8c55420a5a0800000000000000
+      internalID: -6512165110316517892
       vertices: []
       indices: 
       edges: []
@@ -211,9 +336,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Prey_Idle_2_0: -8232147110691946216
-      Prey_Idle_2_1: 1598915465103363096
-      Prey_Idle_2_2: 5408499002195407424
+      Prey_RT2_0: -8069772581494827931
+      Prey_RT2_1: 8094105512122443115
+      Prey_RT2_2: 6115947752365471353
+      Prey_RT2_3: 298616084999699095
+      Prey_RT2_4: 2412308427299682300
+      Prey_RT2_5: -4628341417847163745
+      Prey_RT2_6: 8657336842778190869
+      Prey_RT2_7: -6512165110316517892
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

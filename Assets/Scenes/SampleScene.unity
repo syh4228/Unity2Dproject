@@ -3190,7 +3190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &525024533
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4630,9 +4630,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UtillUIImageSequencer
   SpriteArray_Sprite:
-  - {fileID: -8232147110691946216, guid: ad0e1fb0d5118464db687db5aa178f82, type: 3}
-  - {fileID: 1598915465103363096, guid: ad0e1fb0d5118464db687db5aa178f82, type: 3}
-  - {fileID: 5408499002195407424, guid: ad0e1fb0d5118464db687db5aa178f82, type: 3}
+  - {fileID: 4548312119227925970, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -4977000723690884619, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -8785658122956814960, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: 4250138720479897219, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -6444698742507224617, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -5818083740010940450, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -8493454242446442018, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
+  - {fileID: -408629237900817117, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
   _sequenceInterval: 0.1
   _isLoop: 1
 --- !u!114 &707166372
@@ -4655,7 +4660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8232147110691946216, guid: ad0e1fb0d5118464db687db5aa178f82, type: 3}
+  m_Sprite: {fileID: 4548312119227925970, guid: 1b5905dd069bf59418e7546b4c4eecd3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -1,31 +1,34 @@
 fileFormatVersion: 2
-guid: 664bbecca82259848b486de2ad48b381
+guid: ed4976b55944b5941bda3f6fd661ca5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2176337582855779748
-    second: Prey_Jump_0
+      213: -2432083770135683543
+    second: Prey_Walk-_0
   - first:
-      213: 6334411730635486588
-    second: Prey_Jump_1
+      213: 9198677440707509068
+    second: Prey_Walk-_1
   - first:
-      213: -3840871054013790235
-    second: Prey_Jump_2
+      213: -4135574953611364056
+    second: Prey_Walk-_2
   - first:
-      213: -4375156440561596184
-    second: Prey_Jump_3
+      213: -6938734763575707696
+    second: Prey_Walk-_3
   - first:
-      213: -3000694534424336269
-    second: Prey_Jump_4
+      213: 700506575821486457
+    second: Prey_Walk-_4
   - first:
-      213: -4251904217649919344
-    second: Prey_Jump_5
+      213: -7668878028772809897
+    second: Prey_Walk-_5
   - first:
-      213: -79890120417613056
-    second: Prey_Jump_6
+      213: -3434182305816358090
+    second: Prey_Walk-_6
   - first:
-      213: 3640208357272165250
-    second: Prey_Jump_7
+      213: 1830621390701505567
+    second: Prey_Walk-_7
+  - first:
+      213: -843935897854244760
+    second: Prey_Walk-_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -147,13 +150,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prey_Jump_0
+      name: Prey_Walk-_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 198
-        width: 50
-        height: 141
+        x: 72
+        y: 165
+        width: 55
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5a8c86cf781cc1e0800000000000000
-      internalID: -2176337582855779748
+      spriteID: 92ed11162b08f3ed0800000000000000
+      internalID: -2432083770135683543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_1
+      name: Prey_Walk-_1
       rect:
         serializedVersion: 2
-        x: 219
-        y: 199
-        width: 71
-        height: 119
+        x: 255
+        y: 165
+        width: 56
+        height: 147
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +187,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c75789968e958e750800000000000000
-      internalID: 6334411730635486588
+      spriteID: c4b35c8456448af70800000000000000
+      internalID: 9198677440707509068
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_2
+      name: Prey_Walk-_2
       rect:
         serializedVersion: 2
-        x: 395
-        y: 195
+        x: 438
+        y: 166
+        width: 56
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 829fdfbad7c7b96c0800000000000000
+      internalID: -4135574953611364056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Walk-_3
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 167
         width: 68
-        height: 140
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e78d6d402c72bac0800000000000000
-      internalID: -3840871054013790235
+      spriteID: 0d77a6ade79a4bf90800000000000000
+      internalID: -6938734763575707696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_3
+      name: Prey_Walk-_4
       rect:
         serializedVersion: 2
-        x: 567
-        y: 229
-        width: 82
-        height: 110
+        x: 69
+        y: 8
+        width: 61
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,20 +253,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e8409bd5625843c0800000000000000
-      internalID: -4375156440561596184
+      spriteID: 9793aaee403b8b900800000000000000
+      internalID: 700506575821486457
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_4
+      name: Prey_Walk-_5
       rect:
         serializedVersion: 2
-        x: 42
-        y: 52
-        width: 85
-        height: 113
+        x: 254
+        y: 7
+        width: 57
+        height: 145
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +275,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3786e2428346b56d0800000000000000
-      internalID: -3000694534424336269
+      spriteID: 753e235701ca29590800000000000000
+      internalID: -7668878028772809897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_5
+      name: Prey_Walk-_6
       rect:
         serializedVersion: 2
-        x: 213
-        y: 29
-        width: 82
-        height: 138
+        x: 448
+        y: 9
+        width: 65
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,20 +297,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 09acdff34a33ef4c0800000000000000
-      internalID: -4251904217649919344
+      spriteID: 63352ef43655750d0800000000000000
+      internalID: -3434182305816358090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_6
+      name: Prey_Walk-_7
       rect:
         serializedVersion: 2
-        x: 397
-        y: 21
-        width: 62
-        height: 140
+        x: 645
+        y: 11
+        width: 56
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,20 +319,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 00be177db5c24eef0800000000000000
-      internalID: -79890120417613056
+      spriteID: f1caefea47ca76910800000000000000
+      internalID: 1830621390701505567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Jump_7
+      name: Prey_Walk-_8
       rect:
         serializedVersion: 2
-        x: 579
-        y: 22
-        width: 49
-        height: 139
+        x: 727
+        y: 20
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,8 +341,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28b9d9bd63e948230800000000000000
-      internalID: 3640208357272165250
+      spriteID: 8688233b5ccb944f0800000000000000
+      internalID: -843935897854244760
       vertices: []
       indices: 
       edges: []
@@ -336,14 +361,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Prey_Jump_0: -2176337582855779748
-      Prey_Jump_1: 6334411730635486588
-      Prey_Jump_2: -3840871054013790235
-      Prey_Jump_3: -4375156440561596184
-      Prey_Jump_4: -3000694534424336269
-      Prey_Jump_5: -4251904217649919344
-      Prey_Jump_6: -79890120417613056
-      Prey_Jump_7: 3640208357272165250
+      Prey_Walk-_0: -2432083770135683543
+      Prey_Walk-_1: 9198677440707509068
+      Prey_Walk-_2: -4135574953611364056
+      Prey_Walk-_3: -6938734763575707696
+      Prey_Walk-_4: 700506575821486457
+      Prey_Walk-_5: -7668878028772809897
+      Prey_Walk-_6: -3434182305816358090
+      Prey_Walk-_7: 1830621390701505567
+      Prey_Walk-_8: -843935897854244760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

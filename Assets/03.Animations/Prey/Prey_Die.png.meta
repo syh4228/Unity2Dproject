@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: baa38118b1eb5434891f6742aa846675
+guid: b4ebd9dc337db9448911b06680a635a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1935620592494312737
-    second: Prey_Waking_0
+      213: 7519721094759881579
+    second: Prey_Die_0
   - first:
-      213: 2436479855573713874
-    second: Prey_Waking_1
+      213: -6880028100730634455
+    second: Prey_Die_1
   - first:
-      213: 3318175416529826604
-    second: Prey_Waking_2
+      213: -4364274434982648659
+    second: Prey_Die_2
   - first:
-      213: 7788747706099608128
-    second: Prey_Waking_3
+      213: -7560231514734234946
+    second: Prey_Die_3
+  - first:
+      213: -5040034705715389647
+    second: Prey_Die_4
+  - first:
+      213: 8469948424290749175
+    second: Prey_Die_5
+  - first:
+      213: 2107947107441416514
+    second: Prey_Die_6
+  - first:
+      213: 2022011552605345066
+    second: Prey_Die_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -135,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prey_Waking_0
+      name: Prey_Die_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 18
-        width: 133
-        height: 293
+        x: 43
+        y: 187
+        width: 76
+        height: 117
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fd20274935b4325e0800000000000000
-      internalID: -1935620592494312737
+      spriteID: b6b9c279e7a6b5860800000000000000
+      internalID: 7519721094759881579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Waking_1
+      name: Prey_Die_1
       rect:
         serializedVersion: 2
-        x: 180
-        y: 17
-        width: 151
-        height: 292
+        x: 196
+        y: 187
+        width: 93
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d3cdd5058d10d120800000000000000
-      internalID: 2436479855573713874
+      spriteID: 92fbe33f4ea3580a0800000000000000
+      internalID: -6880028100730634455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Waking_2
+      name: Prey_Die_2
       rect:
         serializedVersion: 2
-        x: 355
-        y: 10
-        width: 150
-        height: 294
+        x: 359
+        y: 187
+        width: 104
+        height: 106
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c23b1bcf5f68c0e20800000000000000
-      internalID: 3318175416529826604
+      spriteID: da46a88368bfe63c0800000000000000
+      internalID: -4364274434982648659
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_Waking_3
+      name: Prey_Die_3
       rect:
         serializedVersion: 2
-        x: 518
-        y: 13
-        width: 152
-        height: 292
+        x: 530
+        y: 193
+        width: 127
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +228,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 04aa43ba5c0371c60800000000000000
-      internalID: 7788747706099608128
+      spriteID: eb27d804e79a41790800000000000000
+      internalID: -7560231514734234946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Die_4
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 44
+        width: 115
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13b913e63233e0ab0800000000000000
+      internalID: -5040034705715389647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Die_5
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 36
+        width: 129
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7facab7573d4b8570800000000000000
+      internalID: 8469948424290749175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Die_6
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 35
+        width: 135
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2499b50d9bee04d10800000000000000
+      internalID: 2107947107441416514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Die_7
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 35
+        width: 135
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2517c44bc0af0c10800000000000000
+      internalID: 2022011552605345066
       vertices: []
       indices: 
       edges: []
@@ -236,10 +336,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Prey_Waking_0: -1935620592494312737
-      Prey_Waking_1: 2436479855573713874
-      Prey_Waking_2: 3318175416529826604
-      Prey_Waking_3: 7788747706099608128
+      Prey_Die_0: 7519721094759881579
+      Prey_Die_1: -6880028100730634455
+      Prey_Die_2: -4364274434982648659
+      Prey_Die_3: -7560231514734234946
+      Prey_Die_4: -5040034705715389647
+      Prey_Die_5: 8469948424290749175
+      Prey_Die_6: 2107947107441416514
+      Prey_Die_7: 2022011552605345066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

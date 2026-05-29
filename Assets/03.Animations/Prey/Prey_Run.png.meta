@@ -14,6 +14,21 @@ TextureImporter:
   - first:
       213: -6484265804386194185
     second: Prey_Run_3
+  - first:
+      213: 8437740696075840922
+    second: Prey_Run_4
+  - first:
+      213: -2557950192927401593
+    second: Prey_Run_5
+  - first:
+      213: -2536467325394161250
+    second: Prey_Run_6
+  - first:
+      213: -6973407954501933719
+    second: Prey_Run_7
+  - first:
+      213: 7017847457470154139
+    second: Prey_Run_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +75,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -138,10 +153,10 @@ TextureImporter:
       name: Prey_Run_0
       rect:
         serializedVersion: 2
-        x: 59
-        y: 283
-        width: 150
-        height: 239
+        x: 37
+        y: 168
+        width: 85
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +175,10 @@ TextureImporter:
       name: Prey_Run_1
       rect:
         serializedVersion: 2
-        x: 264
-        y: 298
-        width: 161
-        height: 216
+        x: 224
+        y: 164
+        width: 86
+        height: 148
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,10 +197,10 @@ TextureImporter:
       name: Prey_Run_2
       rect:
         serializedVersion: 2
-        x: 46
-        y: 18
-        width: 149
-        height: 238
+        x: 425
+        y: 166
+        width: 81
+        height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +219,10 @@ TextureImporter:
       name: Prey_Run_3
       rect:
         serializedVersion: 2
-        x: 260
-        y: 39
-        width: 162
-        height: 216
+        x: 617
+        y: 168
+        width: 108
+        height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,6 +233,116 @@ TextureImporter:
       bones: []
       spriteID: 7fc29542b924306a0800000000000000
       internalID: -6484265804386194185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Run_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 8
+        width: 108
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9d25704570e81570800000000000000
+      internalID: 8437740696075840922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Run_5
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 9
+        width: 97
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7899b652ad5508cd0800000000000000
+      internalID: -2557950192927401593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Run_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 8
+        width: 80
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e91fe750868acccd0800000000000000
+      internalID: -2536467325394161250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Run_7
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 6
+        width: 81
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 965670e796a793f90800000000000000
+      internalID: -6973407954501933719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_Run_8
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 15
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9503669417646160800000000000000
+      internalID: 7017847457470154139
       vertices: []
       indices: 
       edges: []
@@ -240,6 +365,11 @@ TextureImporter:
       Prey_Run_1: 8242383097678063127
       Prey_Run_2: -2961789609380195039
       Prey_Run_3: -6484265804386194185
+      Prey_Run_4: 8437740696075840922
+      Prey_Run_5: -2557950192927401593
+      Prey_Run_6: -2536467325394161250
+      Prey_Run_7: -6973407954501933719
+      Prey_Run_8: 7017847457470154139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
