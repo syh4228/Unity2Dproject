@@ -129,7 +129,7 @@ public class Player_InventoryManager : MonoBehaviour
         if (UseHeel1 == null) return;
 
         // PlayerCharacter 스크립트로 연산 넘기기
-        playerCharacter.ApplyHeal_HK();
+        Player_Character.ApplyHeal_Hk();
 
         UseHeel1 = null; // 사용 후 슬롯 비우기
         UpdateItemUI();
@@ -140,8 +140,8 @@ public class Player_InventoryManager : MonoBehaviour
     {
         if (UseHeel2 == null) return;
 
-        if (UseHeel2.Id.Contains("MD")) playerCharacter.ApplyHeal_MD();
-        else if (UseHeel2.Id.Contains("AD")) playerCharacter.ApplyHeal_AD();
+        if (UseHeel2.Id.Contains("MD")) Player_Character.ApplyHeal_MD();
+        else if (UseHeel2.Id.Contains("AD")) Player_Character.ApplyHeal_AD();
 
         UseHeel2 = null; // 사용 후 슬롯 비우기
         UpdateItemUI();
