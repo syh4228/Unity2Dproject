@@ -153,29 +153,120 @@ public class Player_InventoryManager : MonoBehaviour
         UiManager.UpdateItemUI(UseBoom != null, UseHeel1 != null, UseHeel2 != null);
     }
 
-
+    // 총 발사 함수
     public void FireCurrentGun(bool isLookLeft)
     {
+        // 내가 사용중에 있는 총기가 있고, 그게 1번 총기 인지 2번총기 인지 확인해서 저장
         WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+        // 내가 사용중인 총기가 1번 총기의 탄창인지, 2번 총기의 탄창인지 확인해서 저장
         ref int currentMag = ref (activeGunIndex == 1) ? ref gun1Magazine : ref gun2Magazine;
+        // 내가 사용중인 총기가 1번 총기의 예비 탄창인지, 2번 총기의 예비 탄창인지 확인해서 저장
         ref int currentRes = ref (activeGunIndex == 1) ? ref gun1Reserve : ref gun2Reserve;
+
+        // 총이 없으면 반환
+        if (currentGun == null) return;
+
+        // 탄창에 총알이 있으면
+        if (currentMag > 0)
+        {
+            currentMag--; // 총알 -1
+            // 웨폰매니저 총알발사함수 호출
+            WeaponManager.FireBullet(isLookLeft, currentGun.Damage);
+
+            //  탄창과 예비 탄창 둘다 0 이면
+            if (currentMag == 0 && currentRes == 0)
+            {
+                // 들고 있는 총이 있으면
+                if (activeGunIndex == 1)
+                {
+                    // 1번 총기 버리기
+                    UseGun1 = null;
+                    // 2번에 총이 있다면 2번으로 스왑
+                    if (UseGun2 != null) activeGunIndex = 2;
+                }
+                else
+                {   // 2번 슬롯 총기 버리기
+                    UseGun2 = null;
+                    // 1번에 총이 있다면 1번으로 스왑
+                    if (UseGun1 != null) activeGunIndex = 1;
+                }
+
+                UtillLogRemove.Log("총알이 다 떨어져서 무기를 버렸습니다!");
+                UpdateItemUI(); // UI도 갱신!
+            }
+        }
+    }
+
+    // 재장전 함수
+    public void ReloadCurrentGun()
+    {
+        WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+        ref int magazine = ref (activeGunIndex == 1) ? ref gun1Magazine : ref gun2Magazine;
+        ref int reserve = ref (activeGunIndex == 1) ? ref gun1Reserve : ref gun2Reserve;
 
         if (currentGun == null) return;
 
-        if (currentMag > 0)
-        {
-            currentMag--;
-            WeaponManager.FireBullet(isLookLeft, currentGun.Damage);
+        // 채워야 할 총알 개수 계산 (총기 최대 용량 - 현재 탄창)
+        int need = currentGun.Capacity - magazine;
 
-            // 만약 총알을 다 썼는데, 예비 탄약(Reserve)도 0이라면 총기 슬롯을 비움
-            if (currentMag == 0 && currentRes == 0)
+        // 채워야 할 총알이 있고, 예비 탄창에 총알이 남아있다면
+        if (need > 0 && reserve > 0)
+        {
+            // 채울 총알 갯수와, 예비탄창 총알 갯수 저장
+            int reloadAmount = Mathf.Min(need, reserve);
+
+            magazine += reloadAmount; // 탄창에 총알 채우기
+            reserve -= reloadAmount; // 예비 탄창에서 채운 총알 만큼 빼기
+
+            // UI매니저에 총알갯수업데이트 UI 함수 호출
+            UiManager.UpdateAmmoUI(activeGunIndex, magazine, reserve);
+            UtillLogRemove.Log("재장전 완료!");
+        }
+
+        if (UseGun1 == null && UseGun2 == null)
+        {
+            WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
+
+            if (ptGunData != null)
             {
-                if (activeGunIndex == 1)
-                {
-                    UseGun1 = null; // 1번 총기 버림
-                    if (UseGun2 != null) activeGunIndex = 2; // 2번 총이 있으면 2번으로 자동 스왑
-                }
+                UseGun1 = ptGunData; // 1번 슬롯에 기본 총 할당
+                gun1Magazine = ptGunData.Capacity; // 탄창 가득 채우기
+                gun1Reserve = ptGunData.Capacity2; // 예비 탄알 채우기
+                activeGunIndex = 1; // 1번 총을 들고 있게 함
+
+                UtillLogRemove.Log("무기가 없습니다! 기본 무기(PT)를 장착합니다.");
+                UpdateItemUI(); // UI 갱신
             }
         }
+    }
+
+    // 총기 스압 함수
+    public void ChangeActiveGun(int slotIndex)
+    {
+        // 1번 슬롯을 눌렀고, 총이 없다면 반환
+        if (slotIndex == 1 && UseGun1 == null) return;
+
+        // 2번 슬롯을 눌렀고, 총이 없다면 반환
+        if (slotIndex == 2 && UseGun2 == null) return;
+
+        // 현재 총기 슬롯 번호에 저장
+        activeGunIndex = slotIndex;
+
+        UtillLogRemove.Log($"{activeGunIndex}번 총기로 교체 완료!");
+    }
+
+    // 폭탄 
+    public void UseBoomItem()
+    {
+        // 폭탄 없으면 반환
+        if (UseBoom == null) return;
+
+        UtillLogRemove.Log("폭탄 투척!");
+
+        // 폭탄 삭제
+        UseBoom = null;
+
+        // UI아이템 업데이트 함수 호출
+        UpdateItemUI();
     }
 }

@@ -20,6 +20,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private AnimationController AnimatorController; // 애니메이션 
     [SerializeField] private WeaponManager weaponManager; // 웨폰 매니저 연결
     [SerializeField] private Player_InventoryManager inventoryManager; // 인벤토리 매니저
+    [SerializeField] private Player_Character playerCharacter; // 플레이어 캐릭터
+    [SerializeField] private Player_ItemDrop itemCollector; // 드랍 연결
 
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
@@ -135,6 +137,40 @@ public class Player_Controller : MonoBehaviour
             {
                 StartAttack(); // 공격 함수 호출
             }
+        }
+
+        // 아이템 줍기
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (itemCollector != null)
+            {
+                itemCollector.TryPickUp();
+            }
+        }
+
+        // 근접 공격
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (playerCharacter != null && playerCharacter.TryExecuteAction())
+            {
+                UtillLogRemove.Log("근접 공격!");
+            }
+        }
+
+        // 재장전
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (inventoryManager != null) inventoryManager.ReloadCurrentGun();
+        }
+
+        // 무기 및 아이템 스왑
+        if (inventoryManager != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) inventoryManager.ChangeActiveGun(1);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) inventoryManager.ChangeActiveGun(2);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) inventoryManager.UseBoomItem();
+            if (Input.GetKeyDown(KeyCode.Alpha4)) inventoryManager.UseHeelItem1();
+            if (Input.GetKeyDown(KeyCode.Alpha5)) inventoryManager.UseHeelItem2();
         }
     }
 
