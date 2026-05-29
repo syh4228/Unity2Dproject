@@ -129,7 +129,7 @@ public class Player_InventoryManager : MonoBehaviour
         if (UseHeel1 == null) return;
 
         // PlayerCharacter 스크립트로 연산 넘기기
-        Player_Character.ApplyHeal_Hk();
+        PlayerCharacter.ApplyHeal_Hk();
 
         UseHeel1 = null; // 사용 후 슬롯 비우기
         UpdateItemUI();
@@ -140,14 +140,14 @@ public class Player_InventoryManager : MonoBehaviour
     {
         if (UseHeel2 == null) return;
 
-        if (UseHeel2.Id.Contains("MD")) Player_Character.ApplyHeal_MD();
-        else if (UseHeel2.Id.Contains("AD")) Player_Character.ApplyHeal_AD();
+        if (UseHeel2.Id.Contains("MD")) PlayerCharacter.ApplyHeal_MD();
+        else if (UseHeel2.Id.Contains("AD")) PlayerCharacter.ApplyHeal_AD();
 
         UseHeel2 = null; // 사용 후 슬롯 비우기
         UpdateItemUI();
     }
 
-    // 회ㅗㄱ
+    // 아이템 UI 업데이트
     private void UpdateItemUI()
     {
         UiManager.UpdateItemUI(UseBoom != null, UseHeel1 != null, UseHeel2 != null);
@@ -165,7 +165,7 @@ public class Player_InventoryManager : MonoBehaviour
         if (currentMag > 0)
         {
             currentMag--;
-            weaponManager.FireBullet(isLookLeft, currentGun.Damage);
+            WeaponManager.FireBullet(isLookLeft, currentGun.Damage);
 
             // 만약 총알을 다 썼는데, 예비 탄약(Reserve)도 0이라면 총기 슬롯을 비움
             if (currentMag == 0 && currentRes == 0)

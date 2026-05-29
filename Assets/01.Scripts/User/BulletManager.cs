@@ -17,8 +17,10 @@ public class BulletManager : MonoBehaviour
     }
 
     // 총알 발사 방향 함수
-    public void SetDirection(float directionX)
+    public void SetDirection(float directionX, int weaponDamage)
     {
+        damage = weaponDamage; // 무기 대미지 저장
+
         if (bulletRigidbody == null) // 리지드바디 없으면
         {
             //리지드바디 가져오기

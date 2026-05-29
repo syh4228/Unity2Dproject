@@ -19,6 +19,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private GroundCheck GroundCheckObject; // 지면체크 스크립트를 연결한 자식 오브젝트
     [SerializeField] private AnimationController AnimatorController; // 애니메이션 
     [SerializeField] private WeaponManager weaponManager; // 웨폰 매니저 연결
+    [SerializeField] private Player_InventoryManager inventoryManager; // 인벤토리 매니저
 
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
@@ -240,10 +241,10 @@ public class Player_Controller : MonoBehaviour
         // 공격 애니메이션 호출
         AnimatorController.SetState(AllState.Attack);
 
-        if (weaponManager != null) // 웨폰매니저가 있으면
+        if (inventoryManager != null) // 인벤토리 매니저가 있으면
         {
-            // 총알 발사 함수 호출
-            weaponManager.FireBullet(!_isFaceRight);
+            // 현재 총 발사 함수 호출
+            inventoryManager.FireCurrentGun(!_isFaceRight);
         }
 
         _cooldownTimer = _attackCooldown; // 쿨타임 초기화

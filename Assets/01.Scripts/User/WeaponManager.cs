@@ -23,7 +23,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     // 총알 발사 함수
-    public void FireBullet(bool isLookLeft)
+    public void FireBullet(bool isLookLeft, int weaponDamage)
     {
         // 만약 총알 프리팹이 없거나, 총 쏘는 포인트가 없다면
         if (bulletPrefab == null || firePoint == null)
@@ -57,7 +57,7 @@ public class WeaponManager : MonoBehaviour
         {
             // 총알 방향 값은 왼쪽 방향이면 -1, 오른쪽이면 +1
             float dirX = isLookLeft ? -1f : 1f;
-            bulletScript.SetDirection(dirX); // 총알 방향 함수 호출
+            bulletScript.SetDirection(dirX, weaponDamage); // 총알 방향 함수 호출
         }
     }
 }
