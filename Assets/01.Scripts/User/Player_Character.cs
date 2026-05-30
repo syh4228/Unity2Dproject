@@ -14,7 +14,7 @@ public class Player_Character : MonoBehaviour
     [SerializeField] public float tempHpDecayRate = 2f; // 임시체력 지속력
 
     [Header("스테미너 설정")]
-    public int MaxStamina; // 최대 스테미나
+    public int MaxStamina = 100; // 최대 스테미나
     public int currentStamina; // 현재 스테미나
     [SerializeField] private int staminaRecoveryRate = 10; // 초당 회복량
     [SerializeField] private float lowStaminaThreshold = 30f; // 스테미너 패널티 기준
@@ -34,25 +34,20 @@ public class Player_Character : MonoBehaviour
     private float lastActionTime = 0f; // 특수 공격 쿨타임
 
     public event Action<int, int> OnHpChanged; // UI에 최대체력과, 현재 체력 알려주기
+    public bool isAdrenalineActive = false; // 아드레날린 버프 상태 관리
 
     private void Start()
     {
         currentHp = MaxHp; // 시작시 최대체력은 = 현재체력
+        currentStamina = MaxStamina; // 쵀대 스테미나는 = 현재 스테미나
 
         if (playerController == null)
         {
             playerController = GetComponent<Player_Controller>();
         }
 
-        if (UIManager.Instance != null) // UI매니저 있으면
-        {
-            // UI매니저 함수 호출
-            if (UIManager.Instance.GetBattleUI() != null)
-            {
-                // 현재 체력, 임시체력(소수점 버리기), 최대체력 가져오기
-                UIManager.Instance.GetBattleUI().UpdateHealthUI(currentHp, Mathf.CeilToInt(currentTempHp), MaxHp);
-            }
-        }
+        // UI 갱신 함수 호출
+        UpdateHealthUI_Internal();
     }
 
     // 임시 체력을 실시간으로 깍아주기
@@ -73,14 +68,8 @@ public class Player_Character : MonoBehaviour
                 currentTempHp = 0f; // 임시체력은 0
             }
 
-            if (UIManager.Instance != null) // UI매니저 있고
-            {
-                if (UIManager.Instance.GetBattleUI() != null) // 배틀UI 있으면
-                {
-                    // 현재 체력, 임시체력(소수점 버리기), 최대체력 가져오기
-                    UIManager.Instance.GetBattleUI().UpdateHealthUI(currentHp, Mathf.CeilToInt(currentTempHp), MaxHp);
-                }
-            }
+            // UI 갱신 함수 호출
+            UpdateHealthUI_Internal();
         }
 
         // 스테미너 자동 회복
@@ -106,14 +95,7 @@ public class Player_Character : MonoBehaviour
         currentHp -= damage; // 대미지 만큼 체력 감소
         UtillLogRemove.Log($"플레이어 피격, 남은 체력:{currentHp}");
 
-        if (UIManager.Instance != null) // 만약 UI 매니저 있으면
-        {
-            if (UIManager.Instance.GetBattleUI() != null)
-            {
-                // 현재 체력, 임시체력(소수점 버리기), 최대체력 가져오기
-                UIManager.Instance.GetBattleUI().UpdateHealthUI(currentHp, Mathf.CeilToInt(currentTempHp), MaxHp);
-            }
-        }
+        UpdateHealthUI_Internal(); // UI 갱신
 
         if (currentHp <= 0) // 만약 체력이 0이하면
         {
@@ -123,7 +105,7 @@ public class Player_Character : MonoBehaviour
         else
         {
             // 피격 시 스턴 함수 호출
-            StartCoroutine(HitStunCharacter());
+            HitStunCharacter().Forget();
         }
 
         if (OnHpChanged != null) // OnHpChanged가 있으면
@@ -151,7 +133,7 @@ public class Player_Character : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("PlayerDead");
 
         // 죽고 나서 대기
-        await UniTask.Delay(1000);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: this.GetCancellationTokenOnDestroy());
 
         // 게임매니저가 있으면
         if (GameManager.Instance != null)
@@ -178,31 +160,30 @@ public class Player_Character : MonoBehaviour
             currentTempHp = MaxHp - currentHp;
         }
 
-        if (UIManager.Instance != null)
-        {
-            if (UIManager.Instance.GetBattleUI() != null)
-            {
-                UIManager.Instance.GetBattleUI().UpdateHealthUI(currentHp, Mathf.CeilToInt(currentTempHp), MaxHp);
-            }
-        }
+        UpdateHealthUI_Internal(); // UI 갱신
     }
 
     // 피격시 경직 함수
-    private IEnumerator HitStunCharacter()
+    private async UniTaskVoid HitStunCharacter()
     {
-        isStunned = true;
+        isStunned = true; // 스턴 트루
 
-        if (animatorController != null)
+        if (animatorController != null) // 애니메이션 컨트롤 있으면
         {
-            animatorController.AllHitAnimation();
+            // 애니메이션 컨트롤러에서 상태 힛으로 변경
+            animatorController.SetState(AllState.Hit);
         }
 
-        yield return new WaitForSeconds(stunTime);
+        // 유니테스크 대기 (오브젝트 파괴 시 자동 취소되는 안전장치 토큰 추가)
+        await UniTask.Delay(TimeSpan.FromSeconds(stunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
 
-        isStunned = false;
+        isStunned = false; // 스턴 거짓
 
-        // 애니메이션 대기로 전환
-        animatorController.SetState(AllState.Idle);
+        if (animatorController != null) // 애니메이션 컨트롤 있으면
+        {
+            // 애니메이션 컨트롤에서 상태 대기로 변경
+            animatorController.SetState(AllState.Idle);
+        }
     }
 
     // 구급킷 사용 함수
@@ -212,10 +193,10 @@ public class Player_Character : MonoBehaviour
 
         // 잃은 체력 저장
         int lostHp = MaxHp - currentHp;
-
         // 잃은 체력 80프로 회복
         int heelAmount = Mathf.RoundToInt(lostHp * 0.8f);
-        currentHp += heelAmount;
+
+        currentHp += heelAmount; // 현재최력에 회복할 체력 더하기
 
         if (currentHp < 90) // 현재 체력 90 이 안되면
         {
@@ -241,9 +222,6 @@ public class Player_Character : MonoBehaviour
         AddTemporaryHealth(50f);
     }
 
-    // 아드레날린 사용 했는지 확인 (버프 사용확인용)
-    public bool isAdrenalineActive = false;
-
     // 아드레날린 상용 함수
     public void ApplyHeal_AD()
     {
@@ -256,13 +234,16 @@ public class Player_Character : MonoBehaviour
         isAdrenalineActive = true;
         UtillLogRemove.Log("아드레날린 발동! 스태미너 소모 0, 이동속도 증가!");
 
-        // 10초 뒤에 버프 끄기 (시간은 기획에 맞게 조절하세요)
-        Invoke("TurnOffAdrenaline", 10f);
+        // 아드레날린 버프 끄기 함수 호출
+        TurnOffAdrenalineRoutine().Forget();
     }
 
     // 아드렌 날린 버프 끄기 함수
-    private void TurnOffAdrenaline()
+    private async UniTaskVoid TurnOffAdrenalineRoutine()
     {
+        // 10초 대기 (플레이어가 파괴되면 자동으로 취소됨)
+        await UniTask.Delay(TimeSpan.FromSeconds(10f), cancellationToken: this.GetCancellationTokenOnDestroy());
+
         isAdrenalineActive = false;
         UtillLogRemove.Log("아드레날린 효과 종료.");
     }
