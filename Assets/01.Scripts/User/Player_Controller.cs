@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -27,10 +29,9 @@ public class Player_Controller : MonoBehaviour
     private bool _isDead = false; // 캐릭터 사망 체크
     private bool _isWalk = false; // 걷기 체크
 
-    public bool IsDead
-    {
-        get { return _isDead; }
-    }
+    private CancellationTokenSource _healCts; // 유니테스크 취소 토큰
+
+    public bool IsDead { get { return _isDead; } }
 
     private void OnEnable()
     {
@@ -110,67 +111,129 @@ public class Player_Controller : MonoBehaviour
             _cooldownTimer = _cooldownTimer - Time.deltaTime;
         }
 
-        // 만약 쉬프트 누르면
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _isWalk = true; // 트루 처리
-        }
-        else // 안누르면
-        {
-            _isWalk = false; // 거짓 처리
-        }
+        _isWalk = Input.GetKey(KeyCode.LeftShift); // 걷기 활성화
 
+        float moveInput = Input.GetAxisRaw("Horizontal"); // 좌, 우 입력 저장
+
+        // 만약 좌, 우 움직이거나, 점프 하면
+        if (moveInput != 0 || Input.GetKeyDown(KeyCode.Space))
+        {
+            CancelHealing(); // 힐 취소 함수 호출
+        }
+        
         MoveOnUpdate(); // 움직임 함수 호출
 
-        // 만약 스페이스바 누르면
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 만약 스페이스바 누르고, 지면 체크가 true면
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
-            if ( _isGrounded) // 만약 지면에 붙어 있으면
-            {
-                StartJump(); // 점프 함수 호출
-            }    
+            StartJump(); // 점프 함수 호출
         }
 
         if (Input.GetMouseButtonDown(0)) // 마우스 클릭하면
         {
             if (_cooldownTimer <= 0f) // 쿨타임이 0이거나 0보다 작으면
             {
+                CancelHealing(); // 힐 취소 함수 호출
                 StartAttack(); // 공격 함수 호출
             }
         }
 
-        // 아이템 줍기
+        // V키 누르면
         if (Input.GetKeyDown(KeyCode.V))
         {
+            CancelHealing(); // 힐 취소
+
             if (itemCollector != null)
             {
+                // 아이템 줍기 함수 호출
                 itemCollector.TryPickUp();
             }
         }
 
-        // 근접 공격
+        // F키 누르면
         if (Input.GetKeyDown(KeyCode.F))
         {
+            CancelHealing(); // 힐 취소
+
+            // 플레이어 캐릭터가 있고, 플레이어 캐릭터에 액션 함수호출
             if (playerCharacter != null && playerCharacter.TryExecuteAction())
             {
                 UtillLogRemove.Log("근접 공격!");
             }
         }
 
-        // 재장전
+        // R키 누르면
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (inventoryManager != null) inventoryManager.ReloadCurrentGun();
+            CancelHealing(); // 힐 취소
+
+            // 인베토리 매니저가 있으면
+            if (inventoryManager != null)
+            {
+                // 인벤토리 매니저에서 재장전 함수 호출
+                inventoryManager.ReloadCurrentGun();
+            }
         }
 
         // 무기 및 아이템 스왑
         if (inventoryManager != null)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) inventoryManager.ChangeActiveGun(1);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) inventoryManager.ChangeActiveGun(2);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) inventoryManager.UseBoomItem();
-            if (Input.GetKeyDown(KeyCode.Alpha4)) inventoryManager.UseHeelItem1();
-            if (Input.GetKeyDown(KeyCode.Alpha5)) inventoryManager.UseHeelItem2();
+            // 1번 누르면
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                CancelHealing(); // 힐 취소
+                // 인벤토리 매니저 총 체인지 1 함수 호출
+                inventoryManager.ChangeActiveGun(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 누르면
+            {
+                CancelHealing();
+                // 인벤토리 매니저 총 체인지 2 함수 호출
+                inventoryManager.ChangeActiveGun(2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 누르면
+            {
+                CancelHealing(); // 힐 취소
+                // 인벤토리매니저, 슈류탄 사용 함수 호출
+                inventoryManager.UseBoomItem();
+                // 애니메이션 컨트롤러에서 상태 슈류탄던지기로 변경 알림
+                AnimatorController.SetState(AllState.UseGrenade);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 누르면
+            {
+                CancelHealing(); // 힐 취소
+                // 인벤토리매니저에서 아이템 사용1번 함수 호출
+                inventoryManager.UseHeelItem1();
+                // 애니메이션 컨트롤러에서 상태 힐아이템 사용 호출
+                AnimatorController.SetState(AllState.UseInstantHeal);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5)) // 5번 누르면
+            {
+                // 힐킷 사용중이 아니면
+                if (_healCts == null)
+                {
+                    // 유니테스크 취소버튼을 변수 저장
+                    _healCts = new CancellationTokenSource();
+                    // 함수호출 하면 취소해라
+                    HealRoutine(_healCts.Token).Forget();
+                }
+            }
+        }
+    }
+
+    // 힐킷 사용 취소 함수
+    private void CancelHealing()
+    {
+        // 힐킷 사용중이면
+        if (_healCts  != null)
+        {
+            // 힐킷 사용 취소
+            _healCts.Cancel();
+            UtillLogRemove.Log("힐킷 사용 취소");
         }
     }
 
@@ -255,16 +318,19 @@ public class Player_Controller : MonoBehaviour
         {
             return;
         }
+
         _isDead = true;
+        // 플레이어 이동 0 못움직이게 고정
         Rigidbody_Player.linearVelocity = Vector2.zero;
+        // 애니메이터 컨트롤에서 죽음로 상태 변경
         AnimatorController.SetState(AllState.Dead);
 
-        StartCoroutine(DieRoutine()); // 사망 코루틴 함수 호출
+        DieRoutine().Forget(); // 사망 유니테스크 처리 함수 호출
     }
 
     void StartJump() // 점프 함수 
     {
-        // 점프
+        // 점프 계산
         Rigidbody_Player.linearVelocity = new Vector2(Rigidbody_Player.linearVelocity.x, _jumpForce);
         _isGrounded = false;
 
@@ -328,8 +394,65 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    private IEnumerator DieRoutine() // 사망 코투틴 함수
+    // 사망 유니테스크 처리 함수
+    private async UniTaskVoid DieRoutine() 
     {
-        yield return new WaitForSeconds(0.3f);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+    }
+
+    // 힐 킷 사용 유니테스크 처리 함수
+    private async UniTaskVoid HealRoutine(CancellationToken token)
+    {
+        // 애니메이션 컨트롤러에서 상태를 힐 킷사용으로 변환 알림
+        AnimatorController.SetState(AllState.UseHeal);
+        // 애니메이션 컨트롤러에서 힐킷사용중을 트루로 변환 알림
+        AnimatorController.SetHealing(true);
+
+        try
+        {
+            // 힐 킷 사용 딜레이 3초, 힐 킷 사용 캔슬되면 바로 취소
+            await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: token);
+
+            // 인벤토리 매니저가 있으면
+            if (inventoryManager != null)
+            {
+                // 인벤토리매니저에서 힐탬사용2 함수 호출
+                inventoryManager.UseHeelItem2();
+            }
+
+            UtillLogRemove.Log("힐 킷 사용 회복 완료");
+        }
+        // 취소되면
+        catch (OperationCanceledException)
+        {
+            // 부드럽게 취소되고 넘어가 수 있도록 비워둠
+        }
+        finally // 취소되든 취소 안되든
+        {
+            // 애니메이션 컨트롤러 힐킷 사용중 거짓으로 변경
+            AnimatorController.SetHealing(false);
+
+            if (_healCts != null)
+            {
+                // 취소 버튼 폐기
+                _healCts.Dispose();
+                // 힐 킷 사용 널
+                _healCts = null;
+            }
+
+        }
+    }
+
+    // 캐릭터 삭제시 함수
+    private void OnDestroy()
+    {
+        // 힐 킷 사용 중이면
+        if (_healCts != null)
+        {
+            // 힐 킷 사용 중지
+            _healCts.Cancel();
+            // 힐 킷 파괴
+            _healCts.Dispose();
+        }
     }
 }

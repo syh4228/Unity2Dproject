@@ -22,6 +22,27 @@ public class Player_InventoryManager : MonoBehaviour
     private WeaponData UseHeel1; // 메디킷
     private WeaponData UseHeel2; // 진통제 / 아드레날린
 
+    private void Start()
+    {
+        // 게임데이터 매니저에서 기본 권총 1의 정보를 가져와 저장
+        WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
+
+        if (ptGunData != null ) // 권총이 있으면
+        {
+            UseGun1 = ptGunData; // 1번 무기 슬롯에 권총 장착
+            gun1Magazine = ptGunData.Capacity; // 탄창 채우기
+            gun1Reserve = ptGunData.Capacity2; // 예비 탄창 채우기
+            activeGunIndex = 1; // 무기 1번으로 설정
+
+            UtillLogRemove.Log("기본권총 들고 시작");
+            UpdateItemUI(); // UI 갱신
+        }
+        else
+        {
+            UtillLogRemove.Error("기본권총 데이터 없어요.");
+        }
+    }
+
     // 획득 아이템 관리 함수
     public void PickUpItem(string itemId)
     {
@@ -55,25 +76,36 @@ public class Player_InventoryManager : MonoBehaviour
         }
     }
 
-    // 총기 주울떄 함수
+    // 총기 주울때 함수
     private void EquipGun(WeaponData newGun)
     {
+        // 1번 무기를 들고 있을 때 주우면
         if (activeGunIndex == 1)
         {
-            // 1번 총을 들고 있을 때 주우면 1번 슬롯 교체
-            SetGunSlot(1, newGun);
+            // 2번 슬롯이 비어있는지 확인
+            if (UseGun2 == null)
+            {
+                // 비어있다면 새 무기를 2번에 넣기
+                SetGunSlot(2, newGun);
+            }
+            else // 2번이 차있으면
+            {
+                // 현재 들고 있는 1번 무기를 버리고 새 무기로 교체
+                SetGunSlot(1, newGun);
+            }
         }
+        // 2번 무기를 들고 있을 때 주우면
         else if (activeGunIndex == 2)
         {
-            // 2번 총을 들고 있을 때, 1번이 비어있다면 1번에 채우고 1번으로 자동 스왑
+            // 1번 슬롯이 비어있는지 확인
             if (UseGun1 == null)
             {
+                // 비어있다면 새 무기를 1번에 넣기
                 SetGunSlot(1, newGun);
-                activeGunIndex = 1;
             }
-            else
+            else // 1번이 차있다면
             {
-                // 1번이 차있는데 2번을 들고 주웠다면, 2번 슬롯 교체
+                // 현재 들고 있는 2번 무기를 버리고 새 무기로 교체
                 SetGunSlot(2, newGun);
             }
         }
@@ -176,7 +208,7 @@ public class Player_InventoryManager : MonoBehaviour
             //  탄창과 예비 탄창 둘다 0 이면
             if (currentMag == 0 && currentRes == 0)
             {
-                // 들고 있는 총이 있으면
+                // 들고 있는 총이 1번 슬롯에 있으면
                 if (activeGunIndex == 1)
                 {
                     // 1번 총기 버리기
@@ -184,14 +216,34 @@ public class Player_InventoryManager : MonoBehaviour
                     // 2번에 총이 있다면 2번으로 스왑
                     if (UseGun2 != null) activeGunIndex = 2;
                 }
-                else
-                {   // 2번 슬롯 총기 버리기
+                else // 들고 있던 총이 2번 슬롯에 있으면
+                {   
+                    // 2번 슬롯 총기 버리기
                     UseGun2 = null;
                     // 1번에 총이 있다면 1번으로 스왑
                     if (UseGun1 != null) activeGunIndex = 1;
                 }
 
                 UtillLogRemove.Log("총알이 다 떨어져서 무기를 버렸습니다!");
+
+                // 1번 슬롯, 2번 슬롯 둘다 비었다면
+                if (UseGun1 == null && UseGun2 == null)
+                {
+                    // 데이터 매니저에서 기본 권총 데이터 가져와서 저장
+                    WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
+
+                    // 기본 권총 있으면
+                    if (ptGunData != null)
+                    {
+                        UseGun1 = ptGunData;               // 1번 슬롯에 기본 권총 장착
+                        gun1Magazine = ptGunData.Capacity; // 탄창 채우기
+                        gun1Reserve = ptGunData.Capacity2; // 예비 탄알 채우기
+                        activeGunIndex = 1;                // 무기 슬롯 1번으로 설정
+
+                        UtillLogRemove.Log("모든 무기를 소모하여 품속에서 기본 무기(PT)를 꺼냅니다.");
+                    }
+                }
+
                 UpdateItemUI(); // UI도 갱신!
             }
         }
@@ -221,22 +273,6 @@ public class Player_InventoryManager : MonoBehaviour
             // UI매니저에 총알갯수업데이트 UI 함수 호출
             UiManager.UpdateAmmoUI(activeGunIndex, magazine, reserve);
             UtillLogRemove.Log("재장전 완료!");
-        }
-
-        if (UseGun1 == null && UseGun2 == null)
-        {
-            WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
-
-            if (ptGunData != null)
-            {
-                UseGun1 = ptGunData; // 1번 슬롯에 기본 총 할당
-                gun1Magazine = ptGunData.Capacity; // 탄창 가득 채우기
-                gun1Reserve = ptGunData.Capacity2; // 예비 탄알 채우기
-                activeGunIndex = 1; // 1번 총을 들고 있게 함
-
-                UtillLogRemove.Log("무기가 없습니다! 기본 무기(PT)를 장착합니다.");
-                UpdateItemUI(); // UI 갱신
-            }
         }
     }
 
