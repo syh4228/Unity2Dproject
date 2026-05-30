@@ -67,15 +67,15 @@ public class BattleUIManager : MonoBehaviour
 
             if (realHpRatio > 0.5f) // 만약 체력 비율이 0.5f 보다 높으면
             {
-                hpText.color = healthyColor; // hp 표기 텍스트 색 그린
+                hpFillImage.color = healthyColor; // hp 표기 텍스트 색 그린
             }
             else if (realHpRatio < 0.2f) // 만약 0.2f 보다 낮으면
             {
-                hpText.color = warningColor; // 노랑
+                hpFillImage.color = warningColor; // 노랑
             }
             else // 둘다 아니면
             {
-                hpText.color = dangerColor; // 빨강
+                hpFillImage.color = dangerColor; // 빨강
             }
         }
     }
@@ -86,7 +86,7 @@ public class BattleUIManager : MonoBehaviour
         {
             if (gun01_MagazineText != null) // 널 체크
             {
-                gun01_MagazineText.text = magazine.ToString(); // 텍스트 추력
+                gun01_MagazineText.text = magazine.ToString(); // 텍스트 출력
             }
 
             if (gun01_ReserveText != null)
@@ -114,26 +114,18 @@ public class BattleUIManager : MonoBehaviour
     {
         if (grenadeImage != null) // 널 체크
         {
-            if (hasgrenade == true) // 투척물 가지고 있으면
-            {
-                grenadeImage.gameObject.SetActive(true); // 이미지 활성화
-            }
+            // 슈륙탄 가지고 있으면, true, 아니면 false
+            grenadeImage.gameObject.SetActive(hasgrenade);
         }
 
-        if (medkitImage != null)
+        if (medkitImage != null) // 매디 킷
         {
-            if (hasmedkit == true) // 매디킷 가지고 있으면
-            {
-                medkitImage.gameObject.SetActive(true); // 이미지 활성화
-            }
+            medkitImage.gameObject.SetActive(hasmedkit);
         }
 
-        if (pillsImage != null)
+        if (pillsImage != null) // 임시 회복 탬
         {
-            if (haspills == true) // 임시 회복탬 가지고 있으면
-            {
-                pillsImage.gameObject.SetActive(true); // 이미지 활성화
-            }
+            pillsImage.gameObject.SetActive(haspills);
         }
     }
 
@@ -164,6 +156,11 @@ public class BattleUIManager : MonoBehaviour
     public void OnClick_ConfirmExit()
     {
         ShowExitPopup(false); // 팝업 끄기
-        UIManager.Instance.RequestExitBattle(); // UI매니저에 이벤트 알림
+
+        if (UIManager.Instance != null) // UI매니저가 있으면
+        {
+            // UI매니저에서 나가기 함수 호출
+            UIManager.Instance.RequestExitBattle();
+        }
     }
 }
