@@ -1,28 +1,31 @@
 fileFormatVersion: 2
-guid: ec98f5016a545924f9adb63a1294e141
+guid: 06010fd4eb42a8b4685f3666b8d15e1c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5708195069034976024
-    second: Prey_SG_0
+      213: 8355355447481538936
+    second: Prey_punch_0
   - first:
-      213: 429610392629415066
-    second: Prey_SG_1
+      213: 4098591034773184257
+    second: Prey_punch_1
   - first:
-      213: 4085101828238902697
-    second: Prey_SG_2
+      213: -7354110366839027178
+    second: Prey_punch_2
   - first:
-      213: -6585517106003475445
-    second: Prey_SG_3
+      213: -3887700611306946914
+    second: Prey_punch_3
   - first:
-      213: -6846806941383844512
-    second: Prey_SG_4
+      213: 974587607335994303
+    second: Prey_punch_4
   - first:
-      213: 2499480218686839413
-    second: Prey_SG_5
+      213: 6960296523927981782
+    second: Prey_punch_5
   - first:
-      213: 296183245471872929
-    second: Prey_SG_6
+      213: 1921059665850833375
+    second: Prey_punch_6
+  - first:
+      213: 4953078970708200091
+    second: Prey_punch_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -144,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prey_SG_0
+      name: Prey_punch_0
       rect:
         serializedVersion: 2
-        x: 98
-        y: 772
-        width: 545
-        height: 673
+        x: 51
+        y: 186
+        width: 68
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8eca889f3da68c0b0800000000000000
-      internalID: -5708195069034976024
+      spriteID: 879134bc28f24f370800000000000000
+      internalID: 8355355447481538936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_1
+      name: Prey_punch_1
       rect:
         serializedVersion: 2
-        x: 781
-        y: 772
-        width: 561
-        height: 676
+        x: 218
+        y: 186
+        width: 73
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a9c0e7c306846f500800000000000000
-      internalID: 429610392629415066
+      spriteID: 10f9143b4de11e830800000000000000
+      internalID: 4098591034773184257
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_2
+      name: Prey_punch_2
       rect:
         serializedVersion: 2
-        x: 1448
-        y: 772
-        width: 1259
-        height: 679
+        x: 388
+        y: 186
+        width: 82
+        height: 137
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a58a7f087231b830800000000000000
-      internalID: 4085101828238902697
+      spriteID: 61aca89c593f0f990800000000000000
+      internalID: -7354110366839027178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_3
+      name: Prey_punch_3
       rect:
         serializedVersion: 2
-        x: 110
-        y: 13
-        width: 555
-        height: 691
+        x: 552
+        y: 186
+        width: 94
+        height: 137
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,20 +228,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b04876a651b8b94a0800000000000000
-      internalID: -6585517106003475445
+      spriteID: e9efaf554ec1c0ac0800000000000000
+      internalID: -3887700611306946914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_4
+      name: Prey_punch_4
       rect:
         serializedVersion: 2
-        x: 792
-        y: 13
-        width: 566
-        height: 688
+        x: 53
+        y: 25
+        width: 76
+        height: 139
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 06d132ddc514bf0a0800000000000000
-      internalID: -6846806941383844512
+      spriteID: fb382c9e34e668d00800000000000000
+      internalID: 974587607335994303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_5
+      name: Prey_punch_5
       rect:
         serializedVersion: 2
-        x: 1485
-        y: 13
-        width: 561
-        height: 685
+        x: 221
+        y: 25
+        width: 70
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +272,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57ad1fd1400ffa220800000000000000
-      internalID: 2499480218686839413
+      spriteID: 6de0d10bfc0f79060800000000000000
+      internalID: 6960296523927981782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_SG_6
+      name: Prey_punch_6
       rect:
         serializedVersion: 2
-        x: 2211
-        y: 13
-        width: 507
-        height: 685
+        x: 390
+        y: 25
+        width: 66
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,8 +294,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a7f5cea7114c1400800000000000000
-      internalID: 296183245471872929
+      spriteID: fd99e5f7699f8aa10800000000000000
+      internalID: 1921059665850833375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prey_punch_7
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 25
+        width: 66
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a0581d41fdcb440800000000000000
+      internalID: 4953078970708200091
       vertices: []
       indices: 
       edges: []
@@ -311,13 +336,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Prey_SG_0: -5708195069034976024
-      Prey_SG_1: 429610392629415066
-      Prey_SG_2: 4085101828238902697
-      Prey_SG_3: -6585517106003475445
-      Prey_SG_4: -6846806941383844512
-      Prey_SG_5: 2499480218686839413
-      Prey_SG_6: 296183245471872929
+      Prey_punch_0: 8355355447481538936
+      Prey_punch_1: 4098591034773184257
+      Prey_punch_2: -7354110366839027178
+      Prey_punch_3: -3887700611306946914
+      Prey_punch_4: 974587607335994303
+      Prey_punch_5: 6960296523927981782
+      Prey_punch_6: 1921059665850833375
+      Prey_punch_7: 4953078970708200091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

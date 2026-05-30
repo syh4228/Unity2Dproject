@@ -125,8 +125,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: beb38d7251423fd42a1cbf0682059f59
+    m_Address: Clip_Attack/Prey_MG_Reload.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bfaa4cdeb3d4c0f4b933b9747b89a138
     m_Address: 2DObject/HK_Drop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3fc3d4333c7cd543a3881f2296a1389
+    m_Address: anim/Prey_MG
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
