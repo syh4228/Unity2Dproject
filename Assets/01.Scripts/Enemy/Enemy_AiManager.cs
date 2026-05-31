@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class Enemy_AiManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Enemy_AiManager : MonoBehaviour
 
     private Transform playerTransform; // 플레이어 위치 받기
     private bool isAttack = false; // 공격중인지 확인
+    public bool isKnockedBack = false; // 밀치기 확인 변수
 
     private void Start()
     {
@@ -98,6 +100,11 @@ public class Enemy_AiManager : MonoBehaviour
             }
         }
 
+        if (isKnockedBack == true) // 넉백 중이면
+        {
+            return; // 반환
+        }
+
         if (isStunned == true) // 피격이 트루면
         {
             // 밀리는 힘은 받되, 스스로 걷지는 못하게 속도 0으로 고정
@@ -163,7 +170,7 @@ public class Enemy_AiManager : MonoBehaviour
         // 공격 애니메이션 실행
         animController.SetState(AllState.Attack);
         // 공격 쿨타임 함수호출
-        StartCoroutine(AttackRoutine());
+        AttackRoutine().Forget();
     }
 
     // 피격 트리거 함수
@@ -176,12 +183,13 @@ public class Enemy_AiManager : MonoBehaviour
             if (statManager.currentHp > 0) { }
             {
                 // 스턱 시간 함수 호출
-                StartCoroutine(HitStunRoutine());
+                HitStunRoutine().Forget();
             }
         }
     }
 
-    private IEnumerator HitStunRoutine()
+    // 피격 코루틴 함수
+    private async UniTaskVoid HitStunRoutine()
     {
         isStunned = true; // 피격 확인
         isAttack = false; // 공격중 맞았다면 공격 취소
@@ -192,40 +200,105 @@ public class Enemy_AiManager : MonoBehaviour
             animController.SetState(AllState.Hit);
         }
 
-        yield return new WaitForSeconds(stunTime); // 경직
+        try
+        {
+            // 피격 스턴 시간 만큼 대기
+            await UniTask.Delay(TimeSpan.FromSeconds(stunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            if (animController != null) // 애니메이션 컨트롤러 있으면
+            {
+                // 애니메이션 대기로 변경
+                animController.SetState(AllState.Idle);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // 몬스터가 죽어서 파괴되었을 때 발생하는 에러 방지
+        }
+        finally
+        {
+            // 스턴 종료
+            isStunned = false;
+        }
+    }
+
+    // 밀쳐기 당한  함수
+    public void ApplyShove(Vector2 pushDirection, float shoveForce, float shoveStunTime)
+    {
+        // 스탯매니저가 있고 체력이 0보다 작으면 반환
+        if (statManager != null && statManager.currentHp <= 0) return;
+
+        // 밀치키 유니테스크 호출
+        ShoveRoutine(pushDirection, shoveForce, shoveStunTime).Forget();
+    }
+
+    // 밀치기 유니테스크 함수
+    private async UniTaskVoid ShoveRoutine(Vector2 pushDirection, float shoveForce, float shoveStunTime)
+    {
+        isKnockedBack = true; // Update에서 속도 0 고정을 막기 위해 켜줌
+        isAttack = false;     // 공격 중이었다면 취소
 
         if (animController != null)
         {
-            animController.SetState(AllState.Idle);
+            animController.SetState(AllState.Hit); // 밀쳐질 때도 피격 애니메이션 재생
         }
 
-        isStunned = false; // 피격 확인 끝
+        // 속도를 0으로
+        enemyRigidbody.linearVelocity = Vector2.zero;
+
+        // 밀쳐진 위치 계산 적용.
+        enemyRigidbody.AddForce(pushDirection * shoveForce, ForceMode2D.Impulse);
+
+        try
+        {  
+            // 밀치기 스턴 시간만큼 대기
+            await UniTask.Delay(TimeSpan.FromSeconds(shoveStunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            if (animController != null)
+            {
+                animController.SetState(AllState.Idle);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+
+        }
+        finally
+        {
+            isKnockedBack = false; // 스턴 종료
+        }
     }
 
     // 공격 쿨타임 함수
-    private IEnumerator AttackRoutine()
+    private async UniTaskVoid AttackRoutine()
     {
-        // 0.3초 뒤에 (공격 모션과 맞게 대미지 주기)
-        yield return new WaitForSeconds(0.3f);
-        // 플레이어 맞는지 확인 함수 호출
-        ApplyDamageToPlayer();
-
-        // 0.2초 후에 ( 공격 애니메이션 끝나기 기다리기)
-        yield return new WaitForSeconds(0.2f);
-        // 대기 애니메이션 재생 호출
-        animController.SetState(AllState.Idle);
-
-        // 디버그 쿨타임은 어택 쿨 - 0.5f (0.5초보다 공격 쿨이 작을경우 방지)
-        float DebugCooldown = attackCooldown - 0.5f;
-
-        if (DebugCooldown > 0) // 만약 디버그 쿨타임이 0보다 크면
+        try
         {
-            // 디버그 쿨타임 시작
-            yield return new WaitForSeconds(DebugCooldown);
-        }
+            // 공격 애니미에션에 맞춰 대기시간 0.3초
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f), cancellationToken: this.GetCancellationTokenOnDestroy());
+            ApplyDamageToPlayer(); // 플레이어게 대미지 알려주기 함수 호출
 
-        // 공격 가능
-        isAttack = false;
+            // 공격 애니메이션에 맞춰 대기시간 0.2초 
+            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: this.GetCancellationTokenOnDestroy());
+            animController.SetState(AllState.Idle); // 애니메이션 대기로 변경
+
+            // 공격 쿨타임 저장
+            float DebugCooldown = attackCooldown - 0.5f;
+
+            if (DebugCooldown > 0) // 쿨타임이 0보다 크면
+            {
+                // 쿨타임 대기
+                await UniTask.Delay(TimeSpan.FromSeconds(DebugCooldown), cancellationToken: this.GetCancellationTokenOnDestroy());
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // 무시
+        }
+        finally
+        {
+            isAttack = false; // 공격중 종료
+        }
     }
 
     // 공격 범위에 있는게 플레이어인지 확인하는 함수
