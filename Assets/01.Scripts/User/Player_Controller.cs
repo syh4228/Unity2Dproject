@@ -25,6 +25,10 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Player_Character playerCharacter; // 플레이어 캐릭터
     [SerializeField] private Player_ItemDrop itemCollector; // 드랍 연결
 
+    [Header("전투 컴포넌트")]
+    [SerializeField] private Player_Melee playerMelee; // 근접 공격
+    [SerializeField] private Player_Shove playerShove; // 밀치기
+
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
     private bool _isWalk = false; // 걷기 체크
@@ -129,12 +133,27 @@ public class Player_Controller : MonoBehaviour
             StartJump(); // 점프 함수 호출
         }
 
-        if (Input.GetMouseButtonDown(0)) // 마우스 클릭하면
+        if (Input.GetMouseButtonDown(0)) // 마우스 좌 클릭 하면
         {
             if (_cooldownTimer <= 0f) // 쿨타임이 0이거나 0보다 작으면
             {
                 CancelHealing(); // 힐 취소 함수 호출
                 StartAttack(); // 공격 함수 호출
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1)) // 마우스 우클릭
+        {
+            CancelHealing(); // 힐 취소
+
+            // 플레이어 캐릭터가 있고, 플레이어 캐릭터에 액션함수가 있으면
+            if (playerCharacter != null && playerCharacter.TryExecuteAction())
+            {
+                if (playerShove != null) // 플레이어가 밀치기가 있으면
+                {
+                    // 밀치기 실행
+                    playerShove.ExecuteShove(_isFaceRight);
+                }
             }
         }
 
@@ -158,7 +177,11 @@ public class Player_Controller : MonoBehaviour
             // 플레이어 캐릭터가 있고, 플레이어 캐릭터에 액션 함수호출
             if (playerCharacter != null && playerCharacter.TryExecuteAction())
             {
-                UtillLogRemove.Log("근접 공격!");
+                if (playerMelee != null) // 근접공격 있으면
+                {
+                    // 근접공격 실행
+                    playerMelee.ExecuteMelee(_isFaceRight);
+                }
             }
         }
 
