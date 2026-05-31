@@ -4,6 +4,9 @@ using System.Collections;
 
 public class Enemy_StatManager : MonoBehaviour
 {
+    [Header("좀비 타입")]
+    public ZombieType CurrentType; // 좀비 타입 변수 저장
+
     [Header("체력 설정")]
     public int MaxHp = 100;// 최대 체력
     public int currentHp; // 현재 체력
