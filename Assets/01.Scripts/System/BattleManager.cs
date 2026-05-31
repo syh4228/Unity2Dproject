@@ -29,9 +29,15 @@ public class BattleManager : MonoBehaviour
 
     // 플레이어가 총으로 적을 맞췄을 때 호출되는 함수
     // 적 스탯 정보, 공격 데미지량, 데미지 타입
-    public void ProcessPlayerAttack(Enemy_StatManager enemyStat, int rawDamage, DamageType damageType)
+    public bool ProcessPlayerAttack(Enemy_StatManager enemyStat, int rawDamage, DamageType damageType)
     {
-       int finalDamage = rawDamage; // 공격 데미지 저장
+        // 현재 적 타입이 현재 타켓 타입과 다르면
+        if (enemyStat.CurrentType != CurrentTargetType) 
+        {
+            return false; // 반환, false 처리(넘어가기)
+        }
+
+        int finalDamage = rawDamage; // 공격 데미지 저장
 
          // 적 타입이 일반 좀비이고, 대미지타입이 저격총이거나 근접공격이면
        if (enemyStat.CurrentType == ZombieType.Normal &&
@@ -43,6 +49,8 @@ public class BattleManager : MonoBehaviour
 
        // 적에게 받을 최종대미지 전달
        enemyStat.TakeDamage(finalDamage); 
+
+        return true; // 반환 트루처리(파괴)
     }
 
     // 적이 플레이어를 공격 했을 때 호출되는 함수

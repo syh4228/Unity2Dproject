@@ -80,20 +80,21 @@ public class BulletManager : MonoBehaviour
             // 적에게 붙어있는 스탯 매니저를 받기
             Enemy_StatManager enemyStat = collision.GetComponent<Enemy_StatManager>();
 
-            if (enemyStat != null) // 스탯 매니저를 받았으면
+            // 만약 적 스텟이 있고, 배틀매니저가 있으면
+            if (enemyStat != null && BattleManager.Instance != null)
             {
-                // 배틀매니저 인스턴스가 있으면
-                if (BattleManager.Instance != null) 
-                {
-                    // 배틀매니저에서 함수 호출
-                    BattleManager.Instance.ProcessPlayerAttack(enemyStat, damage, bulletDamageType);
-                }
+                // 배틀매니저에서 적 스탯, 대미지, 총알 대미지 타입 받아오기
+                bool isCorrectTarget = BattleManager.Instance.ProcessPlayerAttack(enemyStat, damage, bulletDamageType);
+               
+                // 타겟이 트루 면
+               if (isCorrectTarget == true)
+               {
+                    // 총알 비활성화
+                    gameObject.DeactivateSafe();
+               }
             }
-
-            gameObject.DeactivateSafe(); // 총알 비활성화
         }
-
-        // 만약 땅 타일맵(Default 레이어 등)에 부딪혀도 총알 파괴
+        // 만약 땅 타일맵(Default 레이어 등)에 부딪히면
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
             gameObject.DeactivateSafe(); // 총알 비활성화
