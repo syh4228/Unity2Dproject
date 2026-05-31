@@ -202,8 +202,17 @@ public class Player_InventoryManager : MonoBehaviour
         if (currentMag > 0)
         {
             currentMag--; // 총알 -1
+
+            // 
+            DamageType currentDamageType = DamageType.NormalGun;
+
+            if (!string.IsNullOrEmpty(currentGun.Type))
+            {
+                System.Enum.TryParse(currentGun.Type, out currentDamageType);
+            }
+
             // 웨폰매니저 총알발사함수 호출
-            WeaponManager.FireBullet(isLookLeft, currentGun.Damage);
+            WeaponManager.FireBullet(isLookLeft, currentGun.Damage, currentDamageType, currentGun.EffectiveRange);
 
             //  탄창과 예비 탄창 둘다 0 이면
             if (currentMag == 0 && currentRes == 0)

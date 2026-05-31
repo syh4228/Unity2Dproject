@@ -202,7 +202,7 @@ public class Enemy_AiManager : MonoBehaviour
 
         try
         {
-            // 피격 스턴 시간 만큼 대기
+            // 피격 스턴 시간 만큼 대기, 스턴도중 죽으면 취소
             await UniTask.Delay(TimeSpan.FromSeconds(stunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
 
             if (animController != null) // 애니메이션 컨트롤러 있으면
@@ -251,7 +251,7 @@ public class Enemy_AiManager : MonoBehaviour
 
         try
         {  
-            // 밀치기 스턴 시간만큼 대기
+            // 밀치기 스턴 시간만큼 대기, 도중에 죽으면 취소
             await UniTask.Delay(TimeSpan.FromSeconds(shoveStunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
 
             if (animController != null)
@@ -274,11 +274,11 @@ public class Enemy_AiManager : MonoBehaviour
     {
         try
         {
-            // 공격 애니미에션에 맞춰 대기시간 0.3초
+            // 공격 애니미에션에 맞춰 대기시간 0.3초, 도중에 죽으면 취소
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f), cancellationToken: this.GetCancellationTokenOnDestroy());
             ApplyDamageToPlayer(); // 플레이어게 대미지 알려주기 함수 호출
 
-            // 공격 애니메이션에 맞춰 대기시간 0.2초 
+            // 공격 애니메이션에 맞춰 대기시간 0.2초, 도중에 죽으면 취소
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: this.GetCancellationTokenOnDestroy());
             animController.SetState(AllState.Idle); // 애니메이션 대기로 변경
 
