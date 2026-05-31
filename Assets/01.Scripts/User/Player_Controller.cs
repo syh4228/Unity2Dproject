@@ -8,10 +8,6 @@ public class Player_Controller : MonoBehaviour
     [Header("플레이어 설정")]
     [SerializeField] private float _moveSpeed = 2f; // 이동속도(기본 달리기)
 
-    [Header("공격 설정")]
-    [SerializeField] private float _attackCooldown = 0.5f; // 공격 쿨타임
-    private float _cooldownTimer = 0f; // 쿨타임 계산
-
     [Header("점프 및 물리")]
     [SerializeField] private float _jumpForce = 7f; // 점프 힘
     [SerializeField] private bool _isGrounded; // 지면에 닿았는지 확인
@@ -109,12 +105,6 @@ public class Player_Controller : MonoBehaviour
             return;
         }
 
-        if (_cooldownTimer > 0f) // 만약 쿨타임이 0 보다 크면
-        {
-            // 쿨타임 시작
-            _cooldownTimer = _cooldownTimer - Time.deltaTime;
-        }
-
         _isWalk = Input.GetKey(KeyCode.LeftShift); // 걷기 활성화
 
         float moveInput = Input.GetAxisRaw("Horizontal"); // 좌, 우 입력 저장
@@ -133,9 +123,12 @@ public class Player_Controller : MonoBehaviour
             StartJump(); // 점프 함수 호출
         }
 
-        if (Input.GetMouseButtonDown(0)) // 마우스 좌 클릭 하면
+        if (Input.GetMouseButton(0)) // 마우스 좌 클릭 하면
         {
-            if (_cooldownTimer <= 0f) // 쿨타임이 0이거나 0보다 작으면
+            // 웨폰매니저에서 발사 방향 받아오기
+            bool isFired = inventoryManager.TryFireCurrentGun(!_isFaceRight);
+
+            if (isFired == true) // 쿨타임이 0이거나 0보다 작으면
             {
                 CancelHealing(); // 힐 취소 함수 호출
                 StartAttack(); // 공격 함수 호출
@@ -370,14 +363,6 @@ public class Player_Controller : MonoBehaviour
     {
         // 공격 애니메이션 호출
         AnimatorController.SetState(AllState.Attack);
-
-        if (inventoryManager != null) // 인벤토리 매니저가 있으면
-        {
-            // 현재 총 발사 함수 호출
-            inventoryManager.FireCurrentGun(!_isFaceRight);
-        }
-
-        _cooldownTimer = _attackCooldown; // 쿨타임 초기화
     }
 
     private void OnGroundTriggered(bool isGrounded) // 지면 체크 센서 트리거 함수

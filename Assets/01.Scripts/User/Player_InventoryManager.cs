@@ -186,7 +186,7 @@ public class Player_InventoryManager : MonoBehaviour
     }
 
     // 총 발사 함수
-    public void FireCurrentGun(bool isLookLeft)
+    public bool TryFireCurrentGun(bool isLookLeft)
     {
         // 내가 사용중에 있는 총기가 있고, 그게 1번 총기 인지 2번총기 인지 확인해서 저장
         WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
@@ -195,69 +195,72 @@ public class Player_InventoryManager : MonoBehaviour
         // 내가 사용중인 총기가 1번 총기의 예비 탄창인지, 2번 총기의 예비 탄창인지 확인해서 저장
         ref int currentRes = ref (activeGunIndex == 1) ? ref gun1Reserve : ref gun2Reserve;
 
-        // 총이 없으면 반환
-        if (currentGun == null) return;
-
-        // 탄창에 총알이 있으면
-        if (currentMag > 0)
+        // 총이 없거나, 총알이 없으면 
+        if (currentGun == null || currentMag <= 0)
         {
-            currentMag--; // 총알 -1
+            return false; // 반환, 거짓
+        }
 
-            // 현재 대미지 타입을 노멀건으로 저장
-            DamageType currentDamageType = DamageType.NormalGun;
+        // 현재 대미지 타입을 노멀건으로 저장
+        DamageType currentDamageType = DamageType.NormalGun;
 
-            // 만약 Json에 대미지 타입이 있다면
-            if (!string.IsNullOrEmpty(currentGun.Type))
-            {
-                // 열거형에서 타입이름이 같은 것을 찾아 저장
-                System.Enum.TryParse(currentGun.Type, out currentDamageType);
-            }
+        // 만약 Json에 대미지 타입이 있다면
+        if (!string.IsNullOrEmpty(currentGun.Type))
+        {
+            // 열거형에서 타입이름이 같은 것을 찾아 저장
+            System.Enum.TryParse(currentGun.Type, out currentDamageType);
+        }
 
-            // 웨폰매니저 총알발사함수 호출
-            WeaponManager.FireBullet(isLookLeft, currentGun.Damage, currentDamageType, currentGun.EffectiveRange);
+        // 발사 방향, 총 대미지, 대미지 타입, 사거리, 사속 웨폰메니저에서 받아서 저장
+        bool isFired = WeaponManager.FireBullet(isLookLeft, currentGun.Damage, currentDamageType, currentGun.EffectiveRange, currentGun.RPM);
 
-            //  탄창과 예비 탄창 둘다 0 이면
+        if (isFired == true) // 발사가 트루면
+        {
+            currentMag--; // 총알 - 1
+
+            // UI 매니저에 총알 소모 알림
+            UiManager.UpdateAmmoUI(activeGunIndex, currentMag, currentRes);
+
+            // 탄창이 0 이고, 예비 총알이 0이면
             if (currentMag == 0 && currentRes == 0)
             {
-                // 들고 있는 총이 1번 슬롯에 있으면
+                // 1번 총기면
                 if (activeGunIndex == 1)
                 {
-                    // 1번 총기 버리기
-                    UseGun1 = null;
-                    // 2번에 총이 있다면 2번으로 스왑
+                    UseGun1 = null; // 1번 총기 슬롯 비우기
+                                    // 만약 2번 총기 슬롯에 총이 있으면 2번총기로 바꾸기
                     if (UseGun2 != null) activeGunIndex = 2;
                 }
-                else // 들고 있던 총이 2번 슬롯에 있으면
-                {   
-                    // 2번 슬롯 총기 버리기
-                    UseGun2 = null;
-                    // 1번에 총이 있다면 1번으로 스왑
+                else // 2번 총기면
+                {
+                    UseGun2 = null; // 2번 총기 슬롯 비우기
+                                    // 만약 1번 총기 슬롯에 총이 있으면 1번 총기로 바꾸기
                     if (UseGun1 != null) activeGunIndex = 1;
                 }
 
                 UtillLogRemove.Log("총알이 다 떨어져서 무기를 버렸습니다!");
 
-                // 1번 슬롯, 2번 슬롯 둘다 비었다면
+                // 1번 과 2번 총기슬롯이 비었으면
                 if (UseGun1 == null && UseGun2 == null)
                 {
-                    // 데이터 매니저에서 기본 권총 데이터 가져와서 저장
+                    // 데이터 매니저에서 기본권총 정보를 받아와 저장
                     WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
 
-                    // 기본 권총 있으면
-                    if (ptGunData != null)
+                    if (ptGunData != null) // 기본 권총이 있으면
                     {
-                        UseGun1 = ptGunData;               // 1번 슬롯에 기본 권총 장착
-                        gun1Magazine = ptGunData.Capacity; // 탄창 채우기
-                        gun1Reserve = ptGunData.Capacity2; // 예비 탄알 채우기
-                        activeGunIndex = 1;                // 무기 슬롯 1번으로 설정
+                        UseGun1 = ptGunData; // 1번 스롯 총기에 저장
+                        gun1Magazine = ptGunData.Capacity; // 1번 슬롯 탄창 채우기
+                        gun1Reserve = ptGunData.Capacity2; // 1번 슬롯 예비 총알 채우기
+                        activeGunIndex = 1; // 1번 슬롯 번호 지정
 
                         UtillLogRemove.Log("모든 무기를 소모하여 품속에서 기본 무기(PT)를 꺼냅니다.");
                     }
                 }
-
-                UpdateItemUI(); // UI도 갱신!
+                UpdateItemUI(); // 무기가 바뀌었으니 UI 갱신
             }
+            return true; // 반환, 진실
         }
+        return false; // 반환, 거짓
     }
 
     // 재장전 함수
