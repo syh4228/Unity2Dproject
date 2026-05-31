@@ -22,6 +22,9 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationTriggerHit = Animator.StringToHash("IsHit");
     private static readonly int AnimationTriggerGrenade = Animator.StringToHash("Grenade");
     private static readonly int AnimationTriggerInstantHeal = Animator.StringToHash("InstantHeal");
+    private static readonly int AnimationTriggerMelee = Animator.StringToHash("Melee");
+    private static readonly int AnimationTriggerShove = Animator.StringToHash("Shove");
+    private static readonly int AnimationTriggerDrop = Animator.StringToHash("Drop");
 
     private void Start()
     {
@@ -46,8 +49,14 @@ public class AnimationController : MonoBehaviour
         // 만약 바뀌는 상태와 현재상태가 같으면
         if (newState == _currentState)
         {
-            // 만약  현재상태가 공격, 피격, 슈륙탄 투척, 힐킷사용이 아니면( 연속 재생 가능 경우 애니메이션)
-            if (newState != AllState.Attack && newState != AllState.Hit && newState != AllState.UseGrenade && newState != AllState.UseInstantHeal) 
+            // 만약 현재 상태가 ~ 아니면
+            if (newState != AllState.Attack && // 공격
+                newState != AllState.Hit && // 피격
+                newState != AllState.UseGrenade && // 슈륙탄 투척
+                newState != AllState.UseInstantHeal && // 힐 킷 사용
+                newState != AllState.Melee && // 근접 공격
+                newState != AllState.Shove && // 밀치기
+                newState != AllState.Drop) // 줍기
             {
                 return; // 반환
             }
@@ -83,6 +92,15 @@ public class AnimationController : MonoBehaviour
                 break;
             case AllState.UseGrenade:
                 SafeSetTrigger(AnimationTriggerGrenade);
+                break;
+            case AllState.Melee:
+                SafeSetTrigger(AnimationTriggerMelee);
+                break;
+            case AllState.Shove:
+                SafeSetTrigger(AnimationTriggerShove);
+                break;
+            case AllState.Drop:
+                SafeSetTrigger(AnimationTriggerDrop);
                 break;
             default:
                 UtillLogRemove.Warning($"{newState} 상태에 대한 처리가 switch문에 없습니다.");
