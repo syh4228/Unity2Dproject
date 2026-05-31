@@ -40,6 +40,9 @@ public class WeaponData : GameDataBase
     public string IconPath;
     public string PrefabPath;
     public string UseType;
+    public string Anim_AttackPath;
+    public string Anim_ReloadPath;
+    public string Type;
 }
 
 [System.Serializable]
@@ -75,7 +78,8 @@ public class DNMonsterData : GameDataBase
     public int BaseHp;
     public int BaseAtk;
     public float NormalAtkMultiple;
-    public float SkillAtkMultipleList;
+    public List<float> SkillAtkMultipleList;
     public string IconPath;
     public string PrefabPath;
+    public string Type;
 }

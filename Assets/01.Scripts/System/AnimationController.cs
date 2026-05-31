@@ -2,20 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AllState // 공유할 상태 목록
-{
-    Idle,
-    Walk,
-    Run,
-    Attack,
-    Dead,
-    Hit,
-    Jump,
-    UseHeal, // 힐킷
-    UseInstantHeal, // 구급얍, 아드레날린
-    UseGrenade // 슈륙탄
-}
-
 // 애니매이션 전체 조작을 담당하는 컨트롤러
 public class AnimationController : MonoBehaviour
 {

@@ -12,7 +12,8 @@
     "PrefabPath": "2DObject/PT_Drop",
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_RT",
-    "Anim_ReloadPath": "anim/Prey_RT_Reload"
+    "Anim_ReloadPath": "anim/Prey_RT_Reload",
+    "Type": "NormalGun"
   },
   {
     "Id": "Weapon_PT2_2",
@@ -27,7 +28,8 @@
     "PrefabPath": "2DObject/RT2_Drop",
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_RT2",
-    "Anim_ReloadPath": "anim/Prey_RT2_Reload"
+    "Anim_ReloadPath": "anim/Prey_RT2_Reload",
+    "Type": "NormalGun"
   },
   {
     "Id": "Weapon_R0_3",
@@ -42,7 +44,8 @@
     "PrefabPath": "2DObject/R0_Drop",
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_R0",
-    "Anim_ReloadPath": "anim/Prey_R0_Reload"
+    "Anim_ReloadPath": "anim/Prey_R0_Reload",
+    "Type": "NormalGun"
   },
   {
     "Id": "Weapon_SG_4",
@@ -56,8 +59,9 @@
     "IconPath": "Icon/Icon_SG",
     "PrefabPath": "2DObject/SG_Drop",
     "UseType": "Gun",
-    "Anim_AttackPath": null,
-    "Anim_ReloadPath": "anim/Prey_SG_Reload"
+    "Anim_AttackPath": "anim/Prey_SG",
+    "Anim_ReloadPath": "anim/Prey_SG_Reload",
+    "Type": "shotgun"
   },
   {
     "Id": "Weapon_MG_5",
@@ -72,7 +76,8 @@
     "PrefabPath": "2DObject/MG_Drop",
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_MG",
-    "Anim_ReloadPath": "anim/Prey_MG_Reload"
+    "Anim_ReloadPath": "anim/Prey_MG_Reload",
+    "Type": "NormalGun"
   },
   {
     "Id": "Weapon_SR_6",
@@ -87,7 +92,8 @@
     "PrefabPath": "2DObject/SR_Drop",
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_SR",
-    "Anim_ReloadPath": "anim/Prey_SR_Reload"
+    "Anim_ReloadPath": "anim/Prey_SR_Reload",
+    "Type": "Sniper"
   },
   {
     "Id": "Weapon_GN_7",
@@ -102,7 +108,8 @@
     "PrefabPath": "2DObject/GN_Drop",
     "UseType": "Boom",
     "Anim_AttackPath": null,
-    "Anim_ReloadPath": null
+    "Anim_ReloadPath": null,
+    "Type": "Explosion"
   },
   {
     "Id": "Weapon_HK_8",
@@ -117,7 +124,8 @@
     "PrefabPath": "2DObject/HK_Drop",
     "UseType": "Heel",
     "Anim_AttackPath": null,
-    "Anim_ReloadPath": null
+    "Anim_ReloadPath": null,
+    "Type": null
   },
   {
     "Id": "Weapon_MK_9",
@@ -132,7 +140,8 @@
     "PrefabPath": "2DObject/MD_Drop",
     "UseType": "Heel",
     "Anim_AttackPath": null,
-    "Anim_ReloadPath": null
+    "Anim_ReloadPath": null,
+    "Type": null
   },
   {
     "Id": "Weapon_AD_10",
@@ -147,7 +156,8 @@
     "PrefabPath": "2DObject/AD_Drop",
     "UseType": "Heel",
     "Anim_AttackPath": null,
-    "Anim_ReloadPath": null
+    "Anim_ReloadPath": null,
+    "Type": null
   },
   {
     "Id": "Weapon_AC_11",
@@ -162,6 +172,7 @@
     "PrefabPath": "2DObject/AC_Drop",
     "UseType": "RepleAC",
     "Anim_AttackPath": null,
-    "Anim_ReloadPath": null
+    "Anim_ReloadPath": null,
+    "Type": null
   }
 ]

@@ -45,8 +45,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20e9c142c043d5f4292e51561ba85df2
+    m_Address: anim/Prey_SR_Reload
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 229746847a7181343a98c0be141cd030
     m_Address: Icon/Icon_Zobiegir
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2568ec529711dd94a87120deeac53a39
+    m_Address: anim/Prey_Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ada6f9b1a1097b4fb7bb08cb07d02f6
+    m_Address: anim/Prey_RT_Reload
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -65,6 +80,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a79dc615239f7741b19693fcfe5a961
+    m_Address: anim/Prey_Drop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52b0f7cd1fb0e994888782be1df5e7af
+    m_Address: anim/Prey_AD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5de5df0fe20728d43b2d57d286c1ec86
     m_Address: 2DObject/SG_Drop
     m_ReadOnly: 0
@@ -75,8 +100,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6199b699cbf4ae045a8a6f726d4f9745
+    m_Address: anim/Prey_SR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 690f4507075a5044dae4ba35e657cf4e
     m_Address: Icon/Icon_R0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a8758b7ffaac6b408027198cc38dd50
+    m_Address: anim/Prey_Knife
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b855f9cfb19976488c0f4d5286eff13
+    m_Address: anim/Prey_Md
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -85,8 +125,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b7c6548958c57d41b9410d33310d662
+    m_Address: anim/Prey_Die
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82d24ae84589ea44e8e04b19f5e4ab2c
+    m_Address: anim/Prey_RT2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8488d57477e819f429c1094d5b1523f4
+    m_Address: anim/Prey_RT
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a21af7528972e04b9c62e1ed5164dcd
+    m_Address: anim/Prey_Walk
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b05c41a6aedece49aa1ff7780a1e0ee
     m_Address: Icon/Icon_MD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bf433f97da30af429f7848fdd3366ac
+    m_Address: anim/Prey_RT2_Reload
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -95,8 +160,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 944efc6aae524db4b96314c5652e20d8
+    m_Address: anim/Prey_R0_Reload
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96b038c71b603f94aae04cd6958db69c
     m_Address: Icon/Icon_Bullt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a73029f882e30dc4e959949ec09a63ee
+    m_Address: anim/Prey_Idle
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -105,8 +180,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afc9016e8d5980a46ac0b2cfc7dc7e00
+    m_Address: anim/Prey_wibig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aff2900c89f71b847bd23c1585c6236a
     m_Address: 2DObject/MD_Drop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0fff3a14ea84564891f1e041ca2804a
+    m_Address: anim/Prey_GD
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -120,13 +205,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6fe544efc894c045ba94bb978365be7
+    m_Address: anim/Prey_Jump
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcd75668078174f42bbcc120b757114a
     m_Address: 2DObject/AD_Drop
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: beb38d7251423fd42a1cbf0682059f59
-    m_Address: Clip_Attack/Prey_MG_Reload.anim
+    m_Address: anim/Prey_MG_Reload
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -140,19 +230,49 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca039c56156d8404d8a4a8b8156ae7b0
+    m_Address: anim/Prey_Run
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce897477ca3fbe342823004748275e12
     m_Address: Assets/05.Prefabs/Map/Cp_01_Ct_01.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Map_Stage1_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3cab52d1ed7bb34bbb657637f78b056
+    m_Address: anim/Prey_R0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4f7d57fe96357941b55944b2869b57a
     m_Address: 2DObject/Zobie
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db4a03dc73cd5d04ba1f6ec8ae339589
+    m_Address: Assets/03.Animations/Prey/Clip/Prey_IdleF.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e17844cbd0285264eb365b890c056670
+    m_Address: anim/Prey_Punch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e2f97991adfff564a9dd38e950854fcd
+    m_Address: anim/Prey_ROlling
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea9a41ffbeb61f2449a787fd6c89df60
     m_Address: 2DObject/PT_Drop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecde0e96d7ca2004cb575f089357110d
+    m_Address: anim/Prey_SG_Reload
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -10,7 +10,8 @@
       0
     ],
     "IconPath": "Icon/Icon_Zobie",
-    "PrefabPath": "2DObject/Zobie"
+    "PrefabPath": "2DObject/Zobie",
+    "Type": "Normal"
   },
   {
     "Id": "mob_zobie_2",
@@ -23,7 +24,8 @@
       0
     ],
     "IconPath": "Icon/Icon_Zobiegir",
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Normal"
   },
   {
     "Id": "mob_variationzobie_1",
@@ -36,7 +38,8 @@
       0
     ],
     "IconPath": null,
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Special"
   },
   {
     "Id": "mob_variationzobie_2",
@@ -49,7 +52,8 @@
       0
     ],
     "IconPath": null,
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Special"
   },
   {
     "Id": "mob_variationzobie_3",
@@ -62,7 +66,8 @@
       0
     ],
     "IconPath": null,
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Special"
   },
   {
     "Id": "mob_variationzobie_4",
@@ -75,7 +80,8 @@
       0
     ],
     "IconPath": null,
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Special"
   },
   {
     "Id": "mob_variationzobie_5",
@@ -88,6 +94,7 @@
       0
     ],
     "IconPath": null,
-    "PrefabPath": null
+    "PrefabPath": null,
+    "Type": "Special"
   }
 ]

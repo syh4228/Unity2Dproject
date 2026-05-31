@@ -189,7 +189,7 @@ public class Enemy_AiManager : MonoBehaviour
         if (animController != null)  // 애니메이이션 컨트롤러 있으면
         {
             // 피격 애니메이션 실행
-            animController.AllHitAnimation();
+            animController.SetState(AllState.Hit);
         }
 
         yield return new WaitForSeconds(stunTime); // 경직
