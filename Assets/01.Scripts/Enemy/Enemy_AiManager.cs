@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy_AiManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Enemy_AiManager : MonoBehaviour
     private Transform playerTransform; // 플레이어 위치 받기
     private bool isAttack = false; // 공격중인지 확인
     public bool isKnockedBack = false; // 밀치기 확인 변수
+    public Transform decoyTarget; // 슈륙탄 어그로 위치 저장
 
     private void Start()
     {
@@ -120,32 +122,55 @@ public class Enemy_AiManager : MonoBehaviour
             return; // 반환
         }
 
-        // 본인과 플레이어 위치 계산
-        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        // 디코이 타겟이 있으면 디코이 타겟을 저장하고, 없으면 플레이어위치 저장
+        Transform activeTarget = (decoyTarget != null) ? decoyTarget : playerTransform;
 
-        if (distanceToPlayer <= 0.8f) // 만약 플레이어가 0.8f 보다 가까이 있으면
+        if (activeTarget == null) return; // 타켓이 없으면 반환
+
+        // 타켓이 플레이어면
+        if (activeTarget == playerTransform)
+        {
+            // 플레이어 컨트롤러에서 컴포넌트 받아와서 저장
+            Player_Controller player = playerTransform.GetComponent<Player_Controller>();
+
+            // 플레이어가 있고, 플레이어가 죽었으면
+            if (player != null && player.IsDead)
+            {
+                // 속도 0 으로 변경
+                enemyRigidbody.linearVelocity = Vector2.zero;
+                // 애니메이션 대기로 변경
+                animController.SetState(AllState.Idle);
+                return;
+            }
+        }
+
+        // 타겟 위치와 내 위치 저장
+        float distanceToTarget = Vector2.Distance(transform.position, activeTarget.position);
+
+        if (distanceToTarget <= 0.8f) // 만약 플레이어가 0.8f 보다 가까이 있으면
         {
             enemyRigidbody.linearVelocity = Vector2.zero; // 이동속도 0
             animController.SetState(AllState.Idle); // 대기 애니메이션 실행
         }
-        else if(distanceToPlayer <= attackRange) // 만약 플레이어가 공격 사거리 안에 있으면
+        else if(distanceToTarget <= attackRange) // 만약 플레이어가 공격 사거리 안에 있으면
         {
             AttackPlayer(); // 공격 함수 호출
         }
-        else if(distanceToPlayer  <= detectRange) // 만약 플레이어가 추적 사거리 안에 있으면
+        // 만약 플레이어가 추적 사거리 안에 있거나, 디코이 타겟팅이 있으면
+        else if (distanceToTarget <= detectRange || activeTarget == decoyTarget)
         {
-            ChasePlayer(); // 추적 함수 호출
+            ChaseTarget(activeTarget); // 추적 함수 호출
         }
     }
 
-    private void ChasePlayer() // 플레이어 추적 함수
+    private void ChaseTarget(Transform target) // 플레이어 추적 함수
     {
         animController.SetState(AllState.Run); // 달리기 애니매이션 실행
 
         float directionX = 1f; // 이동 방향을 저장 변수
 
         // 만약 플레이어가 나보다 왼쪽에 있으면
-        if (playerTransform.position.x < transform.position.x)
+        if (target.position.x < transform.position.x)
         {
             spriteRenderer.flipX = true; //  스프라이트 그대로 
             directionX = -1f; // 왼쪽 보기
@@ -329,5 +354,12 @@ public class Enemy_AiManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // 디코이 함수
+    public void SetDecoy(Transform decoy)
+    {
+        // 디코이 타겟팅 저장
+        decoyTarget = decoy;
     }
 }
