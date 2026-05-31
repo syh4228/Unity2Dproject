@@ -24,6 +24,10 @@ public class BattleUIManager : MonoBehaviour
     [Header("나가기 팝업")]
     [SerializeField] private GameObject exitpopup; // 나가기창 연결
 
+    [Header("타겟 UI")]
+    [SerializeField] private GameObject targetNoramlUI; // 노멀 타켓 연결
+    [SerializeField] private GameObject targetSpecialUI; // 스폐셜 타겟 연결
+
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
     private Color warningColor = Color.yellow; // 주의 노랑
@@ -162,5 +166,17 @@ public class BattleUIManager : MonoBehaviour
             // UI매니저에서 나가기 함수 호출
             UIManager.Instance.RequestExitBattle();
         }
+    }
+
+    // 타겟 UI 업데이트 함수
+    public void UpdateTargetUI(ZombieType targetType)
+    {
+       // 타겟 타입이 좀비 노멀이면 isNormal이 true
+       bool isNormal = (targetType == ZombieType.Normal);
+
+        targetNoramlUI.SetActive(isNormal); // true면 노멀 타겟 활성화
+        targetSpecialUI.SetActive(!isNormal); //false면 스폐셜 타겟 활성화
+
+        UtillLogRemove.Log($"UI 갱신 {(isNormal ? "Normal" : "Special")}");
     }
 }

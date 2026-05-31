@@ -9,7 +9,11 @@ public class BattleManager : MonoBehaviour
     // 난이도 1 = 쉬움, 2 = 보통, 3 = 어려움
     [Range(1, 3)] public int CurrentDifficultyLevel = 1; // 현재 난이도 저장
     // 난이도 따른 데미지 상승률 저장 = 0.5;
-    [SerializeField] private float difficultyDamageMultiplier = 0.5f; 
+    [SerializeField] private float difficultyDamageMultiplier = 0.5f;
+
+    [SerializeField] private BattleUIManager uiManager; // UI 매니저 연결
+
+    public ZombieType CurrentTargetType = ZombieType.Normal; // 현재 타겟 타입 저장
 
     private void Awake()
     {
@@ -71,5 +75,14 @@ public class BattleManager : MonoBehaviour
         }
 
         UtillLogRemove.Error("GAME OVER");
-    } 
+    }
+
+    // 타겟 바꾸기 함수
+    public void ToggleTargetType()
+    {
+        // 현재 타겟이 노멀이면 스페셜로, 아니면 노멀로 현재 타겟 저장
+        CurrentTargetType = (CurrentTargetType == ZombieType.Normal) ? ZombieType.Special : ZombieType.Normal;
+        
+        uiManager.UpdateTargetUI(CurrentTargetType);
+    }
 }

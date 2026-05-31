@@ -203,11 +203,13 @@ public class Player_InventoryManager : MonoBehaviour
         {
             currentMag--; // 총알 -1
 
-            // 
+            // 현재 대미지 타입을 노멀건으로 저장
             DamageType currentDamageType = DamageType.NormalGun;
 
+            // 만약 Json에 대미지 타입이 있다면
             if (!string.IsNullOrEmpty(currentGun.Type))
             {
+                // 열거형에서 타입이름이 같은 것을 찾아 저장
                 System.Enum.TryParse(currentGun.Type, out currentDamageType);
             }
 

@@ -198,6 +198,11 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab)) // 탭키 누르면
+        {
+            BattleManager.Instance.ToggleTargetType(); // 타켓 변경
+        }
+
         // 무기 및 아이템 스왑
         if (inventoryManager != null)
         {

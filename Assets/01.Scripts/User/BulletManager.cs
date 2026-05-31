@@ -26,7 +26,7 @@ public class BulletManager : MonoBehaviour
     {
         damage = weaponDamage; // 무기 대미지 저장
         bulletDamageType = weaponType; // 무기 타입 저장
-        _effectiveRange = effectiveRange; // 최대 사거리 저장
+        _effectiveRange = effectiveRange / 5f; // 최대 사거리 저장
         _startPosition = transform.position; // 발사 위치 저장
 
         if (bulletRigidbody == null) // 리지드바디 없으면

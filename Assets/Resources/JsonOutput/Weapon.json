@@ -61,7 +61,7 @@
     "UseType": "Gun",
     "Anim_AttackPath": "anim/Prey_SG",
     "Anim_ReloadPath": "anim/Prey_SG_Reload",
-    "Type": "shotgun"
+    "Type": "Shotgun"
   },
   {
     "Id": "Weapon_MG_5",
