@@ -12,6 +12,8 @@ public class Player_InventoryManager : MonoBehaviour
     [SerializeField] private GameObject grenedPrefab; // 수류탄 프리팹
     [SerializeField] private Transform thowPoint; // 수류탄 던질때 생성될 위치
 
+    [SerializeField] private AnimationController AnimController; // 애니메이션 컨트롤러 연결
+
     private WeaponData UseGun1; // 소지하고 있는 1번 총기
     private int gun1Magazine; // 1번 사용 총기 한 탄창 총알
     private int gun1Reserve; // 1번 사용 총기 총 탄창 총알
@@ -215,6 +217,18 @@ public class Player_InventoryManager : MonoBehaviour
         {
             UiManager.UpdateWeaponSlotUI(2, null, false);
             UiManager.UpdateAmmoUI(2, 0, 0);
+        }
+
+        // 현재 들고 있는 총이 1번 슬롯에 있는 총이면 1번 저장, 2번 슬롯이면 2번 저장
+        WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+
+        // 총이 있고, 애니메이터 컨트롤러가 연결되어 있다면
+        if (currentGun != null && AnimController != null)
+        {
+            // 애니메이터에게 JSON에 적힌 모션으로 바꾸라고 지시
+            AnimController.ChangeWeaponAnimation(currentGun.Anim_AttackPath, currentGun.Anim_ReloadPath);
+            // 애니메이터에게 JSON에 적힌 RPM 속도로 쏘라고 지시
+            AnimController.SetAttackSpeed(currentGun.RPM);
         }
     }
 

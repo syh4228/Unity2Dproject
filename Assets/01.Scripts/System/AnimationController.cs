@@ -8,6 +8,8 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Animator Animator_Control; // 애니메이터 연결
 
     private AllState _currentState; // 현재 상태 저장
+    // 애니메이션 클립을 동적으로 갈아끼우기 위한 오버라이드 컨트롤러 저장
+    private AnimatorOverrideController _overrideController; 
 
     // 애니매이션 상태를 해시 숫자로 저장(한번 선언 시 변환 불가)
     // bool 스위치 (재생이 유지 되야하는 경우)
@@ -25,7 +27,11 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationTriggerMelee = Animator.StringToHash("Melee");
     private static readonly int AnimationTriggerShove = Animator.StringToHash("Shove");
     private static readonly int AnimationTriggerDrop = Animator.StringToHash("Drop");
+    private static readonly int AnimationTriggerReload = Animator.StringToHash("IsReload");
 
+    // 공격 속도
+    private static readonly int AnimationAttackSpeed = Animator.StringToHash("AttackSpeed");
+    
     private void Start()
     {
         // 시작할때 만약 연결된 애니메이션이 없다면
@@ -40,6 +46,14 @@ public class AnimationController : MonoBehaviour
                 // 디버그 로그 띄우기
                 UtillLogRemove.Error("애니메이터가 연결되지 않았습니다! 확인해주세요.");
             }
+        }
+
+        if (Animator_Control != null) // 애니메이터 컨트롤러가 있으면
+        {
+            // 오버라이브 컨트롤러 저장
+            _overrideController = new AnimatorOverrideController(Animator_Control.runtimeAnimatorController);
+            // 원본 애니메이터를 오버라이브 컨트롤러에 저장
+            Animator_Control.runtimeAnimatorController = _overrideController;
         }
     }
 
@@ -101,6 +115,9 @@ public class AnimationController : MonoBehaviour
                 break;
             case AllState.Drop:
                 SafeSetTrigger(AnimationTriggerDrop);
+                break;
+            case AllState.Reload:
+                SafeSetTrigger(AnimationTriggerReload);
                 break;
             default:
                 UtillLogRemove.Warning($"{newState} 상태에 대한 처리가 switch문에 없습니다.");
@@ -179,6 +196,60 @@ public class AnimationController : MonoBehaviour
 
                 return;
             }
+        }
+    }
+
+    // 공격 속도 함수
+    public void SetAttackSpeed(float rpm)
+    {
+        if (Animator_Control == null) return; // 애니메이터 컨트롤 없으면 반환
+
+        // RPM 속도 저장
+        float speedRatio = rpm / 60f;
+
+        // 애니메이션 속도 RPM에 맞춰 변경
+        Animator_Control.SetFloat(AnimationAttackSpeed, speedRatio);
+    }
+
+    // 무기에 따른 애니메이션 교체 함수
+    public void ChangeWeaponAnimation(string attackClipPath, string reloadClipPath)
+    {
+        // 오버라이드컨트롤이 없거나, 경로에 애니메이션 클립이 없으면 반환
+        if (_overrideController == null) return;
+
+        if (!string.IsNullOrEmpty(attackClipPath))
+        {
+            // Resources 폴더에서 애니메이션 클립 가져오기
+            AnimationClip newAttackClip = Resources.Load<AnimationClip>(attackClipPath);
+
+            if (newAttackClip != null) // 만약 있으면
+            {
+                // 기본권총 사격을 공격 애니메이션을 오버라이드 컨트롤에 저장
+                _overrideController["Prey_RT"] = newAttackClip;
+
+                UtillLogRemove.Log($"애니메이션 교체 완료: {attackClipPath}");
+            }
+            else
+            {
+                UtillLogRemove.Warning($"애니메이션 클립을 찾을 수 없습니다: Resources/{attackClipPath}");
+            }
+        }
+
+        if (!string.IsNullOrEmpty(reloadClipPath))
+        {
+            AnimationClip newReloadClip = Resources.Load<AnimationClip>(reloadClipPath);
+
+            if (newReloadClip != null)
+            {
+                _overrideController["Prey_RT_Reload"] = newReloadClip;
+
+                UtillLogRemove.Log($"애니메이션 교체 완료: {newReloadClip}");
+            }
+            else
+            {
+                UtillLogRemove.Warning($"애니메이션 클립을 찾을 수 없습니다: Resources/{newReloadClip}");
+            }
+
         }
     }
 }

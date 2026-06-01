@@ -264,6 +264,10 @@ GameObject:
   - component: {fileID: 4271526962768632899}
   - component: {fileID: 6702451743114155574}
   - component: {fileID: 8060782122003259101}
+  - component: {fileID: 7602754958290882172}
+  - component: {fileID: 5319799940626075072}
+  - component: {fileID: 6069189464879833547}
+  - component: {fileID: 2068952144159443111}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -305,9 +309,17 @@ MonoBehaviour:
   currentHp: 0
   currentTempHp: 0
   tempHpDecayRate: 0.5
+  MaxStamina: 100
+  currentStamina: 0
+  staminaRecoveryRate: 10
+  lowStaminaThreshold: 30
+  lowStaminaPenaltyMultiplier: 0.2
+  actionCooldown: 1.5
   stunTime: 0.5
   playerController: {fileID: 8169979982465481556}
   animatorController: {fileID: 5598661589226123953}
+  isStunned: 0
+  isAdrenalineActive: 0
 --- !u!114 &8169979982465481556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,13 +333,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Controller
   _moveSpeed: 2
-  _attackCooldown: 0.5
   _jumpForce: 7
   _isGrounded: 0
   Rigidbody_Player: {fileID: 6702451743114155574}
   GroundCheckObject: {fileID: 3911347393279799766}
   AnimatorController: {fileID: 5598661589226123953}
   weaponManager: {fileID: 4271526962768632899}
+  inventoryManager: {fileID: 6069189464879833547}
+  playerCharacter: {fileID: 4868846582767130456}
+  itemCollector: {fileID: 2068952144159443111}
+  playerMelee: {fileID: 5319799940626075072}
+  playerShove: {fileID: 7602754958290882172}
 --- !u!114 &4271526962768632899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,3 +423,67 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.2}
   m_Size: {x: 1.7, y: 3.5}
   m_Direction: 0
+--- !u!114 &7602754958290882172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394464225183027664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3122fb5b8c6b5874a96da8efb14de646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Shove
+  ShoveRadius: 1.5
+  ShoveForce: 10
+  StunTime: 1.5
+  ShovePoint: {fileID: 371780055416556431}
+  animController: {fileID: 5598661589226123953}
+--- !u!114 &5319799940626075072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394464225183027664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89aec832f915608439a03a6d9e2f0429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Melee
+  MeleeDamage: 100
+  AttackRadius: 1.2
+  AttackPoint: {fileID: 371780055416556431}
+  animController: {fileID: 5598661589226123953}
+--- !u!114 &6069189464879833547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394464225183027664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e973e13608d01364d909ec797037aff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_InventoryManager
+  WeaponManager: {fileID: 4271526962768632899}
+  UiManager: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+  PlayerCharacter: {fileID: 4868846582767130456}
+  grenedPrefab: {fileID: 8674057931366426177, guid: 8b5ffe1d57b0b854881da88d9691d2dd, type: 3}
+  thowPoint: {fileID: 371780055416556431}
+  AnimController: {fileID: 5598661589226123953}
+--- !u!114 &2068952144159443111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394464225183027664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3aa039904636745afd8747b90e7894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_ItemDrop
+  inventoryManager: {fileID: 6069189464879833547}

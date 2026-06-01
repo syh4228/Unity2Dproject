@@ -20,7 +20,7 @@ public class GameDataManager : MonoBehaviour
     // JsonUtility의 한계를 극복하기 위한 Wrapper
     private class SerializationWrapper<T>
     {
-        public List<T> items; // 파일의 루트 키 이름을 지정
+        public List<T> items = new List<T>(); // 파일의 루트 키 이름을 지정
     }
 
     // 딕셔너리에 정보 받아오고 변수로 저장
