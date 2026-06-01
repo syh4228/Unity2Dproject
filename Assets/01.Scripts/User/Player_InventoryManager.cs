@@ -8,6 +8,10 @@ public class Player_InventoryManager : MonoBehaviour
     [SerializeField] private BattleUIManager UiManager; // 배틀 UI 매니저
     [SerializeField] private Player_Character PlayerCharacter; // 플레이어 캐릭터 매니저
 
+    [Header("수류탄 컴포넌트")]
+    [SerializeField] private GameObject grenedPrefab; // 수류탄 프리팹
+    [SerializeField] private Transform thowPoint; // 수류탄 던질때 생성될 위치
+
     private WeaponData UseGun1; // 소지하고 있는 1번 총기
     private int gun1Magazine; // 1번 사용 총기 한 탄창 총알
     private int gun1Reserve; // 1번 사용 총기 총 탄창 총알
@@ -109,6 +113,8 @@ public class Player_InventoryManager : MonoBehaviour
                 SetGunSlot(2, newGun);
             }
         }
+
+        UpdateItemUI(); // UI업데이트
     }
 
     // 가지고 있는 총기 슬롯 함수
@@ -182,7 +188,34 @@ public class Player_InventoryManager : MonoBehaviour
     // 아이템 UI 업데이트
     private void UpdateItemUI()
     {
+        // 아이템이 전부 있을때, UI 업데이트
         UiManager.UpdateItemUI(UseBoom != null, UseHeel1 != null, UseHeel2 != null);
+        
+        if (UseGun1 != null) // 건슬롯 1번이 있으면
+        {
+            // 배틀UI매니저에 업데이트 웨폰 슬롯 UI 함수 호출
+            UiManager.UpdateWeaponSlotUI(1, UseGun1.IconPath, activeGunIndex == 1);
+            // 배틀UI매니저에 업데이트 총알 UI 함수 호출
+            UiManager.UpdateAmmoUI(1, gun1Magazine, gun1Reserve);
+        }
+        else // 없으면
+        {
+            // 배틀 UI 매니저에 없다고 알림
+            UiManager.UpdateWeaponSlotUI(1, null, false);
+            // 배틀 UI 매니저에 없다고 알림
+            UiManager.UpdateAmmoUI(1, 0, 0);
+        }
+
+        if (UseGun2 != null) // 건 슬롯 2번이 있으면
+        {
+            UiManager.UpdateWeaponSlotUI(2, UseGun2.IconPath, activeGunIndex == 2);
+            UiManager.UpdateAmmoUI(2, gun2Magazine, gun2Reserve);
+        }
+        else
+        {
+            UiManager.UpdateWeaponSlotUI(2, null, false);
+            UiManager.UpdateAmmoUI(2, 0, 0);
+        }
     }
 
     // 총 발사 함수
@@ -195,24 +228,8 @@ public class Player_InventoryManager : MonoBehaviour
         // 내가 사용중인 총기가 1번 총기의 예비 탄창인지, 2번 총기의 예비 탄창인지 확인해서 저장
         ref int currentRes = ref (activeGunIndex == 1) ? ref gun1Reserve : ref gun2Reserve;
 
-        // 총이 없거나, 총알이 없으면 
-        if (currentGun == null || currentMag <= 0)
-        {
-            return false; // 반환, 거짓
-        }
-
-        // 현재 대미지 타입을 노멀건으로 저장
-        DamageType currentDamageType = DamageType.NormalGun;
-
-        // 만약 Json에 대미지 타입이 있다면
-        if (!string.IsNullOrEmpty(currentGun.Type))
-        {
-            // 열거형에서 타입이름이 같은 것을 찾아 저장
-            System.Enum.TryParse(currentGun.Type, out currentDamageType);
-        }
-
         // 발사 방향, 총 대미지, 대미지 타입, 사거리, 사속 웨폰메니저에서 받아서 저장
-        bool isFired = WeaponManager.FireBullet(isLookLeft, currentGun.Damage, currentDamageType, currentGun.EffectiveRange, currentGun.RPM);
+        bool isFired = WeaponManager.FireBullet(isLookLeft, currentGun);
 
         if (isFired == true) // 발사가 트루면
         {
@@ -302,20 +319,36 @@ public class Player_InventoryManager : MonoBehaviour
         // 현재 총기 슬롯 번호에 저장
         activeGunIndex = slotIndex;
 
+        UpdateItemUI();
+
         UtillLogRemove.Log($"{activeGunIndex}번 총기로 교체 완료!");
     }
 
     // 폭탄 
-    public void UseBoomItem()
+    public void UseBoomItem(bool isFaceRight)
     {
         // 폭탄 없으면 반환
         if (UseBoom == null) return;
 
-        UtillLogRemove.Log("폭탄 투척!");
+        // 수류탄 프립팹이 있고, 생성 위치가 있으면
+        if (grenedPrefab != null && thowPoint != null)
+        {
+            // 수륙탄 오브젝트를 수류탄 프리팹으로 생성위치에 회전 없이 생성
+            GameObject boomObj = Instantiate(grenedPrefab, thowPoint.position, Quaternion.identity);
+            // 수륙탄 매니저에서 컴포넌트 가져오기
+            GrenadeManager grenadeLogic = boomObj.GetComponent<GrenadeManager>();
 
+            if (grenadeLogic != null) // 컴포넌트 있으면
+            {
+                // 방향 확인해서 저장
+                float dirX = isFaceRight ? 1f : -1f;
+                grenadeLogic.Toss(dirX);
+            }
+        }
+
+        UtillLogRemove.Log("폭탄 투척!");
         // 폭탄 삭제
         UseBoom = null;
-
         // UI아이템 업데이트 함수 호출
         UpdateItemUI();
     }

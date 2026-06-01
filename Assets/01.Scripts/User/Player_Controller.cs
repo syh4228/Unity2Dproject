@@ -218,7 +218,7 @@ public class Player_Controller : MonoBehaviour
             {
                 CancelHealing(); // 힐 취소
                 // 인벤토리매니저, 슈류탄 사용 함수 호출
-                inventoryManager.UseBoomItem();
+                inventoryManager.UseBoomItem(_isFaceRight);
                 // 애니메이션 컨트롤러에서 상태 슈류탄던지기로 변경 알림
                 AnimatorController.SetState(AllState.UseGrenade);
             }

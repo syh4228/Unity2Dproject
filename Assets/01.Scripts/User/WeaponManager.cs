@@ -25,9 +25,9 @@ public class WeaponManager : MonoBehaviour
     }
 
     // 총알 발사 함수
-    public bool FireBullet(bool isLookLeft, int weaponDamage, DamageType weaponType, float effectiveRange, float rpm)
+    public bool FireBullet(bool isLookLeft, WeaponData gunData)
     {
-        float realRPM = rpm * 10f; // 실제 RPM 보정해서 저장
+        float realRPM = gunData.RPM * 10f; // 실제 RPM 보정해서 저장
 
         // 60 나누기 실제 RPM 값을 발사딜레이에 저장
         float fireDelay = 60f / realRPM;
@@ -75,7 +75,7 @@ public class WeaponManager : MonoBehaviour
             // 총알 방향 값은 왼쪽 방향이면 -1, 오른쪽이면 +1
             float dirX = isLookLeft ? -1f : 1f;
             // 바라보는 방향, 대미지, 무기타입 저장, 사거리 저장
-            bulletScript.SetDirection(dirX, weaponDamage, weaponType, effectiveRange); // 총알 방향 함수 호출
+            bulletScript.SetDirection(dirX, gunData); // 총알 방향 함수 호출
         }
 
         return true; // 반환, 발사 성공

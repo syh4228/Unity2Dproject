@@ -22,12 +22,21 @@ public class BulletManager : MonoBehaviour
     }
 
     // 총알 발사 방향 함수
-    public void SetDirection(float directionX, int weaponDamage, DamageType weaponType, float effectiveRange)
+    public void SetDirection(float dirX, WeaponData gunData)
     {
-        damage = weaponDamage; // 무기 대미지 저장
-        bulletDamageType = weaponType; // 무기 타입 저장
-        _effectiveRange = effectiveRange / 5f; // 최대 사거리 저장
         _startPosition = transform.position; // 발사 위치 저장
+        damage = gunData.Damage; // 무기대미지 저장
+        _effectiveRange = gunData.EffectiveRange / 10f; // 무기 사거리 저장
+
+        // 대미지타입 노멀건으로 저장
+        bulletDamageType = DamageType.NormalGun;
+
+        // 건데이터 타입이 있으면
+        if (!string.IsNullOrEmpty(gunData.Type))
+        {
+            // 열거형 정의에 타입과 같은 타입을 꺼내서 저장
+            System.Enum.TryParse(gunData.Type, out bulletDamageType);
+        }
 
         if (bulletRigidbody == null) // 리지드바디 없으면
         {
@@ -38,23 +47,22 @@ public class BulletManager : MonoBehaviour
         if (bulletRigidbody != null)  // 리지드바디 있으면
         {
             // 총알 속도 계산
-            bulletRigidbody.linearVelocity = new Vector2(directionX * speed, 0f);
+            bulletRigidbody.linearVelocity = new Vector2(dirX * speed, 0f);
         }
 
         if (bulletSpriteRenderer != null) // 스프라인트 있으면
         {
-            // directionX가 0보다 작으면(왼쪽) true, 아니면 flase
-            bulletSpriteRenderer.flipX = (directionX < 0);
-        }
-        else // 아니면
-        {
-            // 자식에서 스프라이트 가져오기
+            // 자식에서 스프라이트 랜더러 가져와서 저장
             bulletSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            //  스프라이트 있으면
-            if (bulletSpriteRenderer != null)
-            {   
-                bulletSpriteRenderer.flipX = (directionX < 0);
-            }
+        }
+
+        if (dirX < 0) // 왼쪽으로 날아간다면
+        {
+            bulletSpriteRenderer.flipX = true; // 이미지 뒤집기 O
+        }
+        else // 오른쪽으로 날아간다면
+        {
+            bulletSpriteRenderer.flipX = false; // 이미지 뒤집기 X
         }
     }
 

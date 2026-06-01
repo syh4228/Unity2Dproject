@@ -28,6 +28,10 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private GameObject targetNoramlUI; // 노멀 타켓 연결
     [SerializeField] private GameObject targetSpecialUI; // 스폐셜 타겟 연결
 
+    [Header("총기 이미지")]
+    [SerializeField] private Image gun01_Image; // 1번 총기 이미지
+    [SerializeField] private Image gun02_Image; // 2번 총기 이미지
+
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
     private Color warningColor = Color.yellow; // 주의 노랑
@@ -130,6 +134,37 @@ public class BattleUIManager : MonoBehaviour
         if (pillsImage != null) // 임시 회복 탬
         {
             pillsImage.gameObject.SetActive(haspills);
+        }
+    }
+
+    // 총기 슬롯 업데이트 함수
+    public void UpdateWeaponSlotUI(int slotIndex, string iconPath, bool isActive)
+    {
+        // 쓰고 있는 슬롯이 1번이면 1번 이미지를 ,2번이면 2번이미지를 저장
+        Image targetImage = (slotIndex == 1) ? gun01_Image : gun02_Image;
+
+        // 없으면 반환
+        if (targetImage == null) return;
+
+        // 경로가 비어있거나, 안적혀있으면
+        if (string.IsNullOrEmpty(iconPath))
+        {
+            targetImage.sprite = null; // 스프라이트 없으면
+            targetImage.color = new Color(1, 1, 1, 0); // 투명하게
+            return;
+        }
+
+        // 리소스에서 아이콘 이미지 가져오기
+        Sprite weaponSprite = Resources.Load<Sprite>(iconPath);
+
+        if (weaponSprite != null) // 이미지가 있으면
+        {
+            // 이미지 저장
+            targetImage.sprite = weaponSprite;
+
+            // 실제 사용총기는 불투명하게, 사용안하는 총기는 반투명
+            float alpha = isActive ? 1f : 0.4f;
+            targetImage.color = new Color(1, 1 ,1, alpha);
         }
     }
 
