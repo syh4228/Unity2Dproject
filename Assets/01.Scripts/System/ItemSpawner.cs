@@ -2,13 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public enum ESpawnMode
-{
-    FixedItem,         // 지정한 아이템 무조건 스폰
-    RandomGun,         // 총기류 중 랜덤 스폰
-    RandomConsumable   // 소모품 중 랜덤 스폰
-}
-
 public class ItemSpawner : MonoBehaviour
 {
     [Header("스폰 설정")]

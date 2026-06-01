@@ -17,16 +17,21 @@ public class WeaponManager : MonoBehaviour
 
         for (int i = 0; i < poolSize; i++) // 총알 생성
         {
-            GameObject bulletObj = Instantiate(bulletPrefab); // 총알 프리팹 가져오기
+            if (bulletPrefab != null)
+            {
+                GameObject bulletObj = Instantiate(bulletPrefab); // 총알 프리팹 가져오기
 
-            bulletObj.SetActive(false); // 만든 총알 비활성화
-            bulletPool.Add(bulletObj); // 총알 저장
+                bulletObj.SetActive(false); // 만든 총알 비활성화
+                bulletPool.Add(bulletObj); // 총알 저장
+            }
         }
     }
 
     // 총알 발사 함수
     public bool FireBullet(bool isLookLeft, WeaponData gunData)
     {
+        if (gunData == null || bulletPrefab == null || firePoint == null) return false;
+
         float realRPM = gunData.RPM * 10f; // 실제 RPM 보정해서 저장
 
         // 60 나누기 실제 RPM 값을 발사딜레이에 저장

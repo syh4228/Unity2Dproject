@@ -74,7 +74,6 @@ public class BulletManager : MonoBehaviour
         // 위치가 사거리보다 크면
         if (traveledDistance >= _effectiveRange)
         {
-            UtillLogRemove.Log("총알이 최대 사거리에 도달하여 비활성화됩니다.");
             gameObject.DeactivateSafe(); // 총알 비활성화
         }
     }

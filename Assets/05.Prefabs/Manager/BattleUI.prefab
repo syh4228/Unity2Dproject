@@ -75,6 +75,78 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &683048291203380386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 379882446561805879}
+  - component: {fileID: 6303297070046615904}
+  - component: {fileID: 6694363090104621782}
+  m_Layer: 5
+  m_Name: Temps2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &379882446561805879
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683048291203380386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7697426992148237611}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -20, y: 15}
+  m_SizeDelta: {x: 30, y: 35}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6303297070046615904
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683048291203380386}
+  m_CullTransparentMesh: 1
+--- !u!114 &6694363090104621782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683048291203380386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 63b9af13713d7784c8ce56fd1e53ffda, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &691230394858127619
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +331,7 @@ RectTransform:
   - {fileID: 5240320295579479109}
   - {fileID: 3795070687337379257}
   - {fileID: 7786203551544845923}
+  - {fileID: 379882446561805879}
   m_Father: {fileID: 4625065496458624188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1121,7 +1194,7 @@ GameObject:
   - component: {fileID: 3979085684144476415}
   - component: {fileID: 3064621989254028120}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageSpecial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1346,7 +1419,7 @@ GameObject:
   - component: {fileID: 8570680070069117722}
   - component: {fileID: 3218465655540723398}
   m_Layer: 5
-  m_Name: MagazineText
+  m_Name: MagazineText01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1399,7 +1472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -1522,7 +1595,7 @@ GameObject:
   - component: {fileID: 7178530006755101281}
   - component: {fileID: 7933832889262373260}
   m_Layer: 5
-  m_Name: GunImage
+  m_Name: GunImage02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1568,14 +1641,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.4}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6750808678423430089, guid: 707dfccc9a078af4084705e831182e94, type: 3}
+  m_Sprite: {fileID: -290587500648190261, guid: 3444cad14cc40964696d9500e3cef64f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1938,10 +2011,10 @@ MonoBehaviour:
   medkitImage: {fileID: 5766307200098221660}
   pillsImage: {fileID: 4671123909765535797}
   exitpopup: {fileID: 5062607675421007735}
-  targetNoramlUI: {fileID: 0}
-  targetSpecialUI: {fileID: 0}
-  gun01_Image: {fileID: 0}
-  gun02_Image: {fileID: 0}
+  targetNoramlUI: {fileID: 6899509020833485291}
+  targetSpecialUI: {fileID: 2155026450856364042}
+  gun01_Image: {fileID: 7108443496934000577}
+  gun02_Image: {fileID: 7933832889262373260}
 --- !u!1 &4370671495340805359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,7 +2032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5240320295579479109
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2473,7 +2546,7 @@ GameObject:
   - component: {fileID: 870624741980504740}
   - component: {fileID: 736117803497476701}
   m_Layer: 5
-  m_Name: ReserveText
+  m_Name: ReserveText01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2526,7 +2599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 60
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -2610,7 +2683,7 @@ GameObject:
   - component: {fileID: 7926765073831420986}
   - component: {fileID: 7081682363957858158}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2685,7 +2758,7 @@ GameObject:
   - component: {fileID: 4308210251792944744}
   - component: {fileID: 7108443496934000577}
   m_Layer: 5
-  m_Name: GunImage
+  m_Name: GunImage01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2738,7 +2811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6750808678423430089, guid: 707dfccc9a078af4084705e831182e94, type: 3}
+  m_Sprite: {fileID: 2021417780019015169, guid: 690f4507075a5044dae4ba35e657cf4e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2763,7 +2836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3326671368555509921
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2802,7 +2875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7786203551544845923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3006,7 +3079,7 @@ GameObject:
   - component: {fileID: 2915563186223596895}
   - component: {fileID: 2172857082829744272}
   m_Layer: 5
-  m_Name: ReserveText
+  m_Name: ReserveText02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3059,7 +3132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: "\u221E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -3143,7 +3216,7 @@ GameObject:
   - component: {fileID: 7115927212597598660}
   - component: {fileID: 1218235306632947672}
   m_Layer: 5
-  m_Name: MagazineText
+  m_Name: MagazineText02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3196,7 +3269,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}

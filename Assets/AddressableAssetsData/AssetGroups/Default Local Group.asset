@@ -45,6 +45,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1da3be55abbad6447a4118658eaaa8f0
+    m_Address: Icon/Icon_SG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 20e9c142c043d5f4292e51561ba85df2
     m_Address: anim/Prey_SR_Reload
     m_ReadOnly: 0
@@ -92,11 +97,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5de5df0fe20728d43b2d57d286c1ec86
     m_Address: 2DObject/SG_Drop
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6179e76a7c828c941aaff729bfd3849c
-    m_Address: Icon/Icon_SG
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

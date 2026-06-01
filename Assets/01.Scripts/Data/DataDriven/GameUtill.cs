@@ -51,6 +51,7 @@ public static class GameUtill
         return finalDamage; // 반환
     }
 
+    // 데이터드리븐 스프라이트
     public static Sprite LoadSpriteCanBeNull(string spriteName)
     {
         // 1. Resources/ 경로에서 이름으로 스프라이트 로드
@@ -67,6 +68,7 @@ public static class GameUtill
         return null;
     }
 
+    // 
     public static async UniTask<Sprite> LoadAndSetSpriteImage(Image targetImage, string spritePath)
     {
         Sprite sprite = await ResourceManager.Inst.LoadSprite(spritePath);

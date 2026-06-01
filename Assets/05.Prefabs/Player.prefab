@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 5319799940626075072}
   - component: {fileID: 6069189464879833547}
   - component: {fileID: 2068952144159443111}
+  - component: {fileID: 9203388212505792935}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -371,7 +372,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 3
@@ -436,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Shove
   ShoveRadius: 1.5
-  ShoveForce: 10
+  ShoveForce: 1
   StunTime: 1.5
   ShovePoint: {fileID: 371780055416556431}
   animController: {fileID: 5598661589226123953}
@@ -487,3 +488,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_ItemDrop
   inventoryManager: {fileID: 6069189464879833547}
+--- !u!114 &9203388212505792935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394464225183027664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e151d309d667cc24884df0ee33894e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test_ItemSpawner
+  dropPoint: {fileID: 8901262019522099401}

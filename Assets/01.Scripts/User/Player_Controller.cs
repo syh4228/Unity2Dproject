@@ -188,6 +188,7 @@ public class Player_Controller : MonoBehaviour
             {
                 // 인벤토리 매니저에서 재장전 함수 호출
                 inventoryManager.ReloadCurrentGun();
+                AnimatorController.SetState(AllState.Reload);
             }
         }
 
@@ -216,31 +217,40 @@ public class Player_Controller : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 누르면
             {
-                CancelHealing(); // 힐 취소
-                // 인벤토리매니저, 슈류탄 사용 함수 호출
-                inventoryManager.UseBoomItem(_isFaceRight);
-                // 애니메이션 컨트롤러에서 상태 슈류탄던지기로 변경 알림
-                AnimatorController.SetState(AllState.UseGrenade);
+                if (inventoryManager.UseBoomItem(_isFaceRight))
+                {
+                    CancelHealing(); // 힐 취소
+                    // 애니메이션 컨트롤러에서 상태 슈류탄던지기로 변경 알림
+                    AnimatorController.SetState(AllState.UseGrenade);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 누르면
             {
-                CancelHealing(); // 힐 취소
-                // 인벤토리매니저에서 아이템 사용1번 함수 호출
-                inventoryManager.UseHeelItem1();
-                // 애니메이션 컨트롤러에서 상태 힐아이템 사용 호출
-                AnimatorController.SetState(AllState.UseInstantHeal);
+                if (inventoryManager.HasHeelItem1())
+                {
+                    if (_healCts == null)
+                    {
+                        _healCts = new CancellationTokenSource();
+                        HealRoutine(_healCts.Token).Forget();
+                    }
+                }
+                else
+                {
+                    UtillLogRemove.Log("구급상자가 없습니다!");
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha5)) // 5번 누르면
             {
-                // 힐킷 사용중이 아니면
-                if (_healCts == null)
+                if (inventoryManager.UseHeelItem2())
                 {
-                    // 유니테스크 취소버튼을 변수 저장
-                    _healCts = new CancellationTokenSource();
-                    // 함수호출 하면 취소해라
-                    HealRoutine(_healCts.Token).Forget();
+                    CancelHealing();
+                    AnimatorController.SetState(AllState.UseInstantHeal);
+                }
+                else
+                {
+                    UtillLogRemove.Log("진통제/아드레날린이 없습니다!");
                 }
             }
         }
@@ -430,7 +440,7 @@ public class Player_Controller : MonoBehaviour
             if (inventoryManager != null)
             {
                 // 인벤토리매니저에서 힐탬사용2 함수 호출
-                inventoryManager.UseHeelItem2();
+                inventoryManager.UseHeelItem1();
             }
 
             UtillLogRemove.Log("힐 킷 사용 회복 완료");

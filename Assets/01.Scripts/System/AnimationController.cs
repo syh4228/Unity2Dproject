@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 // 애니매이션 전체 조작을 담당하는 컨트롤러
 public class AnimationController : MonoBehaviour
@@ -212,15 +213,26 @@ public class AnimationController : MonoBehaviour
     }
 
     // 무기에 따른 애니메이션 교체 함수
-    public void ChangeWeaponAnimation(string attackClipPath, string reloadClipPath)
+    public async UniTaskVoid ChangeWeaponAnimation(string attackClipPath, string reloadClipPath)
     {
         // 오버라이드컨트롤이 없거나, 경로에 애니메이션 클립이 없으면 반환
         if (_overrideController == null) return;
 
         if (!string.IsNullOrEmpty(attackClipPath))
         {
-            // Resources 폴더에서 애니메이션 클립 가져오기
-            AnimationClip newAttackClip = Resources.Load<AnimationClip>(attackClipPath);
+            AnimationClip newAttackClip = null;
+
+            try
+            {
+                // 어드레서블에서 찾기
+                newAttackClip = await ResourceManager.Inst.LoadAsset<AnimationClip>(attackClipPath);
+            }
+            catch { }
+
+            if (newAttackClip == null)
+            {
+                newAttackClip = Resources.Load<AnimationClip>(attackClipPath);
+            }
 
             if (newAttackClip != null) // 만약 있으면
             {
@@ -237,7 +249,20 @@ public class AnimationController : MonoBehaviour
 
         if (!string.IsNullOrEmpty(reloadClipPath))
         {
-            AnimationClip newReloadClip = Resources.Load<AnimationClip>(reloadClipPath);
+            AnimationClip newReloadClip = null;
+
+            try
+            {
+                // 어드레서블에서 찾기
+                newReloadClip = await ResourceManager.Inst.LoadAsset<AnimationClip>(reloadClipPath);
+            }
+            catch { }
+
+            // 어드레서블에 없으면 기존 Resources 폴더에서 찾기
+            if (newReloadClip == null)
+            {
+                newReloadClip = Resources.Load<AnimationClip>(reloadClipPath);
+            }
 
             if (newReloadClip != null)
             {

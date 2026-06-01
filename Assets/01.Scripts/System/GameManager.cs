@@ -293,6 +293,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
         UtillLogRemove.Log(" 전투 구역의 모든 잔해(플레이어, 맵, 풀링된 적) 청소 완료!");
     }
 }

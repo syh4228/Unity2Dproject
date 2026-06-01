@@ -224,9 +224,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2633974312146308871}
   - component: {fileID: 6506759278347307302}
+  - component: {fileID: 5191649218171515979}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,10 +261,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b2a70e7d4800d49b68e2ec830b210a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeManager
-  throwForce: 8
+  throwForce: 2
   explosionRadius: 3
   explosionDamage: 300
   fuseTime: 2
   aggroRadius: 8
   grenadeSprite: {fileID: 6412419669844274756}
   explosionEffect: {fileID: 485318921277151972}
+--- !u!50 &5191649218171515979
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674057931366426177}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

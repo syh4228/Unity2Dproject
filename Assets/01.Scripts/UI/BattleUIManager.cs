@@ -90,6 +90,9 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdateAmmoUI(int gunSlot, int magazine, int reserve)
     {
+        // 예비탄창이 -1이면 무한으로 표기
+        string resText = (reserve == -1) ? "∞" : reserve.ToString(); 
+
         if (gunSlot == 1) // 총 슬롯 1일때
         {
             if (gun01_MagazineText != null) // 널 체크
@@ -99,7 +102,7 @@ public class BattleUIManager : MonoBehaviour
 
             if (gun01_ReserveText != null)
             {
-                gun01_ReserveText.text = reserve.ToString();
+                gun01_ReserveText.text = resText;
             }
         }
 
@@ -112,7 +115,7 @@ public class BattleUIManager : MonoBehaviour
 
             if (gun02_ReserveText != null)
             {
-                gun02_ReserveText.text = reserve.ToString();
+                gun02_ReserveText.text = resText;
             }
         }
     }
@@ -138,13 +141,16 @@ public class BattleUIManager : MonoBehaviour
     }
 
     // 총기 슬롯 업데이트 함수
-    public void UpdateWeaponSlotUI(int slotIndex, string iconPath, bool isActive)
+    public async void UpdateWeaponSlotUI(int slotIndex, string iconPath, bool isActive)
     {
         // 쓰고 있는 슬롯이 1번이면 1번 이미지를 ,2번이면 2번이미지를 저장
         Image targetImage = (slotIndex == 1) ? gun01_Image : gun02_Image;
 
         // 없으면 반환
         if (targetImage == null) return;
+
+
+        float alpha = isActive ? 1f : 0.4f;
 
         // 경로가 비어있거나, 안적혀있으면
         if (string.IsNullOrEmpty(iconPath))
@@ -154,17 +160,29 @@ public class BattleUIManager : MonoBehaviour
             return;
         }
 
-        // 리소스에서 아이콘 이미지 가져오기
-        Sprite weaponSprite = Resources.Load<Sprite>(iconPath);
+        targetImage.color = new Color(1, 1, 1, alpha);
 
-        if (weaponSprite != null) // 이미지가 있으면
+        Sprite weaponSprite = null;
+
+        try
         {
-            // 이미지 저장
-            targetImage.sprite = weaponSprite;
+            // 어드레서블에서 아이콘 찾기
+            weaponSprite = await ResourceManager.Inst.LoadSprite(iconPath);
+        }
+        catch { }
 
-            // 실제 사용총기는 불투명하게, 사용안하는 총기는 반투명
-            float alpha = isActive ? 1f : 0.4f;
-            targetImage.color = new Color(1, 1 ,1, alpha);
+        if (weaponSprite == null)
+        {
+            weaponSprite = Resources.Load<Sprite>(iconPath);
+        }
+
+        if (weaponSprite != null)
+        {
+            targetImage.sprite = weaponSprite;
+        }
+        else
+        {
+            Debug.LogError($"[UI] 아이콘 로드 실패: {iconPath}");
         }
     }
 
@@ -209,8 +227,15 @@ public class BattleUIManager : MonoBehaviour
        // 타겟 타입이 좀비 노멀이면 isNormal이 true
        bool isNormal = (targetType == ZombieType.Normal);
 
-        targetNoramlUI.SetActive(isNormal); // true면 노멀 타겟 활성화
-        targetSpecialUI.SetActive(!isNormal); //false면 스폐셜 타겟 활성화
+        if (targetNoramlUI != null)
+        {
+            targetNoramlUI.SetActive(isNormal); // true면 노멀 타겟 활성화
+        }
+
+        if (targetSpecialUI != null)
+        {
+            targetSpecialUI.SetActive(!isNormal); //false면 스폐셜 타겟 활성화
+        }
 
         UtillLogRemove.Log($"UI 갱신 {(isNormal ? "Normal" : "Special")}");
     }

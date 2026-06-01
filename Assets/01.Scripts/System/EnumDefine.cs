@@ -34,3 +34,10 @@ public enum AllState // 행동(애니메이션)
     Shove, // 밀치기
     Reload // 재장전
 }
+
+public enum ESpawnMode
+{
+    FixedItem,         // 지정한 아이템 무조건 스폰
+    RandomGun,         // 총기류 중 랜덤 스폰
+    RandomConsumable   // 소모품 중 랜덤 스폰
+}

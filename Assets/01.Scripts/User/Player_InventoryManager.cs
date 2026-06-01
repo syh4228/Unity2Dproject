@@ -40,12 +40,7 @@ public class Player_InventoryManager : MonoBehaviour
             gun1Reserve = ptGunData.Capacity2; // 예비 탄창 채우기
             activeGunIndex = 1; // 무기 1번으로 설정
 
-            UtillLogRemove.Log("기본권총 들고 시작");
             UpdateItemUI(); // UI 갱신
-        }
-        else
-        {
-            UtillLogRemove.Error("기본권총 데이터 없어요.");
         }
     }
 
@@ -55,10 +50,7 @@ public class Player_InventoryManager : MonoBehaviour
         // 데이터 매니저에서 주운 아이템 정보 가져오기
         var itemData = GameDataManager.Instance.GetWeaponData(itemId);
 
-        if (itemData != null)
-        {
-            return;
-        }
+        if (itemData == null) return;
 
         string useType = itemData.UseType; // 타입 저장
         string id = itemData.Id; // 아이디 저장
@@ -93,6 +85,7 @@ public class Player_InventoryManager : MonoBehaviour
             {
                 // 비어있다면 새 무기를 2번에 넣기
                 SetGunSlot(2, newGun);
+                activeGunIndex = 2;
             }
             else // 2번이 차있으면
             {
@@ -108,6 +101,7 @@ public class Player_InventoryManager : MonoBehaviour
             {
                 // 비어있다면 새 무기를 1번에 넣기
                 SetGunSlot(1, newGun);
+                activeGunIndex = 1;
             }
             else // 1번이 차있다면
             {
@@ -163,6 +157,12 @@ public class Player_InventoryManager : MonoBehaviour
         }
     }
 
+    // 힐 킷 보유 확인 함수
+    public bool HasHeelItem1()
+    {
+        return UseHeel1 != null;
+    }
+
     //  힐킷 사용 함수
     public void UseHeelItem1()
     {
@@ -175,16 +175,17 @@ public class Player_InventoryManager : MonoBehaviour
         UpdateItemUI();
     }
 
-    // 아드, 구급약 사용 함수
-    public void UseHeelItem2()
+    // 진통제, 아드레날린 사용 함수
+    public bool UseHeelItem2()
     {
-        if (UseHeel2 == null) return;
+        if (UseHeel2 == null) return false;
 
         if (UseHeel2.Id.Contains("MD")) PlayerCharacter.ApplyHeal_MD();
         else if (UseHeel2.Id.Contains("AD")) PlayerCharacter.ApplyHeal_AD();
 
         UseHeel2 = null; // 사용 후 슬롯 비우기
         UpdateItemUI();
+        return true;
     }
 
     // 아이템 UI 업데이트
@@ -192,43 +193,32 @@ public class Player_InventoryManager : MonoBehaviour
     {
         // 아이템이 전부 있을때, UI 업데이트
         UiManager.UpdateItemUI(UseBoom != null, UseHeel1 != null, UseHeel2 != null);
-        
-        if (UseGun1 != null) // 건슬롯 1번이 있으면
-        {
-            // 배틀UI매니저에 업데이트 웨폰 슬롯 UI 함수 호출
-            UiManager.UpdateWeaponSlotUI(1, UseGun1.IconPath, activeGunIndex == 1);
-            // 배틀UI매니저에 업데이트 총알 UI 함수 호출
-            UiManager.UpdateAmmoUI(1, gun1Magazine, gun1Reserve);
-        }
-        else // 없으면
-        {
-            // 배틀 UI 매니저에 없다고 알림
-            UiManager.UpdateWeaponSlotUI(1, null, false);
-            // 배틀 UI 매니저에 없다고 알림
-            UiManager.UpdateAmmoUI(1, 0, 0);
-        }
 
-        if (UseGun2 != null) // 건 슬롯 2번이 있으면
+        UpdateGunSlotUI(1, UseGun1, gun1Magazine, gun1Reserve, activeGunIndex == 1);
+        UpdateGunSlotUI(2, UseGun2, gun2Magazine, gun2Reserve, activeGunIndex == 2);
+
+        WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+
+        if (currentGun != null && AnimController != null)
         {
-            UiManager.UpdateWeaponSlotUI(2, UseGun2.IconPath, activeGunIndex == 2);
-            UiManager.UpdateAmmoUI(2, gun2Magazine, gun2Reserve);
+            AnimController.ChangeWeaponAnimation(currentGun.Anim_AttackPath, currentGun.Anim_ReloadPath).Forget();
+            AnimController.SetAttackSpeed(currentGun.RPM);
+        }
+    }
+
+    // 건슬롯UI업데이트
+    private void UpdateGunSlotUI(int slot, WeaponData gun, int mag, int res, bool isActive)
+    {
+        if (gun != null)
+        {
+            UiManager.UpdateWeaponSlotUI(slot, gun.IconPath, isActive);
+            int displayReserve = (gun.Capacity2 == -1) ? -1 : res;
+            UiManager.UpdateAmmoUI(slot, mag, displayReserve);
         }
         else
         {
-            UiManager.UpdateWeaponSlotUI(2, null, false);
-            UiManager.UpdateAmmoUI(2, 0, 0);
-        }
-
-        // 현재 들고 있는 총이 1번 슬롯에 있는 총이면 1번 저장, 2번 슬롯이면 2번 저장
-        WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
-
-        // 총이 있고, 애니메이터 컨트롤러가 연결되어 있다면
-        if (currentGun != null && AnimController != null)
-        {
-            // 애니메이터에게 JSON에 적힌 모션으로 바꾸라고 지시
-            AnimController.ChangeWeaponAnimation(currentGun.Anim_AttackPath, currentGun.Anim_ReloadPath);
-            // 애니메이터에게 JSON에 적힌 RPM 속도로 쏘라고 지시
-            AnimController.SetAttackSpeed(currentGun.RPM);
+            UiManager.UpdateWeaponSlotUI(slot, null, false);
+            UiManager.UpdateAmmoUI(slot, 0, 0);
         }
     }
 
@@ -237,35 +227,45 @@ public class Player_InventoryManager : MonoBehaviour
     {
         // 내가 사용중에 있는 총기가 있고, 그게 1번 총기 인지 2번총기 인지 확인해서 저장
         WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+
+        if (currentGun == null) return false; // 현재 총이 없으면 반환
+
         // 내가 사용중인 총기가 1번 총기의 탄창인지, 2번 총기의 탄창인지 확인해서 저장
         ref int currentMag = ref (activeGunIndex == 1) ? ref gun1Magazine : ref gun2Magazine;
         // 내가 사용중인 총기가 1번 총기의 예비 탄창인지, 2번 총기의 예비 탄창인지 확인해서 저장
         ref int currentRes = ref (activeGunIndex == 1) ? ref gun1Reserve : ref gun2Reserve;
+
+        if (currentMag <= 0) // 총알이 0보다 적으면
+        {
+            ReloadCurrentGun(); // 재장전 함수 호출
+            AnimController.SetState(AllState.Reload);
+            return false; // 반환  거짓
+        }
 
         // 발사 방향, 총 대미지, 대미지 타입, 사거리, 사속 웨폰메니저에서 받아서 저장
         bool isFired = WeaponManager.FireBullet(isLookLeft, currentGun);
 
         if (isFired == true) // 발사가 트루면
         {
-            currentMag--; // 총알 - 1
+            currentMag--; // 총알 감소
 
             // UI 매니저에 총알 소모 알림
             UiManager.UpdateAmmoUI(activeGunIndex, currentMag, currentRes);
 
-            // 탄창이 0 이고, 예비 총알이 0이면
-            if (currentMag == 0 && currentRes == 0)
+            // 예비탄창이 -1이 아니고, 탄창이 0 이고, 예비 총알이 0이면
+            if (currentGun.Capacity2 != -1 && currentMag == 0 && currentRes == 0)
             {
                 // 1번 총기면
                 if (activeGunIndex == 1)
                 {
                     UseGun1 = null; // 1번 총기 슬롯 비우기
-                                    // 만약 2번 총기 슬롯에 총이 있으면 2번총기로 바꾸기
+                    // 만약 2번 총기 슬롯에 총이 있으면 2번총기로 바꾸기
                     if (UseGun2 != null) activeGunIndex = 2;
                 }
                 else // 2번 총기면
                 {
                     UseGun2 = null; // 2번 총기 슬롯 비우기
-                                    // 만약 1번 총기 슬롯에 총이 있으면 1번 총기로 바꾸기
+                    // 만약 1번 총기 슬롯에 총이 있으면 1번 총기로 바꾸기
                     if (UseGun1 != null) activeGunIndex = 1;
                 }
 
@@ -306,18 +306,30 @@ public class Player_InventoryManager : MonoBehaviour
         // 채워야 할 총알 개수 계산 (총기 최대 용량 - 현재 탄창)
         int need = currentGun.Capacity - magazine;
 
-        // 채워야 할 총알이 있고, 예비 탄창에 총알이 남아있다면
-        if (need > 0 && reserve > 0)
+        if (need <= 0) return; // 탄창 차있으면 반환
+
+        // 예비 탄창이 -1 이면
+        if (currentGun.Capacity2 == -1) 
         {
-            // 채울 총알 갯수와, 예비탄창 총알 갯수 저장
+            magazine += need; // 필요한 만큼 채우기
+            // UI 업테이트
+            UiManager.UpdateAmmoUI(activeGunIndex, magazine, -1);
+            UtillLogRemove.Log("무한 탄창 장전 완료!");
+        }
+        // 예비 탄창이 0 보다 크면
+        else if (reserve > 0)
+        {
+            // 필요한 양, 예비탄창 둘중에 적은 쪽 저장
             int reloadAmount = Mathf.Min(need, reserve);
-
-            magazine += reloadAmount; // 탄창에 총알 채우기
-            reserve -= reloadAmount; // 예비 탄창에서 채운 총알 만큼 빼기
-
-            // UI매니저에 총알갯수업데이트 UI 함수 호출
+            magazine += reloadAmount; // 탄창 채움
+            reserve -= reloadAmount; // 예비 탄약 감소
+            // UI 매니저 업데이트
             UiManager.UpdateAmmoUI(activeGunIndex, magazine, reserve);
-            UtillLogRemove.Log("재장전 완료!");
+            UtillLogRemove.Log($"일반 장전 완료! 남은 예비: {reserve}");
+        }
+        else
+        {
+            UtillLogRemove.Log("예비 탄창이 없어서 장전 불가!");
         }
     }
 
@@ -339,10 +351,10 @@ public class Player_InventoryManager : MonoBehaviour
     }
 
     // 폭탄 
-    public void UseBoomItem(bool isFaceRight)
+    public bool UseBoomItem(bool isFaceRight)
     {
         // 폭탄 없으면 반환
-        if (UseBoom == null) return;
+        if (UseBoom == null) return false;
 
         // 수류탄 프립팹이 있고, 생성 위치가 있으면
         if (grenedPrefab != null && thowPoint != null)
@@ -365,5 +377,6 @@ public class Player_InventoryManager : MonoBehaviour
         UseBoom = null;
         // UI아이템 업데이트 함수 호출
         UpdateItemUI();
+        return true;
     }
 }
