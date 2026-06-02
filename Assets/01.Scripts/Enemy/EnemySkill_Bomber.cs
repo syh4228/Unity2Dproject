@@ -4,7 +4,6 @@ public class EnemySkill_Bomber : MonoBehaviour
 {
     [Header("자폭 세팅")]
     public float explosionRadius = 3f; // 자폭 범위
-    public int explosionDamage = 10; // 자폭 데미지
     public float alertRadius = 15f; // 주변 좀비 어그로 범위
 
     // 자폭 실행 함수
@@ -20,8 +19,13 @@ public class EnemySkill_Bomber : MonoBehaviour
 
             if (playerCharacter != null) // 플레이어 캐릭터 있으면
             {
-                // 배틀매니저에 플레이어 데미지 전달
-                BattleManager.Instance.ProcessEnemyAttack(playerCharacter, explosionDamage);
+                // 스텟매니저에서 공격력 가져와 저장
+                int finalDamage = statManager.Attack;
+
+                // 플레이어에게 데미지 전달
+                BattleManager.Instance.ProcessEnemyAttack(playerCharacter, finalDamage);
+
+                UtillLogRemove.Log("자폭 데미지: " + finalDamage);
             }
         }
 
