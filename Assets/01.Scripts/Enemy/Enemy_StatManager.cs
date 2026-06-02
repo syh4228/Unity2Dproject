@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 
 public class Enemy_StatManager : MonoBehaviour
 {
     [Header("좀비 타입")]
     public ZombieType CurrentType; // 좀비 타입 변수 저장
+    public string enemyId; // 적 Id 저장
+    public string enemyName; // 적 이름 저장
 
     [Header("체력 설정")]
     public int MaxHp = 100;// 최대 체력
@@ -14,7 +16,7 @@ public class Enemy_StatManager : MonoBehaviour
 
     [Header("컴포넌트 연결")]
     [SerializeField] private Enemy_AiManager enemyAI; // 적 Ai 와 연결
-    [SerializeField] private AnimationController animController; // 애니메이션 컨트롤러 연결
+    [SerializeField] private Enemy_AnimationController animController; // 애니메이션 컨트롤러 연결
 
     private bool _isDead = false; // 죽음 체크
 
@@ -33,8 +35,25 @@ public class Enemy_StatManager : MonoBehaviour
 
         if (animController == null)
         {
-            animController = GetComponent<AnimationController>();
+            animController = GetComponent<Enemy_AnimationController>();
         }
+    }
+
+    // JSON 데이터 받아오는 함수
+    public void Initialize(DNMonsterData monsterData)
+    {
+        enemyId = monsterData.Id; // Id 저장
+        enemyName = monsterData.Name; // 이름 저장
+
+        MaxHp = monsterData.BaseHp; // 체력 저장
+        currentHp = MaxHp; // 현재체력 최대체력으로 저장
+        Attack = monsterData.BaseAtk; // 공격력 저장
+
+        // 타입이 노멀이면 노멀로 저장, 아니면 스폐셜로 타입 저장
+        CurrentType = (monsterData.Type == "Normal") ? ZombieType.Normal : ZombieType.Special;
+
+        // 확인로그
+        UtillLogRemove.Log(enemyName + " 데이터 다운완료! 체력: " + MaxHp + ", 공격력: " + Attack);
     }
 
     public void TakeDamage(int damage) // 외부에서 대미지 받아오는 함수
@@ -45,7 +64,7 @@ public class Enemy_StatManager : MonoBehaviour
         }
 
         currentHp -= damage; // 대미지 만큼 체력 감소
-        UtillLogRemove.Log("적 피격, 남은 체력:{currentHp}");
+        UtillLogRemove.Log(enemyName + " 피격, 남은 체력: " + currentHp);
 
         if (currentHp <= 0) // 만약 체력이 0이하면
         {
@@ -54,12 +73,9 @@ public class Enemy_StatManager : MonoBehaviour
         }
         else // 죽지 않았다면
         {
-            // 적 ai매니저에서 컴포넌트 받아오기
-            Enemy_AiManager aiManager = GetComponent<Enemy_AiManager>();
-
-            if(aiManager != null) // 컴포넌트 받아 왔으면
+            if(enemyAI != null) // 적 AI 연결 되있으면
             {
-                aiManager.TriggerHitStun(); // ai매니저 피격함수 호출
+                enemyAI.TriggerHitStun(); // ai매니저 피격함수 호출
             }
         }
 
@@ -87,15 +103,25 @@ public class Enemy_StatManager : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("EnemyDead");
 
         // 비활성화 함수 호출
-        StartCoroutine(DeactivateRoutine(0.5f));
+        DeactivateRoutine(0.5f).Forget();
     }
 
 
     // 비활성화 함수
-    private IEnumerator DeactivateRoutine(float delay)
+    private async UniTaskVoid DeactivateRoutine(float delay)
     {
-        yield return new WaitForSeconds(delay); // 대기
-        gameObject.SetActive(false); // 오브젝트 풀 반환
+        try
+        {
+            // 지정된 시간만큼 대기 (도중에 적이 삭제되면 자동 취소됨)
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            // 대기가 무사히 끝나면 오브젝트 풀로 반환 (비활성화)
+            gameObject.SetActive(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // 에러 무시 (씬 전환 등으로 적이 이미 파괴된 경우 안전하게 넘김)
+        }
     }
 
     // 적 리셋 함수
