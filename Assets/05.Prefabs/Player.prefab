@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_InventoryManager
   WeaponManager: {fileID: 4271526962768632899}
-  UiManager: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+  UiManager: {fileID: 0}
   PlayerCharacter: {fileID: 4868846582767130456}
   grenedPrefab: {fileID: 8674057931366426177, guid: 8b5ffe1d57b0b854881da88d9691d2dd, type: 3}
   thowPoint: {fileID: 371780055416556431}

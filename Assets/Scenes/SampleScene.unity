@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
   CurrentDifficultyLevel: 1
   difficultyDamageMultiplier: 0.5
-  uiManager: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+  uiManager: {fileID: 9204863062558569864}
   CurrentTargetType: 0
 --- !u!4 &54437815
 Transform:
@@ -211,6 +211,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &235302142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2155026450856364042, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+  m_PrefabInstance: {fileID: 1400082847811011717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +760,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1820209097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6899509020833485291, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+  m_PrefabInstance: {fileID: 1400082847811011717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &18077090195519002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2807,18 +2817,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2155026450856364042, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4120634350706178682, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: m_Name
       value: BattleUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4120634350706178682, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+      propertyPath: tempHpColor.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: targetNoramlUI
       value: 
-      objectReference: {fileID: 5876222657329995716}
+      objectReference: {fileID: 1820209097}
     - target: {fileID: 4161655107962083565, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: targetSpecialUI
       value: 
-      objectReference: {fileID: 1539717613742770856}
+      objectReference: {fileID: 235302142}
     - target: {fileID: 4370671495340805359, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2905,7 +2927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6899509020833485291, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7108443496934000577, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
       propertyPath: m_Type
@@ -2927,6 +2949,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8865382825149264371, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3313,11 +3339,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1539717613742770856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2668327659415817324, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
-  m_PrefabInstance: {fileID: 1400082847811011717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!222 &1545347650336733798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9988,11 +10009,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &5876222657329995716 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6340510184874748470, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
-  m_PrefabInstance: {fileID: 1400082847811011717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!222 &5885089866702926105
 CanvasRenderer:
   m_ObjectHideFlags: 0

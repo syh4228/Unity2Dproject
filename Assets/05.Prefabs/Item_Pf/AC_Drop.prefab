@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7802127609991043447}
   - component: {fileID: 3977095607586715395}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AC_Drop
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6391557784804502191}
   - component: {fileID: 3653224223397334639}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icon_AC_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

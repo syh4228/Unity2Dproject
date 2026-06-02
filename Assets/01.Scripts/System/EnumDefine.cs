@@ -28,11 +28,12 @@ public enum AllState // 행동(애니메이션)
     Jump,
     Drop, // 아이템 줍기
     UseHeal, // 힐 킷 사용
-    UseInstantHeal, // 아드, 구급약 사용
     UseGrenade, // 슈륙탄 던짐
     Melee, // 근접 공격
     Shove, // 밀치기
-    Reload // 재장전
+    Reload, // 재장전
+    UseMD, // 진통제 사용
+    UseAD // 아드 사용
 }
 
 public enum ESpawnMode

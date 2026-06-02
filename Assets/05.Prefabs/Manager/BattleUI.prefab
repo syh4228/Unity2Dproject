@@ -239,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3795070687337379257
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -1641,14 +1641,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -290587500648190261, guid: 3444cad14cc40964696d9500e3cef64f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2002,7 +2002,7 @@ MonoBehaviour:
   hpText: {fileID: 8514445941953155201}
   hpFillImage: {fileID: 5653390875728586626}
   hpTempFillImage: {fileID: 8865382825149264371}
-  tempHpColor: {r: 0, g: 0, b: 0, a: 0}
+  tempHpColor: {r: 0.97735846, g: 0.9366499, b: 0.47023845, a: 0}
   gun01_MagazineText: {fileID: 3218465655540723398}
   gun01_ReserveText: {fileID: 736117803497476701}
   gun02_MagazineText: {fileID: 1218235306632947672}
@@ -2010,6 +2010,7 @@ MonoBehaviour:
   grenadeImage: {fileID: 2301226958884533446}
   medkitImage: {fileID: 5766307200098221660}
   pillsImage: {fileID: 4671123909765535797}
+  adrenalineImage: {fileID: 6694363090104621782}
   exitpopup: {fileID: 5062607675421007735}
   targetNoramlUI: {fileID: 6899509020833485291}
   targetSpecialUI: {fileID: 2155026450856364042}
@@ -2599,7 +2600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 60
+  m_text: "\u221E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -2811,7 +2812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2021417780019015169, guid: 690f4507075a5044dae4ba35e657cf4e, type: 3}
+  m_Sprite: {fileID: -6750808678423430089, guid: 707dfccc9a078af4084705e831182e94, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2836,7 +2837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3326671368555509921
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3132,7 +3133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u221E"
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
@@ -3269,7 +3270,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}
   m_sharedMaterial: {fileID: -7297052812528379168, guid: ae13547477b6d5a4d954bf8661b4512d, type: 2}

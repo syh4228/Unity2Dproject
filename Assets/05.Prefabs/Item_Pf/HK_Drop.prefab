@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7140055603839103171}
   - component: {fileID: 6900071204538482984}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HK_Drop
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3230155859809895020}
   - component: {fileID: 4314620955323754972}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icon_HK_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

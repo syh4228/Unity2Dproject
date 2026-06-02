@@ -105,16 +105,15 @@ public class Player_Controller : MonoBehaviour
             return;
         }
 
+        if (_healCts != null) // 힐킷 사용 중이라면
+        {
+            // 이동 속도를 0으로, 다른 키 입력을 전부 무시
+            Rigidbody_Player.linearVelocity = new Vector2(0, Rigidbody_Player.linearVelocity.y);
+            return;
+        }
+
         _isWalk = Input.GetKey(KeyCode.LeftShift); // 걷기 활성화
 
-        float moveInput = Input.GetAxisRaw("Horizontal"); // 좌, 우 입력 저장
-
-        // 만약 좌, 우 움직이거나, 점프 하면
-        if (moveInput != 0 || Input.GetKeyDown(KeyCode.Space))
-        {
-            CancelHealing(); // 힐 취소 함수 호출
-        }
-        
         MoveOnUpdate(); // 움직임 함수 호출
 
         // 만약 스페이스바 누르고, 지면 체크가 true면
@@ -130,15 +129,12 @@ public class Player_Controller : MonoBehaviour
 
             if (isFired == true) // 쿨타임이 0이거나 0보다 작으면
             {
-                CancelHealing(); // 힐 취소 함수 호출
                 StartAttack(); // 공격 함수 호출
             }
         }
 
         if (Input.GetMouseButtonDown(1)) // 마우스 우클릭
         {
-            CancelHealing(); // 힐 취소
-
             // 플레이어 캐릭터가 있고, 플레이어 캐릭터에 액션함수가 있으면
             if (playerCharacter != null && playerCharacter.TryExecuteAction())
             {
@@ -153,8 +149,6 @@ public class Player_Controller : MonoBehaviour
         // V키 누르면
         if (Input.GetKeyDown(KeyCode.V))
         {
-            CancelHealing(); // 힐 취소
-
             if (itemCollector != null)
             {
                 // 아이템 줍기 함수 호출
@@ -165,8 +159,6 @@ public class Player_Controller : MonoBehaviour
         // F키 누르면
         if (Input.GetKeyDown(KeyCode.F))
         {
-            CancelHealing(); // 힐 취소
-
             // 플레이어 캐릭터가 있고, 플레이어 캐릭터에 액션 함수호출
             if (playerCharacter != null && playerCharacter.TryExecuteAction())
             {
@@ -181,8 +173,6 @@ public class Player_Controller : MonoBehaviour
         // R키 누르면
         if (Input.GetKeyDown(KeyCode.R))
         {
-            CancelHealing(); // 힐 취소
-
             // 인베토리 매니저가 있으면
             if (inventoryManager != null)
             {
@@ -203,14 +193,12 @@ public class Player_Controller : MonoBehaviour
             // 1번 누르면
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                CancelHealing(); // 힐 취소
                 // 인벤토리 매니저 총 체인지 1 함수 호출
                 inventoryManager.ChangeActiveGun(1);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 누르면
             {
-                CancelHealing();
                 // 인벤토리 매니저 총 체인지 2 함수 호출
                 inventoryManager.ChangeActiveGun(2);
             }
@@ -219,7 +207,6 @@ public class Player_Controller : MonoBehaviour
             {
                 if (inventoryManager.UseBoomItem(_isFaceRight))
                 {
-                    CancelHealing(); // 힐 취소
                     // 애니메이션 컨트롤러에서 상태 슈류탄던지기로 변경 알림
                     AnimatorController.SetState(AllState.UseGrenade);
                 }
@@ -243,10 +230,15 @@ public class Player_Controller : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha5)) // 5번 누르면
             {
-                if (inventoryManager.UseHeelItem2())
+                int healType = inventoryManager.UseHeelItem2();
+
+                if (healType == 1) // 진통제
                 {
-                    CancelHealing();
-                    AnimatorController.SetState(AllState.UseInstantHeal);
+                    AnimatorController.SetState(AllState.UseMD); // 진통제 애니메이션 상태
+                }
+                else if (healType == 2) // 아드레날린
+                {
+                    AnimatorController.SetState(AllState.UseAD); // 아드레날린 애니메이션 상태
                 }
                 else
                 {
@@ -257,14 +249,20 @@ public class Player_Controller : MonoBehaviour
     }
 
     // 힐킷 사용 취소 함수
-    private void CancelHealing()
+    public void CancelHealing()
     {
         // 힐킷 사용중이면
         if (_healCts  != null)
         {
             // 힐킷 사용 취소
             _healCts.Cancel();
+            _healCts.Dispose();
+            _healCts = null;
+
             UtillLogRemove.Log("힐킷 사용 취소");
+
+            AnimatorController.SetHealing(false);
+            AnimatorController.SetState(AllState.Idle);
         }
     }
 
@@ -448,12 +446,13 @@ public class Player_Controller : MonoBehaviour
         // 취소되면
         catch (OperationCanceledException)
         {
-            // 부드럽게 취소되고 넘어가 수 있도록 비워둠
+            UtillLogRemove.Log("힐 킷 사용이 취소되었습니다.");
         }
-        finally // 취소되든 취소 안되든
+        finally // 끝나면
         {
             // 애니메이션 컨트롤러 힐킷 사용중 거짓으로 변경
             AnimatorController.SetHealing(false);
+            AnimatorController.SetState(AllState.Idle);
 
             if (_healCts != null)
             {

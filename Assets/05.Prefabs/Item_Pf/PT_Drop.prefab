@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4598567192786592816}
   - component: {fileID: 2622816689035056272}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PT_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9004987489899073407}
   - component: {fileID: 2610238353562971707}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PT_Drop
   m_TagString: Item
   m_Icon: {fileID: 0}

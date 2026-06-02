@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Prey_Hk
+  m_Name: Prey_HK
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -33,10 +33,8 @@ AnimationClip:
     - time: 0.41666666
       value: {fileID: -2529137951729600444, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     - time: 0.5
-      value: {fileID: -9076532426896163949, guid: b61c1d0316ead734baf244960875bea7, type: 3}
-    - time: 0.5833333
       value: {fileID: 4980544657711813890, guid: b61c1d0316ead734baf244960875bea7, type: 3}
-    - time: 0.6666667
+    - time: 0.5833333
       value: {fileID: 4407638165327289189, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     attribute: m_Sprite
     path: 
@@ -66,7 +64,6 @@ AnimationClip:
     - {fileID: 144048820387037125, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     - {fileID: 526207223842554786, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     - {fileID: -2529137951729600444, guid: b61c1d0316ead734baf244960875bea7, type: 3}
-    - {fileID: -9076532426896163949, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     - {fileID: 4980544657711813890, guid: b61c1d0316ead734baf244960875bea7, type: 3}
     - {fileID: 4407638165327289189, guid: b61c1d0316ead734baf244960875bea7, type: 3}
   m_AnimationClipSettings:
@@ -74,7 +71,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 0.6666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

@@ -65,6 +65,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26fc58f8311c1754882c2807cba18d7b
+    m_Address: anim/Prey_HK
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2ada6f9b1a1097b4fb7bb08cb07d02f6
     m_Address: anim/Prey_RT_Reload
     m_ReadOnly: 0

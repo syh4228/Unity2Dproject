@@ -9,6 +9,7 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Animator Animator_Control; // 애니메이터 연결
 
     private AllState _currentState; // 현재 상태 저장
+
     // 애니메이션 클립을 동적으로 갈아끼우기 위한 오버라이드 컨트롤러 저장
     private AnimatorOverrideController _overrideController; 
 
@@ -24,11 +25,12 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationIsAttack = Animator.StringToHash("IsAttack");
     private static readonly int AnimationTriggerHit = Animator.StringToHash("IsHit");
     private static readonly int AnimationTriggerGrenade = Animator.StringToHash("Grenade");
-    private static readonly int AnimationTriggerInstantHeal = Animator.StringToHash("InstantHeal");
     private static readonly int AnimationTriggerMelee = Animator.StringToHash("Melee");
     private static readonly int AnimationTriggerShove = Animator.StringToHash("Shove");
     private static readonly int AnimationTriggerDrop = Animator.StringToHash("Drop");
     private static readonly int AnimationTriggerReload = Animator.StringToHash("IsReload");
+    private static readonly int AnimationTriggerUseMD = Animator.StringToHash("UseMD");
+    private static readonly int AnimationTriggerUseAD = Animator.StringToHash("UseAD"); 
 
     // 공격 속도
     private static readonly int AnimationAttackSpeed = Animator.StringToHash("AttackSpeed");
@@ -68,7 +70,8 @@ public class AnimationController : MonoBehaviour
             if (newState != AllState.Attack && // 공격
                 newState != AllState.Hit && // 피격
                 newState != AllState.UseGrenade && // 슈륙탄 투척
-                newState != AllState.UseInstantHeal && // 힐 킷 사용
+                newState != AllState.UseMD &&    // 진통제 
+                newState != AllState.UseAD && // 아드
                 newState != AllState.Melee && // 근접 공격
                 newState != AllState.Shove && // 밀치기
                 newState != AllState.Drop) // 줍기
@@ -102,8 +105,11 @@ public class AnimationController : MonoBehaviour
             case AllState.UseHeal:
                 SafeSetBool(AnimationIsHealing, true);
                 break;
-            case AllState.UseInstantHeal:
-                SafeSetTrigger(AnimationTriggerInstantHeal);
+            case AllState.UseMD:
+                SafeSetTrigger(AnimationTriggerUseMD);
+                break;
+            case AllState.UseAD:
+                SafeSetTrigger(AnimationTriggerUseAD);
                 break;
             case AllState.UseGrenade:
                 SafeSetTrigger(AnimationTriggerGrenade);
@@ -154,8 +160,6 @@ public class AnimationController : MonoBehaviour
         SafeSetBool(AnimationIsWalk, false);
         // 달리기 애니메이션 끄기
         SafeSetBool(AnimationIsRun, false);
-        // 힐킷 애니메이션 끄기
-        SafeSetBool(AnimationIsHealing, false);
     }
 
     // 애니메이션 스위치 조작 함수

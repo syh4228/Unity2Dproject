@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+
 public class Player_InventoryManager : MonoBehaviour
 {
     [Header("컴포넌트")]
@@ -28,8 +29,20 @@ public class Player_InventoryManager : MonoBehaviour
     private WeaponData UseHeel1; // 메디킷
     private WeaponData UseHeel2; // 진통제 / 아드레날린
 
-    private void Start()
+    private async void Start()
     {
+        if (UiManager == null)
+        {
+            UiManager = FindAnyObjectByType<BattleUIManager>(FindObjectsInactive.Include);
+        }
+
+        if (UiManager == null)
+        {
+            Debug.LogError("현재 씬(맵) 안에 'BattleUIManager' 스크립트가 붙어있는 오브젝트가 아예 없습니다!");
+        }
+
+        await Cysharp.Threading.Tasks.UniTask.Delay(100);
+
         // 게임데이터 매니저에서 기본 권총 1의 정보를 가져와 저장
         WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
 
@@ -71,6 +84,10 @@ public class Player_InventoryManager : MonoBehaviour
         else if (useType == "Heel")
         {
             EquipHeel(itemData, id);
+        }
+        else if (useType == "RepleAC")
+        {
+            RefillAmmo(); // 탄약 보충
         }
     }
 
@@ -133,7 +150,7 @@ public class Player_InventoryManager : MonoBehaviour
     // 회복 아이템 줍기 함수
     private void EquipHeel(WeaponData itemData, string id)
     {
-        if (id.Contains("HK")) // 메디킷
+        if (id.Contains("HK") == true) // 메디킷
         {
             if (UseHeel1 == null)
             {
@@ -142,7 +159,7 @@ public class Player_InventoryManager : MonoBehaviour
             }
             else Debug.Log("이미 구급상자가 있습니다!");
         }
-        else if (id.Contains("MD") || id.Contains("AD")) // 진통제, 아드레날린
+        else if (id.Contains("MD") == true || id.Contains("AD") == true) // 진통제, 아드레날린
         {
             // 같은 종류를 이미 들고 있으면 습득 불가
             if (UseHeel2 != null && UseHeel2.Id == id)
@@ -160,7 +177,11 @@ public class Player_InventoryManager : MonoBehaviour
     // 힐 킷 보유 확인 함수
     public bool HasHeelItem1()
     {
-        return UseHeel1 != null;
+        if (UseHeel1 != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     //  힐킷 사용 함수
@@ -176,28 +197,62 @@ public class Player_InventoryManager : MonoBehaviour
     }
 
     // 진통제, 아드레날린 사용 함수
-    public bool UseHeelItem2()
+    public int UseHeelItem2()
     {
-        if (UseHeel2 == null) return false;
+        if (UseHeel2 == null) return 0;
 
-        if (UseHeel2.Id.Contains("MD")) PlayerCharacter.ApplyHeal_MD();
-        else if (UseHeel2.Id.Contains("AD")) PlayerCharacter.ApplyHeal_AD();
-
-        UseHeel2 = null; // 사용 후 슬롯 비우기
-        UpdateItemUI();
-        return true;
+        if (UseHeel2.Id.Contains("MD") == true)
+        {
+            PlayerCharacter.ApplyHeal_MD();
+            UseHeel2 = null;
+            UpdateItemUI();
+            return 1;
+        }
+        else if (UseHeel2.Id.Contains("AD") == true)
+        {
+            PlayerCharacter.ApplyHeal_AD();
+            UseHeel2 = null;
+            UpdateItemUI();
+            return 2;
+        }
+        return 0;
     }
 
     // 아이템 UI 업데이트
     private void UpdateItemUI()
     {
         // 아이템이 전부 있을때, UI 업데이트
-        UiManager.UpdateItemUI(UseBoom != null, UseHeel1 != null, UseHeel2 != null);
+        bool hasGrenade = (UseBoom != null);
+        bool hasMedkit = (UseHeel1 != null);
+        bool hasPills = false;
+        bool hasAdrenaline = false;
+
+        if (UseHeel2 != null)
+        {
+            if (UseHeel2.Id.Contains("MD") == true)
+            {
+                hasPills = true;
+            }
+            else if (UseHeel2.Id.Contains("AD") == true)
+            {
+                hasAdrenaline = true;
+            }
+        }
+
+        UiManager.UpdateItemUI(hasGrenade, hasMedkit, hasPills, hasAdrenaline);
 
         UpdateGunSlotUI(1, UseGun1, gun1Magazine, gun1Reserve, activeGunIndex == 1);
         UpdateGunSlotUI(2, UseGun2, gun2Magazine, gun2Reserve, activeGunIndex == 2);
 
-        WeaponData currentGun = (activeGunIndex == 1) ? UseGun1 : UseGun2;
+        WeaponData currentGun;
+        if (activeGunIndex == 1)
+        {
+            currentGun = UseGun1;
+        }
+        else
+        {
+            currentGun = UseGun2;
+        }
 
         if (currentGun != null && AnimController != null)
         {
@@ -212,7 +267,17 @@ public class Player_InventoryManager : MonoBehaviour
         if (gun != null)
         {
             UiManager.UpdateWeaponSlotUI(slot, gun.IconPath, isActive);
-            int displayReserve = (gun.Capacity2 == -1) ? -1 : res;
+
+            int displayReserve;
+            if (gun.Capacity2 == -1)
+            {
+                displayReserve = -1;
+            }
+            else
+            {
+                displayReserve = res;
+            }
+
             UiManager.UpdateAmmoUI(slot, mag, displayReserve);
         }
         else
@@ -275,17 +340,12 @@ public class Player_InventoryManager : MonoBehaviour
                 if (UseGun1 == null && UseGun2 == null)
                 {
                     // 데이터 매니저에서 기본권총 정보를 받아와 저장
-                    WeaponData ptGunData = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
+                    WeaponData pt = GameDataManager.Instance.GetWeaponData("Weapon_PT_1");
 
-                    if (ptGunData != null) // 기본 권총이 있으면
-                    {
-                        UseGun1 = ptGunData; // 1번 스롯 총기에 저장
-                        gun1Magazine = ptGunData.Capacity; // 1번 슬롯 탄창 채우기
-                        gun1Reserve = ptGunData.Capacity2; // 1번 슬롯 예비 총알 채우기
-                        activeGunIndex = 1; // 1번 슬롯 번호 지정
-
-                        UtillLogRemove.Log("모든 무기를 소모하여 품속에서 기본 무기(PT)를 꺼냅니다.");
-                    }
+                    UseGun1 = pt;
+                    gun1Magazine = pt.Capacity;
+                    gun1Reserve = pt.Capacity2;
+                    activeGunIndex = 1;
                 }
                 UpdateItemUI(); // 무기가 바뀌었으니 UI 갱신
             }
@@ -378,5 +438,23 @@ public class Player_InventoryManager : MonoBehaviour
         // UI아이템 업데이트 함수 호출
         UpdateItemUI();
         return true;
+    }
+
+    private void RefillAmmo()
+    {
+        // 총이 있고, 무한 탄창이 아니면
+        if (UseGun1 != null && UseGun1.Capacity2 != -1)
+        {
+            // 예비탄창 채우기
+            gun1Reserve = UseGun1.Capacity2;
+        }
+
+        if (UseGun2 != null && UseGun2.Capacity2 != -1)
+        {
+            gun2Reserve = UseGun2.Capacity2;
+        }
+
+        UtillLogRemove.Log("탄약 충전");
+        UpdateItemUI();
     }
 }

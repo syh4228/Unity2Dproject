@@ -19,7 +19,8 @@ public class BattleUIManager : MonoBehaviour
     [Header("아이템 슬롯")]
     [SerializeField] private RawImage grenadeImage; // 투척류 아이템 표기
     [SerializeField] private RawImage medkitImage; // 힐팩 아이템 표기
-    [SerializeField] private RawImage pillsImage; // 임시 체력 회복 템 표기
+    [SerializeField] private RawImage pillsImage; // 진통제 표기
+    [SerializeField] private RawImage adrenalineImage; // 아드레날린 표기
 
     [Header("나가기 팝업")]
     [SerializeField] private GameObject exitpopup; // 나가기창 연결
@@ -45,47 +46,45 @@ public class BattleUIManager : MonoBehaviour
         float totalHpRatio = (float)totalHp / maxHp; // 토탈 체력 비율
         float realHpRatio = (float)currentHp / maxHp; // 실제 체력 비율
 
-        if (hpText != null) // 널 아니면
+        if (hpText != null)
         {
-            hpText.text = totalHp.ToString(); // 토탈체력 Hp 표기 텍스트에 저장
+            hpText.text = totalHp.ToString();
+            // 텍스트 색상 결정
+            hpText.color = GetHealthColor(totalHpRatio);
+        }
 
-            if (totalHpRatio > 0.5f) // 만약 체력 비율이 0.5f 보다 높으면
+        // 임시 체력바 적용
+        if (hpTempFillImage != null)
+        {
+            bool hasTempHp = (tempHp > 0);
+
+            if (hpTempFillImage.gameObject.activeSelf != hasTempHp)
             {
-                hpText.color = healthyColor; // hp 표기 텍스트 색 그린
+                hpTempFillImage.gameObject.SetActive(hasTempHp);
             }
-            else if (totalHpRatio < 0.2f ) // 만약 0.2f 보다 낮으면
+
+            if (hasTempHp)
             {
-                hpText.color = warningColor; // 노랑
-            }
-            else // 둘다 아니면
-            {
-                hpText.color = dangerColor; // 빨강
+                hpTempFillImage.fillAmount = totalHpRatio;
+                hpTempFillImage.color = tempHpColor;
             }
         }
 
-        if (hpTempFillImage != null) // 널 아니면
-        {
-            hpTempFillImage.fillAmount = totalHpRatio; // 임시 체력바 그리기
-            hpTempFillImage.color = tempHpColor; // 체력바 색깔 지정
-        }
-
+        // 4. 실제 체력바 적용
         if (hpFillImage != null)
         {
-            hpFillImage.fillAmount = realHpRatio; // 체력바 그리기
-
-            if (realHpRatio > 0.5f) // 만약 체력 비율이 0.5f 보다 높으면
-            {
-                hpFillImage.color = healthyColor; // hp 표기 텍스트 색 그린
-            }
-            else if (realHpRatio < 0.2f) // 만약 0.2f 보다 낮으면
-            {
-                hpFillImage.color = warningColor; // 노랑
-            }
-            else // 둘다 아니면
-            {
-                hpFillImage.color = dangerColor; // 빨강
-            }
+            hpFillImage.fillAmount = realHpRatio;
+            // 실제 체력 색상 결정
+            hpFillImage.color = GetHealthColor(realHpRatio);
         }
+    }
+
+    // 체력표기 색깔 정하는 함수
+    private Color GetHealthColor(float ratio)
+    {
+        if (ratio > 0.5f) return healthyColor;
+        if (ratio < 0.2f) return warningColor;
+        return dangerColor;
     }
 
     public void UpdateAmmoUI(int gunSlot, int magazine, int reserve)
@@ -121,22 +120,27 @@ public class BattleUIManager : MonoBehaviour
     }
 
     // 아이템 슬롯 UI함수 ( 투척류, 회복 킷, 임시 회복탬)
-    public void UpdateItemUI(bool hasgrenade, bool hasmedkit, bool haspills)
+    public void UpdateItemUI(bool hasGrenade, bool hasMedkit, bool hasPills, bool hasAdrenaline)
     {
         if (grenadeImage != null) // 널 체크
         {
             // 슈륙탄 가지고 있으면, true, 아니면 false
-            grenadeImage.gameObject.SetActive(hasgrenade);
+            grenadeImage.gameObject.SetActive(hasGrenade);
         }
 
         if (medkitImage != null) // 매디 킷
         {
-            medkitImage.gameObject.SetActive(hasmedkit);
+            medkitImage.gameObject.SetActive(hasMedkit);
         }
 
-        if (pillsImage != null) // 임시 회복 탬
+        if (pillsImage != null) // 진통제
         {
-            pillsImage.gameObject.SetActive(haspills);
+            pillsImage.gameObject.SetActive(hasPills);
+        }
+
+        if (adrenalineImage != null) // 아드레날린
+        {
+            adrenalineImage.gameObject.SetActive(hasAdrenaline);
         }
     }
 

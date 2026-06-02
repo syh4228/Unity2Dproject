@@ -25,7 +25,7 @@ public class Test_ItemSpawner : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F8)) SpawnItemById("Weapon_HK_8");
 
-        if (Input.GetKeyDown(KeyCode.F9)) SpawnItemById("Weapon_MK_9");
+        if (Input.GetKeyDown(KeyCode.F9)) SpawnItemById("Weapon_MD_9");
 
         if (Input.GetKeyDown(KeyCode.F10)) SpawnItemById("Weapon_AD_10");
 

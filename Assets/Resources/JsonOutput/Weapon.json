@@ -68,7 +68,7 @@
     "Name": "MG",
     "Description": "빠른 사격 속도에 중점을 둔 화기로 총알이 금세 동나고 한다.",
     "Damage": 25,
-    "RPM": 60,
+    "RPM": 50,
     "EffectiveRange": 50,
     "Capacity": 50,
     "Capacity2": 200,

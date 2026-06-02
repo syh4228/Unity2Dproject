@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1933356892034603143}
   - component: {fileID: 6734604960737910914}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RT2_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6890244427649712498}
   - component: {fileID: 5400131701107744537}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RT2_Drop
   m_TagString: Item
   m_Icon: {fileID: 0}

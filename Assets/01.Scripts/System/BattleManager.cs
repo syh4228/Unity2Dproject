@@ -24,6 +24,12 @@ public class BattleManager : MonoBehaviour
         else // 아니면
         {
             Destroy(gameObject); // 게임오브젝트 삭제
+            return;
+        }
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateTargetUI(CurrentTargetType);
         }
     }
 
@@ -90,7 +96,14 @@ public class BattleManager : MonoBehaviour
     {
         // 현재 타겟이 노멀이면 스페셜로, 아니면 노멀로 현재 타겟 저장
         CurrentTargetType = (CurrentTargetType == ZombieType.Normal) ? ZombieType.Special : ZombieType.Normal;
-        
-        uiManager.UpdateTargetUI(CurrentTargetType);
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateTargetUI(CurrentTargetType);
+        }
+        else
+        {
+            Debug.LogError("uiManager가 연결되어 있지 않습니다!");
+        }
     }
 }
