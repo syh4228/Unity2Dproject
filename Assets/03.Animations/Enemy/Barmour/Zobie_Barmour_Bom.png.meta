@@ -1,0 +1,532 @@
+fileFormatVersion: 2
+guid: b5b5cd56322df8449a96252c6e1b15f5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5372488498745769257
+    second: Zobie_Barmour_Bom_0
+  - first:
+      213: 2629418754101253344
+    second: Zobie_Barmour_Bom_1
+  - first:
+      213: -4235217594828777620
+    second: Zobie_Barmour_Bom_2
+  - first:
+      213: -8856618926526039842
+    second: Zobie_Barmour_Bom_3
+  - first:
+      213: -3926133186019075724
+    second: Zobie_Barmour_Bom_4
+  - first:
+      213: 8733947377296245755
+    second: Zobie_Barmour_Bom_5
+  - first:
+      213: 4901778741060967820
+    second: Zobie_Barmour_Bom_6
+  - first:
+      213: -7273525453360231805
+    second: Zobie_Barmour_Bom_7
+  - first:
+      213: 7107429317864310497
+    second: Zobie_Barmour_Bom_8
+  - first:
+      213: 3619672384596812239
+    second: Zobie_Barmour_Bom_9
+  - first:
+      213: 9210881120728008863
+    second: Zobie_Barmour_Bom_10
+  - first:
+      213: 7102692389816646736
+    second: Zobie_Barmour_Bom_11
+  - first:
+      213: 319322481245166957
+    second: Zobie_Barmour_Bom_12
+  - first:
+      213: 8368857182631737161
+    second: Zobie_Barmour_Bom_13
+  - first:
+      213: 5155561042352123339
+    second: Zobie_Barmour_Bom_14
+  - first:
+      213: 6824113847819323070
+    second: Zobie_Barmour_Bom_15
+  - first:
+      213: -3568663153689568929
+    second: Zobie_Barmour_Bom_16
+  - first:
+      213: 3295002791063579351
+    second: Zobie_Barmour_Bom_17
+  - first:
+      213: 2952806717930496047
+    second: Zobie_Barmour_Bom_18
+  - first:
+      213: -3092621443539255592
+    second: Zobie_Barmour_Bom_19
+  - first:
+      213: 4749683458883655143
+    second: Zobie_Barmour_Bom_20
+  - first:
+      213: -2379523044912898869
+    second: Zobie_Barmour_Bom_21
+  - first:
+      213: -7920244691958138499
+    second: Zobie_Barmour_Bom_22
+  - first:
+      213: 4734667414860753095
+    second: Zobie_Barmour_Bom_23
+  - first:
+      213: -2828382350499671180
+    second: Zobie_Barmour_Bom_24
+  - first:
+      213: 4657573099265909375
+    second: Zobie_Barmour_Bom_25
+  - first:
+      213: 440678627313163613
+    second: Zobie_Barmour_Bom_26
+  - first:
+      213: -3610107739439844002
+    second: Zobie_Barmour_Bom_27
+  - first:
+      213: -3307425677809864139
+    second: Zobie_Barmour_Bom_28
+  - first:
+      213: -3164149159535458840
+    second: Zobie_Barmour_Bom_29
+  - first:
+      213: -7430406938133293714
+    second: Zobie_Barmour_Bom_30
+  - first:
+      213: -5415319518262146132
+    second: Zobie_Barmour_Bom_31
+  - first:
+      213: -4333617705607392782
+    second: Zobie_Barmour_Bom_32
+  - first:
+      213: 8593088239979578525
+    second: Zobie_Barmour_Bom_33
+  - first:
+      213: 4683874380308418901
+    second: Zobie_Barmour_Bom_34
+  - first:
+      213: -1304538808689459604
+    second: Zobie_Barmour_Bom_35
+  - first:
+      213: 5415233161801557711
+    second: Zobie_Barmour_Bom_36
+  - first:
+      213: 8770455648835414901
+    second: Zobie_Barmour_Bom_37
+  - first:
+      213: -3824291819107428496
+    second: Zobie_Barmour_Bom_38
+  - first:
+      213: 3851310228516217362
+    second: Zobie_Barmour_Bom_39
+  - first:
+      213: 6263085966979565085
+    second: Zobie_Barmour_Bom_40
+  - first:
+      213: -2102279319719931118
+    second: Zobie_Barmour_Bom_41
+  - first:
+      213: 659826400218375426
+    second: Zobie_Barmour_Bom_42
+  - first:
+      213: 9129301618268645028
+    second: Zobie_Barmour_Bom_43
+  - first:
+      213: -2789069750536902428
+    second: Zobie_Barmour_Bom_44
+  - first:
+      213: 7278411422344800884
+    second: Zobie_Barmour_Bom_45
+  - first:
+      213: -2757371154376844484
+    second: Zobie_Barmour_Bom_46
+  - first:
+      213: 7771641286308363549
+    second: Zobie_Barmour_Bom_47
+  - first:
+      213: 7029030739468320922
+    second: Zobie_Barmour_Bom_48
+  - first:
+      213: -8664092256811594507
+    second: Zobie_Barmour_Bom_49
+  - first:
+      213: 2002124787645320170
+    second: Zobie_Barmour_Bom_50
+  - first:
+      213: -3060586982143946817
+    second: Zobie_Barmour_Bom_51
+  - first:
+      213: -9015991077649015124
+    second: Zobie_Barmour_Bom_52
+  - first:
+      213: -749816363373062020
+    second: Zobie_Barmour_Bom_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 171
+        width: 170
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92dfc9f23d9ee8a40800000000000000
+      internalID: 5372488498745769257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_1
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 172
+        width: 169
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8f96db208f61580800000000000000
+      internalID: -8856618926526039842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_3
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 175
+        width: 180
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8d10845bcd960440800000000000000
+      internalID: 4901778741060967820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 174
+        width: 181
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e6cf7dce49a2a260800000000000000
+      internalID: 7107429317864310497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 20
+        width: 184
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f59de41f4cf897ec0800000000000000
+      internalID: -3568663153689568929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_5
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 1
+        width: 145
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d94c193e938c04770800000000000000
+      internalID: 8593088239979578525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_6
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 7
+        width: 150
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2139179d81433d2e0800000000000000
+      internalID: -2102279319719931118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zobie_Barmour_Bom_7
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 3
+        width: 165
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fc488b2ff5f2c780800000000000000
+      internalID: -8664092256811594507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 97e9f06c12940c040bfc79cb349abd7f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      6: 8593088239979578525
+      7: -8664092256811594507
+      Zobie_Barmour_Bom_0: 7107429317864310497
+      Zobie_Barmour_Bom_1: -8856618926526039842
+      Zobie_Barmour_Bom_10: 9210881120728008863
+      Zobie_Barmour_Bom_11: 7102692389816646736
+      Zobie_Barmour_Bom_12: 319322481245166957
+      Zobie_Barmour_Bom_13: 8368857182631737161
+      Zobie_Barmour_Bom_14: 5155561042352123339
+      Zobie_Barmour_Bom_15: 6824113847819323070
+      Zobie_Barmour_Bom_17: 3295002791063579351
+      Zobie_Barmour_Bom_18: 2952806717930496047
+      Zobie_Barmour_Bom_19: -3092621443539255592
+      Zobie_Barmour_Bom_2: 5372488498745769257
+      Zobie_Barmour_Bom_20: 4749683458883655143
+      Zobie_Barmour_Bom_21: -2379523044912898869
+      Zobie_Barmour_Bom_22: -7920244691958138499
+      Zobie_Barmour_Bom_23: 4734667414860753095
+      Zobie_Barmour_Bom_24: -2828382350499671180
+      Zobie_Barmour_Bom_25: 4657573099265909375
+      Zobie_Barmour_Bom_26: 440678627313163613
+      Zobie_Barmour_Bom_27: -3610107739439844002
+      Zobie_Barmour_Bom_28: -3307425677809864139
+      Zobie_Barmour_Bom_29: -3164149159535458840
+      Zobie_Barmour_Bom_3: 4901778741060967820
+      Zobie_Barmour_Bom_30: -7430406938133293714
+      Zobie_Barmour_Bom_31: -5415319518262146132
+      Zobie_Barmour_Bom_32: -4333617705607392782
+      Zobie_Barmour_Bom_34: 4683874380308418901
+      Zobie_Barmour_Bom_35: -1304538808689459604
+      Zobie_Barmour_Bom_36: 5415233161801557711
+      Zobie_Barmour_Bom_37: 8770455648835414901
+      Zobie_Barmour_Bom_38: -3824291819107428496
+      Zobie_Barmour_Bom_39: 3851310228516217362
+      Zobie_Barmour_Bom_4: -3568663153689568929
+      Zobie_Barmour_Bom_40: 6263085966979565085
+      Zobie_Barmour_Bom_42: 659826400218375426
+      Zobie_Barmour_Bom_43: 9129301618268645028
+      Zobie_Barmour_Bom_44: -2789069750536902428
+      Zobie_Barmour_Bom_45: 7278411422344800884
+      Zobie_Barmour_Bom_46: -2757371154376844484
+      Zobie_Barmour_Bom_47: 7771641286308363549
+      Zobie_Barmour_Bom_48: 7029030739468320922
+      Zobie_Barmour_Bom_5: 8593088239979578525
+      Zobie_Barmour_Bom_50: 2002124787645320170
+      Zobie_Barmour_Bom_51: -3060586982143946817
+      Zobie_Barmour_Bom_52: -9015991077649015124
+      Zobie_Barmour_Bom_53: -749816363373062020
+      Zobie_Barmour_Bom_6: -2102279319719931118
+      Zobie_Barmour_Bom_7: -8664092256811594507
+      Zobie_Barmour_Bom_9: 3619672384596812239
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

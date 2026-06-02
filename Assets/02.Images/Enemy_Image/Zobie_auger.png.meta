@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 87b41f11f035ee54392458c8468a8a33
+guid: b85345216c4c9e54387f4d8665f12f69
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3081501734112250341
-    second: Icon_Zobie_Beast_0
+      213: 5434210607014798645
+    second: Zobie_auger_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Zobie_Beast_0
+      name: Zobie_auger_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 74
-        width: 425
-        height: 340
+        x: 9
+        y: 5
+        width: 505
+        height: 472
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e9c28c2081b3ca20800000000000000
-      internalID: 3081501734112250341
+      spriteID: 535e6c161c13a6b40800000000000000
+      internalID: 5434210607014798645
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Zobie_Beast_0: 3081501734112250341
+      Zobie_auger_0: 5434210607014798645
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

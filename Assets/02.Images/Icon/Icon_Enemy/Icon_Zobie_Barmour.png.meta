@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6127f30b20c9290428dc9fb97082dfd8
+guid: dac16393086012a49be033e930a599d5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8459020886050885815
-    second: Zobie_0
+      213: -1311299694990412714
+    second: Icon_Zobie_Barmour_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zobie_0
+      name: Icon_Zobie_Barmour_0
       rect:
         serializedVersion: 2
-        x: 148
-        y: 23
-        width: 214
-        height: 434
+        x: 25
+        y: 86
+        width: 394
+        height: 331
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 94fa35b62558b9a80800000000000000
-      internalID: -8459020886050885815
+      spriteID: 654b40effd35dcde0800000000000000
+      internalID: -1311299694990412714
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Zobie_0: -8459020886050885815
+      Icon_Zobie_Barmour_0: -1311299694990412714
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
