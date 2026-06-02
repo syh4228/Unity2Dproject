@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy_AiManager : MonoBehaviour
 {
@@ -16,13 +15,13 @@ public class Enemy_AiManager : MonoBehaviour
     public bool isStunned = false; // 피격 확인
 
     [Header("컴포넌트")]
-    [SerializeField] private AnimationController animController; // 애니메이터 컨트롤러 연결
+    [SerializeField] private Enemy_AnimationController animController; // 애니메이터 컨트롤러 연결
     [SerializeField] private Enemy_StatManager statManager; // 스탯 매니저 연결
 
     private SpriteRenderer spriteRenderer; // 스프라이트 랜더러 받기
     private Rigidbody2D enemyRigidbody; // 리지드바디 받기
-
     private Transform playerTransform; // 플레이어 위치 받기
+
     private bool isAttack = false; // 공격중인지 확인
     public bool isKnockedBack = false; // 밀치기 확인 변수
     public Transform decoyTarget; // 슈륙탄 어그로 위치 저장
@@ -31,7 +30,7 @@ public class Enemy_AiManager : MonoBehaviour
     {
         if (animController == null) // 애니메이션 컴포넌트가 연결안되있으면
         {
-            animController = GetComponent<AnimationController>(); // 찾기
+            animController = GetComponent<Enemy_AnimationController>(); // 찾기
         }
 
         if (statManager == null) // 스탯매니저 연결 안되있으면
@@ -41,7 +40,6 @@ public class Enemy_AiManager : MonoBehaviour
 
         // 자식 오브젝트에서 스프라이트 랜더러 가져오기
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
         enemyRigidbody = GetComponent<Rigidbody2D>(); // 리지디바디 가져오기
 
         // 플레이어 태그 가진 오브젝트 찾기
@@ -60,106 +58,48 @@ public class Enemy_AiManager : MonoBehaviour
 
     private void Update()
     {
-        // 게임매니저가 있고
-        if (GameManager.Instance != null)
+        // 게임매니저가 인스턴스가 있고, 게임매니저의 배틀액션이 거짓이면 반환
+        if (GameManager.Instance != null && GameManager.Instance.IsBattleActive == false) return;
+
+        // 플레이어가 없거나, 넉백중이거나, 스턴 중이거나,공격중이면
+        if (playerTransform == null || isKnockedBack == true || isStunned == true || isAttack == true)
         {
-            // 게임매니저에서 전투중이 아닐때
-            if (!GameManager.Instance.IsBattleActive)
+            // 공격중이거나, 스턴 중이면
+            if (isAttack == true || isStunned == true)
             {
-                return;
-            }
-        }
-
-        if (playerTransform == null) // 플레이어를 못찾았으면
-        {
-            return; // 반환
-        }
-
-        if (playerTransform != null) // 플레이어 트랜스폼이 있으면
-        {
-            // 플레이어 컴포넌트 정보 가져오기
-            Player_Controller player = playerTransform.GetComponent<Player_Controller>();
-
-            if (player != null) // 플레이어가 있으면
-            {
-                if (player.IsDead == true) // 플레이어가 죽었으면
-                {
-                    // 속도 0 (멈추기)
-                    enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
-                    animController.SetState(AllState.Idle); // 대기애니메이션 실행
-                    return; // 반환
-                }
-            }
-        }
-
-        if (statManager != null) // 스탯 매니저가 연결되있고
-        {
-            if (statManager.currentHp <= 0) // 현재 체력이 0이면
-            {
-                // 죽으면 속도 0
+                // 속동 0으로 고정(미끄러지지 않게)
                 enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
-                return; // 반환
             }
-        }
-
-        if (isKnockedBack == true) // 넉백 중이면
-        {
             return; // 반환
         }
 
-        if (isStunned == true) // 피격이 트루면
+        // 스탯매니저가 있고, 스탯매니저에 현재체력이 0 보다 작으면 반환
+        if (statManager != null && statManager.currentHp <= 0) return;
+
+        // 쫒는 타겟에 플레이어 저장
+        Transform activeTarget = playerTransform;
+
+        if (decoyTarget != null) // 디코이 타겟이 있으면
         {
-            // 밀리는 힘은 받되, 스스로 걷지는 못하게 속도 0으로 고정
-            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
-            return;
+            activeTarget = decoyTarget; // 쫒는 타겟 디코이 타겟으로 저장
         }
 
-        if (isAttack == true)
-        {
-            // 공격중 이동 금지
-            enemyRigidbody.linearVelocity = Vector2.zero;
-
-            return; // 반환
-        }
-
-        // 디코이 타겟이 있으면 디코이 타겟을 저장하고, 없으면 플레이어위치 저장
-        Transform activeTarget = (decoyTarget != null) ? decoyTarget : playerTransform;
-
-        if (activeTarget == null) return; // 타켓이 없으면 반환
-
-        // 타켓이 플레이어면
-        if (activeTarget == playerTransform)
-        {
-            // 플레이어 컨트롤러에서 컴포넌트 받아와서 저장
-            Player_Controller player = playerTransform.GetComponent<Player_Controller>();
-
-            // 플레이어가 있고, 플레이어가 죽었으면
-            if (player != null && player.IsDead)
-            {
-                // 속도 0 으로 변경
-                enemyRigidbody.linearVelocity = Vector2.zero;
-                // 애니메이션 대기로 변경
-                animController.SetState(AllState.Idle);
-                return;
-            }
-        }
-
-        // 타겟 위치와 내 위치 저장
+        // 타겟과의 거리 계산 저장
         float distanceToTarget = Vector2.Distance(transform.position, activeTarget.position);
 
-        if (distanceToTarget <= 0.8f) // 만약 플레이어가 0.8f 보다 가까이 있으면
+        if (distanceToTarget <= 0.8f) // 거리가 0.8보다 적으면 (공격범위)
         {
-            enemyRigidbody.linearVelocity = Vector2.zero; // 이동속도 0
-            animController.SetState(AllState.Idle); // 대기 애니메이션 실행
+            enemyRigidbody.linearVelocity = Vector2.zero; // 속도 0으로 고정
+            animController.SetState(AllState.Idle); // 대기애니메로 변환
         }
-        else if(distanceToTarget <= attackRange) // 만약 플레이어가 공격 사거리 안에 있으면
+        else if (distanceToTarget <= attackRange) // 거리가 공격범위보다 적으면
         {
-            AttackPlayer(); // 공격 함수 호출
+            AttackPlayer(); // 플레이어 공격 함수 호출
         }
-        // 만약 플레이어가 추적 사거리 안에 있거나, 디코이 타겟팅이 있으면
+        // 거리가 감지범위보다 작거나, 타겟이 디코이 타겟이면
         else if (distanceToTarget <= detectRange || activeTarget == decoyTarget)
         {
-            ChaseTarget(activeTarget); // 추적 함수 호출
+            ChaseTarget(activeTarget); // 타겟 디코이로 변환
         }
     }
 
@@ -186,7 +126,7 @@ public class Enemy_AiManager : MonoBehaviour
 
     private void AttackPlayer() // 공격 함수
     {
-        if (isAttack) // 공격 중이면 
+        if (isAttack == true) // 공격 중이면 
         {
             return; // 반환
         }
@@ -308,12 +248,12 @@ public class Enemy_AiManager : MonoBehaviour
             animController.SetState(AllState.Idle); // 애니메이션 대기로 변경
 
             // 공격 쿨타임 저장
-            float DebugCooldown = attackCooldown - 0.5f;
+            float debugCooldown = attackCooldown - 0.5f;
 
-            if (DebugCooldown > 0) // 쿨타임이 0보다 크면
+            if (debugCooldown > 0) // 쿨타임이 0보다 크면
             {
                 // 쿨타임 대기
-                await UniTask.Delay(TimeSpan.FromSeconds(DebugCooldown), cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay(TimeSpan.FromSeconds(debugCooldown), cancellationToken: this.GetCancellationTokenOnDestroy());
             }
         }
         catch (OperationCanceledException)
@@ -336,7 +276,7 @@ public class Enemy_AiManager : MonoBehaviour
         foreach (Collider2D col in hitPlayers)
         {
             // 태그가 플레이어면
-            if (col.CompareTag("Player"))
+            if (col.CompareTag("Player") == true)
             {
                 // 컴포넌트 가져오기
                 Player_Character playerStat = col.GetComponent<Player_Character>();
