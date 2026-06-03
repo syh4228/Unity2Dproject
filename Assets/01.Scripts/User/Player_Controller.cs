@@ -105,6 +105,9 @@ public class Player_Controller : MonoBehaviour
             return;
         }
 
+        // 플레이어 캐릭터가 있고, 플레이어 캐릭터가 스턴 상태면 반환
+        if (playerCharacter != null && playerCharacter.isStunned) return;
+
         if (_healCts != null) // 힐킷 사용 중이라면
         {
             // 이동 속도를 0으로, 다른 키 입력을 전부 무시
@@ -475,6 +478,42 @@ public class Player_Controller : MonoBehaviour
             _healCts.Cancel();
             // 힐 킷 파괴
             _healCts.Dispose();
+        }
+    }
+
+    // 플레이어 넉백시 함수
+    public void ApplyPlayerKnockback(Vector2 pushDirection, float shoveForce, float stunTime)
+    {
+        if (IsDead == true) return; // 죽었다면 반환
+        // 플레이어 넉백 유니테스크 함수 호출
+        PlayerKnockbackRoutine(pushDirection, shoveForce, stunTime).Forget();
+    }
+
+    // 플레이어 넉백 유니테스크 함수
+    private async UniTaskVoid PlayerKnockbackRoutine(Vector2 pushDirection, float shoveForce, float stunTime)
+    {
+        if (playerCharacter != null) // 플레이어 캐릭터가 있으면
+        {
+            playerCharacter.isStunned = true; // 플레이어 스턴중 트루로 변경
+        }
+
+        if (Rigidbody_Player != null) // 플레이어 리지드바디 있으면
+        {
+            Rigidbody_Player.linearVelocity = Vector2.zero; // 속도 0 고정
+            // 넉백 거리 계산
+            Rigidbody_Player.AddForce(new Vector2(pushDirection.x, 0.5f).normalized * shoveForce, ForceMode2D.Impulse);
+        }
+
+        try
+        {
+            // 대기(스턴시간 만큼), 실패시 취소
+            await UniTask.Delay(TimeSpan.FromSeconds(stunTime), cancellationToken: this.GetCancellationTokenOnDestroy());
+        }
+        catch (OperationCanceledException) { }
+        finally
+        {
+            // 플레이어 캐릭터 있으면. 스턴중 거짓으로 변경
+            if (playerCharacter != null) playerCharacter.isStunned = false;
         }
     }
 }
