@@ -13,6 +13,8 @@ public class BulletManager : MonoBehaviour
     private float _effectiveRange = 0f;  // 최대 사거리
     private Vector2 _startPosition;      // 발사 위치
 
+    private int _pierceCount = 0; // 저격총 관통 횟수 저장
+
     private void Awake()
     {
         // 리지디바디 가져오기
@@ -27,6 +29,8 @@ public class BulletManager : MonoBehaviour
         _startPosition = transform.position; // 발사 위치 저장
         damage = gunData.Damage; // 무기대미지 저장
         _effectiveRange = gunData.EffectiveRange / 10f; // 무기 사거리 저장
+
+        _pierceCount = 0; // 관통 횟수 초기화
 
         // 대미지타입 노멀건으로 저장
         bulletDamageType = DamageType.NormalGun;
@@ -90,14 +94,62 @@ public class BulletManager : MonoBehaviour
             // 만약 적 스텟이 있고, 배틀매니저가 있으면
             if (enemyStat != null && BattleManager.Instance != null)
             {
-                // 배틀매니저에서 적 스탯, 대미지, 총알 대미지 타입 받아오기
-                bool isCorrectTarget = BattleManager.Instance.ProcessPlayerAttack(enemyStat, damage, bulletDamageType);
+                int calculatedDamage = damage; // 기본 대미지 저장
+
+                // 총알 타입이 샷건이라면
+                if (bulletDamageType == DamageType.Shotgun)
+                {
+                    // 스타트 포인트와, 현재 거리 저장
+                    float hitDistance = Vector2.Distance(_startPosition, transform.position);
+
+                    // 날아간 거리가 최대 사거리의 절반 이하라면
+                    if (hitDistance <= (_effectiveRange / 2f))
+                    {
+                        calculatedDamage = damage * 3; // 대미지 3배
+                        UtillLogRemove.Log("샷건 근접 사격 3배 대미지 : " + calculatedDamage);
+                    }
+                    else // 절반 이상이면
+                    {
+                        // 기본 대미지
+                        calculatedDamage = damage;
+                        UtillLogRemove.Log("샷건 원거리 사격 기본 대미지 : " + calculatedDamage);
+                    }
+                }
+
+                // 배틀매니저에서 적 정보, 줄 데미지, 총알 타입을 넘겨주고 플레이어 공격 함수 호출
+                bool isCorrectTarget = BattleManager.Instance.ProcessPlayerAttack(enemyStat, calculatedDamage, bulletDamageType);
                
                 // 타겟이 트루 면
                if (isCorrectTarget == true)
                {
-                    // 총알 비활성화
-                    gameObject.DeactivateSafe();
+                    // 총알 데미지 타입이 저격이면
+                    if (bulletDamageType == DamageType.Sniper)
+                    {
+                        // 적 현재 타입이 노멀이면
+                        if (enemyStat.CurrentType == ZombieType.Normal)
+                        {
+                            // 관톧 카운터 +1
+                            _pierceCount = _pierceCount + 1;
+                            UtillLogRemove.Log("저격 관통 수" + +_pierceCount + " / 3");
+
+                            if (_pierceCount >= 3) // 관통수가 3 이상이면
+                            {
+                                UtillLogRemove.Log("저격탄 최대 관통 수 도달 소멸");
+                                gameObject.DeactivateSafe(); // 총알 비활성 화
+                            }
+                        }
+                        // 현재 적타입이 특수라면
+                        else if (enemyStat.CurrentType == ZombieType.Special)
+                        {
+                            UtillLogRemove.Log("저격탄이 특수 좀비 공격");
+                            gameObject.DeactivateSafe(); // 총알 비활성 화
+                        }
+                    }
+                    else // 저격총이 아니면 관통 없음
+                    {
+                        // 총알 비활성화
+                        gameObject.DeactivateSafe();
+                    }
                }
             }
         }
