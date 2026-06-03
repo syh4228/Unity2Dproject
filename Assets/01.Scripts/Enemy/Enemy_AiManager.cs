@@ -21,10 +21,16 @@ public class Enemy_AiManager : MonoBehaviour
     private SpriteRenderer spriteRenderer; // 스프라이트 랜더러 받기
     private Rigidbody2D enemyRigidbody; // 리지드바디 받기
     private Transform playerTransform; // 플레이어 위치 받기
+    private Player_Controller playerController; // 플레이어 컨트롤 받기
 
     private bool isAttack = false; // 공격중인지 확인
     public bool isKnockedBack = false; // 밀치기 확인 변수
     public Transform decoyTarget; // 슈륙탄 어그로 위치 저장
+
+    private EnemySkill_Beast beastSkill; // 비스트 연결
+    private EnemySkill_Bomber bomberSkill; // 바머 연결
+    private EnemySkill_Thrower throwerSkill; // 쓰로머 연결
+    private EnemySkill_auger augerSkill; // 오거 연결
 
     private void Start()
     {
@@ -38,6 +44,11 @@ public class Enemy_AiManager : MonoBehaviour
             statManager = GetComponent<Enemy_StatManager>(); // 찾기
         }
 
+        beastSkill = GetComponent<EnemySkill_Beast>(); // 비스트 컴포넌트 가져오기
+        bomberSkill = GetComponent<EnemySkill_Bomber>(); // 바머 가져오기
+        throwerSkill = GetComponent<EnemySkill_Thrower>(); // 쓰로머 가져오기
+        augerSkill = GetComponent<EnemySkill_auger>(); // 오거 가져오기
+
         // 자식 오브젝트에서 스프라이트 랜더러 가져오기
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         enemyRigidbody = GetComponent<Rigidbody2D>(); // 리지디바디 가져오기
@@ -48,6 +59,8 @@ public class Enemy_AiManager : MonoBehaviour
         if (playerObj != null) // 플레이어 오브젝트 있으면
         {
             playerTransform = playerObj.transform; // 플레이어 위치 찾기
+            // 플레이어 컨트롤 컴포너트 가져오기
+            playerController = playerObj.GetComponent<Player_Controller>();
         }
         else
         {
@@ -76,26 +89,60 @@ public class Enemy_AiManager : MonoBehaviour
         // 스탯매니저가 있고, 스탯매니저에 현재체력이 0 보다 작으면 반환
         if (statManager != null && statManager.currentHp <= 0) return;
 
-        // 쫒는 타겟에 플레이어 저장
-        Transform activeTarget = playerTransform;
-
-        if (decoyTarget != null) // 디코이 타겟이 있으면
+        // 플레이어 컨트롤이 있고, 플레이어가 죽었다면
+        if (playerController != null && playerController.IsDead == true)
         {
-            activeTarget = decoyTarget; // 쫒는 타겟 디코이 타겟으로 저장
+            // 속도 0으로 고정
+            enemyRigidbody.linearVelocity = new Vector2(0, enemyRigidbody.linearVelocity.y);
+            // 애니메이션 대기로 변경
+            animController.SetState(AllState.Idle);
+            return; // 반환
         }
 
-        // 타겟과의 거리 계산 저장
+        // 디코이 타겟이 있으면, 디코이 타겟 저장, 아니면 플레이어 저장
+        Transform activeTarget = (decoyTarget != null) ? decoyTarget : playerTransform;
+        // 타겟과의 거리 계산
         float distanceToTarget = Vector2.Distance(transform.position, activeTarget.position);
 
-        if (distanceToTarget <= 0.8f) // 거리가 0.8보다 적으면 (공격범위)
+        // 비스트 스킬이 있고, 비스트 점프 공격 레이지 안에 타겟이 있고, 공격범위 안에 타겟이 없으면
+        if (beastSkill != null && distanceToTarget <= beastSkill.jumpAttackRange && distanceToTarget > attackRange)
         {
-            enemyRigidbody.linearVelocity = Vector2.zero; // 속도 0으로 고정
-            animController.SetState(AllState.Idle); // 대기애니메로 변환
+            // 비스트 공격 준비 함수 호출
+            ExecuteSpecialBeastAttack();
+            return;
         }
-        else if (distanceToTarget <= attackRange) // 거리가 공격범위보다 적으면
+
+        if (distanceToTarget <= 0.8f) // 타겟이 0.8 보다 가까우면(공격 범위)
         {
-            AttackPlayer(); // 플레이어 공격 함수 호출
+            // 속도 0 고정
+            enemyRigidbody.linearVelocity = Vector2.zero;
+            // 대기애니메이션 으로 변경
+            animController.SetState(AllState.Idle);
         }
+        else if (distanceToTarget <= attackRange) // 타켓이 공격 범위 안에 있으면
+        {
+            if (bomberSkill != null) // 바머 스킬이 있으면
+            {
+                // 바머 자폭 함수 호출
+                bomberSkill.ExecuteExplosion(playerTransform, statManager);
+            }
+            else if (throwerSkill != null) // 쓰로머 스킬 있으면
+            {
+                // 쓰로머 공격 준비 함수 호출
+                ExecuteSpecialThrowAttack();
+            }
+            else if (augerSkill != null)
+            {
+                // 오거 공격 준비 함수 호출
+                ExecuteSpecialAugerAttack();
+            }
+            else
+            {
+                // 플레이어 공격 함수 호출
+                AttackPlayer();
+            }
+        }
+
         // 거리가 감지범위보다 작거나, 타겟이 디코이 타겟이면
         else if (distanceToTarget <= detectRange || activeTarget == decoyTarget)
         {
@@ -138,14 +185,45 @@ public class Enemy_AiManager : MonoBehaviour
         AttackRoutine().Forget();
     }
 
+    // 비스트 공격 준비 함수
+    private async void ExecuteSpecialBeastAttack()
+    {
+        isAttack = true; // 공격이 트루 변경
+        enemyRigidbody.linearVelocity = Vector2.zero; // 속도 0 고정
+        // 비스트 공격함수 호출
+        await beastSkill.ExecuteBeastAttack(playerTransform, animController);
+        isAttack = false; // 공격 거짓으로 변경
+    }
+
+    // 쓰로머 공격 준비 함수
+    private async void ExecuteSpecialThrowAttack()
+    {
+        isAttack = true;
+        enemyRigidbody.linearVelocity = Vector2.zero;
+        await throwerSkill.ExecuteThrowAttack(playerTransform, animController, attackCooldown);
+        isAttack = false;
+    }
+
+    // 오거 공격 준비 함수
+    private async void ExecuteSpecialAugerAttack()
+    {
+        isAttack = true;
+        enemyRigidbody.linearVelocity = Vector2.zero;
+        await augerSkill.ExecuteAugerAttack(playerTransform, animController, attackCooldown);
+        isAttack = false;
+    }
+
     // 피격 트리거 함수
     public void TriggerHitStun()
     {
-        // 스택매니저가 있고
-        if (statManager != null)
+        // 스택매니저가 있고 체력이 0이 아니면
+        if (statManager != null && statManager.currentHp > 0)
         {
-            // 체력이 0이 아니면
-            if (statManager.currentHp > 0) { }
+            if (augerSkill != null) // 오거 스킬이 있으면
+            {
+                augerSkill.ApplySlowdown(); // 오거 슬로우  함수 호출
+            }
+            else // 오거 아니면
             {
                 // 스턱 시간 함수 호출
                 HitStunRoutine().Forget();
@@ -153,7 +231,7 @@ public class Enemy_AiManager : MonoBehaviour
         }
     }
 
-    // 피격 코루틴 함수
+    // 피격 유니테스크 함수
     private async UniTaskVoid HitStunRoutine()
     {
         isStunned = true; // 피격 확인
@@ -192,6 +270,20 @@ public class Enemy_AiManager : MonoBehaviour
     {
         // 스탯매니저가 있고 체력이 0보다 작으면 반환
         if (statManager != null && statManager.currentHp <= 0) return;
+
+        if (augerSkill != null) // 오거 스킬 있으면
+        {
+            augerSkill.ApplySlowdown(); // 오거 슬로우 함수 호출
+            UtillLogRemove.Log("오거는 밀치기에 면역");
+            return;
+        }
+
+        // 비스트 스킬이 있고, 비스트가 채공중이면
+        if (beastSkill != null && beastSkill.isLeaping == true)
+        {
+            // 비스트 점프 추락 함수 호출
+            beastSkill.InterruptJump(isInstaKill: false);
+        }
 
         // 밀치키 유니테스크 호출
         ShoveRoutine(pushDirection, shoveForce, shoveStunTime).Forget();
