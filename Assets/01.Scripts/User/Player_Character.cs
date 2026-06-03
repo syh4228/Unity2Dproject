@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class Player_Character : MonoBehaviour
@@ -50,8 +49,6 @@ public class Player_Character : MonoBehaviour
 
         // UI 갱신 함수 호출
         UpdateHealthUI_Internal();
-
-        RemoveEmptyAnimationEvents();
     }
 
     // 임시 체력을 실시간으로 깍아주기
@@ -326,43 +323,6 @@ public class Player_Character : MonoBehaviour
         {
             UtillLogRemove.Log("스테미너 부족!");
             return false;
-        }
-    }
-
-    // 이름 없는 애니메이션 이벤트 삭제 함수
-    private void RemoveEmptyAnimationEvents()
-    {
-        // 캐릭터의 애니메이터에서 현재 상태(State)들에 연결된 모든 클립을 가져옵니다.
-        Animator animator = GetComponent<Animator>();
-        if (animator == null || animator.runtimeAnimatorController == null) return;
-
-        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        foreach (AnimationClip clip in clips)
-        {
-            // 클립에 붙은 이벤트들을 확인
-            AnimationEvent[] events = AnimationUtility.GetAnimationEvents(clip);
-            List<AnimationEvent> validEvents = new List<AnimationEvent>();
-            bool changed = false;
-
-            foreach (AnimationEvent ev in events)
-            {
-                // 함수 이름이 비어있으면걸러냅니다.
-                if (!string.IsNullOrEmpty(ev.functionName))
-                {
-                    validEvents.Add(ev);
-                }
-                else
-                {
-                    changed = true; // 비어있는 놈 발견!
-                }
-            }
-
-            // 비어있는 놈을 제외하고 다시 이벤트를 덮어씌웁니다.
-            if (changed)
-            {
-                AnimationUtility.SetAnimationEvents(clip, validEvents.ToArray());
-                Debug.LogError($" {clip.name}에서 이름 없는 이벤트 삭제함!");
-            }
         }
     }
 }

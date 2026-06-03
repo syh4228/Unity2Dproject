@@ -65,7 +65,7 @@ public class EnemySkill_auger : MonoBehaviour
     }
 
     //  오거 넉백 공격 함수
-    public async UniTask ExecuteTankAttack(Transform player, Enemy_AnimationController anim, float cooldown)
+    public async UniTask ExecuteAugerAttack(Transform player, Enemy_AnimationController anim, float cooldown)
     {
         // 애니메이션이 있으면, 공격 애니메이션으로 변경
         if (anim != null) anim.SetState(AllState.Attack);
