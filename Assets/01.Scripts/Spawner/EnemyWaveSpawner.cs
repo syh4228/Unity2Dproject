@@ -305,4 +305,26 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 오브젝트 반환
         return obj;
     }
+
+    // 기즈모로 범위 그려주는 함수
+    private void OnDrawGizmos()
+    {
+        // 플레이어의 현재 위치를 중심으로 그립니다.
+        Vector3 center = transform.position;
+
+        // 스폰 방지 구역 (노란색 원)
+        Gizmos.color = Color.yellow;
+        DrawCircle(center, noSpawnRadius);
+
+        // 적 붕 띄기 방기 범위  (빨간색 원)
+        Gizmos.color = Color.red;
+        DrawCircle(center, maxActiveRadius);
+    }
+
+    // 원을 그려주기 함수
+    private void DrawCircle(Vector3 center, float radius)
+    {
+        // 간단하게 원 테두리를 그려줍니다.
+        Gizmos.DrawWireSphere(center, radius);
+    }
 }
