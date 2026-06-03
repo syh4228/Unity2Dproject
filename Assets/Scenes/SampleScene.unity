@@ -216,6 +216,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2155026450856364042, guid: 67544bb6e7a959e4fb3ed518d0db6274, type: 3}
   m_PrefabInstance: {fileID: 1400082847811011717}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &371946723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371946724}
+  m_Layer: 0
+  m_Name: Enemys
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &371946724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371946723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,11 +707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc05f38c7610a934d86b857b037208d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 6758127502043794990, guid: d4f7d57fe96357941b55944b2869b57a, type: 3}
-  spawnInterval: 5
-  poolSize: 10
-  minSpawnDistance: 5
-  maxSpawnDistance: 8
+  zombiePrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!1 &1329268597
 GameObject:
   m_ObjectHideFlags: 0
@@ -16041,3 +16069,4 @@ SceneRoots:
   - {fileID: 802220544}
   - {fileID: 159148036}
   - {fileID: 7836120533271540901}
+  - {fileID: 371946724}
