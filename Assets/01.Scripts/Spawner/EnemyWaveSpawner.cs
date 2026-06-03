@@ -169,8 +169,10 @@ public class EnemyWaveSpawner : MonoBehaviour
 
                     if (data != null) // 데이터가 있으면
                     {
-                        // 스탯 적용
-                        stat.Initialize(data);
+                        // 게임매니저에서 선택한 난이도 정보를 받아서 저장
+                        int currentDiff = GameManager.Instance.selectedDifficulty;
+                        // 현재 난이도에 맞게 스텟 적용
+                        stat.Initialize(data, currentDiff);
                     }
                     else
                     {
@@ -227,8 +229,10 @@ public class EnemyWaveSpawner : MonoBehaviour
 
                     if (data != null) // 데이터가 있으면
                     {
-                        // 스탯 주입
-                        stat.Initialize(data);
+                        // 게임매니저에서 선택한 난이도 정보를 받아서 저장
+                        int currentDiff = GameManager.Instance.selectedDifficulty;
+                        // 현재 난이도에 맞게 스텟 적용
+                        stat.Initialize(data, currentDiff);
                     }
                     else
                     {

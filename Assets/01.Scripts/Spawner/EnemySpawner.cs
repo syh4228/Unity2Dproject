@@ -33,6 +33,21 @@ public class EnemySpawner : MonoBehaviour
         // 좀비 프리팹, 스폰위치 정보를 받아 좀비 오브젝트 소환
         GameObject obj = Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity);
 
+        // 적 스텟 매니저에서 컴포넌트 정보 가져와 저장
+        Enemy_StatManager stat = obj.GetComponent<Enemy_StatManager>();
+
+        if (stat != null) // 스탯 매니저가 있으면
+        {
+            // 게임 데이터 매니저에서 id와 맞는 정보 가져와 저장
+            DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(stat.enemyId);
+            
+            if (data != null) // 데이터 있으면
+            {
+                // 게임매니저에서 선택한 난이도 정보를 받아 스탯 적용
+                stat.Initialize(data, GameManager.Instance.selectedDifficulty);
+            }
+        }
+
         // 하이라키에서 Enemys라는 오브젝트 찾아 저장
         GameObject enemyFolder = GameObject.Find("Enemys");
 

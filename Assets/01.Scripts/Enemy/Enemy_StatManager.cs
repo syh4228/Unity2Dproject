@@ -40,14 +40,26 @@ public class Enemy_StatManager : MonoBehaviour
     }
 
     // JSON 데이터 받아오는 함수
-    public void Initialize(DNMonsterData monsterData)
+    public void Initialize(DNMonsterData monsterData, int difficultyIndex)
     {
         enemyId = monsterData.Id; // Id 저장
         enemyName = monsterData.Name; // 이름 저장
 
-        MaxHp = monsterData.BaseHp; // 체력 저장
+        float multiplier = 1.0f; // 난이도 배율 저장
+
+        // 기본 공격 배율 데이터가 있고, 난이도가 0 이상이고, 난이도가 배율카운터보다 작을때
+        if (monsterData.NormalAtkMultiple != null && difficultyIndex >= 0 && difficultyIndex < monsterData.NormalAtkMultiple.Count)
+        {
+            // 난이도와 배율 저장
+            multiplier = monsterData.NormalAtkMultiple[difficultyIndex];
+        }
+
+        // 베이스 체력에 배율 곱한 체력 값 저장
+        MaxHp = Mathf.CeilToInt(monsterData.BaseHp * multiplier);
         currentHp = MaxHp; // 현재체력 최대체력으로 저장
-        Attack = monsterData.BaseAtk; // 공격력 저장
+
+        // 베이스 공격력에 배율 곱한 공격력 값 저장
+        Attack = Mathf.CeilToInt(monsterData.BaseAtk * multiplier);
 
         // 타입이 노멀이면 노멀로 저장, 아니면 스폐셜로 타입 저장
         CurrentType = (monsterData.Type == "Normal") ? ZombieType.Normal : ZombieType.Special;

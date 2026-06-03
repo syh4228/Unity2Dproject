@@ -23,14 +23,15 @@ public class GameManager : MonoBehaviour
     private string currentMapName; // (캠페인 + 챕터)  = 실제 맵 주소
     private string selectedCampaign = ""; // 선택 캠페인 저장
     private int selectedChapter = -1; // 선택 챕터 저장
-    private int selectedDifficulty = -1; // 선택 난이도 저장
     private int selectedCharacterIndex = -1; // 캐릭터 고유 번호 저장
 
     public bool IsBattleActive // 실제 게임 플레이 중인지 확인(전투)
     {
         get; private set; // 외부로 알리기
     }
-
+    
+    // 저장한 선택 난이도 get, set을로 알려주기
+    public int selectedDifficulty { get; private set; } = -1;
 
     private void Awake()
     {
