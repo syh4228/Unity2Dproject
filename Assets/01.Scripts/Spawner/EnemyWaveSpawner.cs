@@ -161,13 +161,25 @@ public class EnemyWaveSpawner : MonoBehaviour
 
                 if (stat != null) // 스탯이 있으면
                 {
-                    // 특수 좀비 리스트에 추가
-                    activeSpecialZombies.Add(stat);
+                    // 적 id 가져와서 저장
+                    string id = stat.enemyId;
 
-                    // 강제 어그로 함수 호출
-                    ForceAggro(newSpecialZombie);
+                    // 데이터 매니저에서 몬스터 id에 맞는 데이터 가져와 저장
+                    DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(id);
 
-                    UtillLogRemove.Log("특수 좀비 소환, 현재 특수 좀비 수: " + activeSpecialZombies.Count);
+                    if (data != null) // 데이터가 있으면
+                    {
+                        // 스탯 적용
+                        stat.Initialize(data);
+                    }
+                    else
+                    {
+                        UtillLogRemove.Error("특수 좀비 ID [" + id + "]에 맞는 JSON 데이터를 찾지 못했습니다");
+                    }
+
+                    activeSpecialZombies.Add(stat); // 특수 좀비 리스트 추가
+                    ForceAggro(newSpecialZombie); // 강제 어그로 함수 호출
+                    UtillLogRemove.Log("특수 좀비 [" + stat.enemyName + "] 소환, 현재 특수 좀비 수: " + activeSpecialZombies.Count);
                 }
             }
         }
@@ -207,11 +219,25 @@ public class EnemyWaveSpawner : MonoBehaviour
 
                 if (stat != null) // 스탯이 있으면
                 {
-                    // 리스트에 추가
-                    activeNormalZombies.Add(stat);
+                    // 적 스탯에서 id 가져와 저장
+                    string id = stat.enemyId;
 
-                    // 강제 어그로 함수 호출
-                    ForceAggro(newZombie);
+                    // 데이터 매니저에서 id에 맞는 정보 가져와 저장
+                    DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(id);
+
+                    if (data != null) // 데이터가 있으면
+                    {
+                        // 스탯 주입
+                        stat.Initialize(data);
+                    }
+                    else
+                    {
+                        UtillLogRemove.Error("일반 좀비 ID [" + id + "]에 맞는 JSON 데이터를 찾지 못했습니다");
+                    }
+
+                    // 일반 좀비 리스트 추가
+                    activeNormalZombies.Add(stat);
+                    ForceAggro(newZombie); // 강제 어그로 함수 호출
                 }
             }
         }
