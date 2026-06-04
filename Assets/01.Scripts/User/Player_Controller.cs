@@ -29,6 +29,8 @@ public class Player_Controller : MonoBehaviour
     private bool _isDead = false; // 캐릭터 사망 체크
     private bool _isWalk = false; // 걷기 체크
 
+    public bool isPinned = false; // 마운트 당한 상태 체크
+
     private CancellationTokenSource _healCts; // 유니테스크 취소 토큰
 
     public bool IsDead { get { return _isDead; } }
@@ -102,6 +104,12 @@ public class Player_Controller : MonoBehaviour
 
         if (_isDead) // 만약 죽었다면
         {
+            return;
+        }
+
+        if (isPinned) // 마운트 중이면
+        {
+            Rigidbody_Player.linearVelocity = Vector2.zero; // 움직임 멈춤
             return;
         }
 

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class EnemyWaveSpawner : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     [Header("스폰 범위 설정")]
     public float noSpawnRadius = 15f; // 스폰 방지 구역
     public float maxActiveRadius = 40f; // 적 붕 뜨기 방지 범위
+    public float spawnHeight = 4f; // 범위 생성 높이
 
     [Header("일반 좀비 웨이브 설정")]
     public GameObject[] normalZombiePrefabs; // 일반 좀비 프리팹들
@@ -58,19 +61,19 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 특수 좀비 웨이브 타이머가 특수 좀비 웨이브 시간 주기 이상이면
         if (specialWaveTimer >= specialWaveInterval)
         {
+            // 웨이브 타이머에 웨이브 시간 주기만큼 빼기
+            specialWaveTimer -= specialWaveInterval;
             // 특수 좀비 스폰 함수 호출
             HandleSpecialZombieSpawn();
-            // 타이머 다시 0으로 초기화
-            specialWaveTimer = 0f;
         }
 
         // 일반 좀비 웨이브 타이머가 일반 좀비 웨이브 시간 주기 이상이면
         if (normalWaveTimer >= normalWaveInterval)
         {
+            // 웨이브 타이머에 웨이브 시간 주기만큼 빼기
+            normalWaveTimer = normalWaveInterval;
             // 일반 좀비 스폰 함수 호출
-            HandleWaveSpawn();
-            // 타이머 다시 0으로 초기화
-            normalWaveTimer = 0f;
+            HandleWaveSpawn().Forget();
         }
     }
 
@@ -138,57 +141,49 @@ public class EnemyWaveSpawner : MonoBehaviour
     // 특수 좀비 스폰 함수
     private void HandleSpecialZombieSpawn()
     {
-        // 특수좀비 숫자 카운터가 최대 숫자보다 적으면
-        if (activeSpecialZombies.Count < maxSpecialZombies)
+        // 특수 좀빕 카운트가 최대 특수좀비 숫자 보다 크거나 같으면 리턴
+        if (activeSpecialZombies.Count >= maxSpecialZombies) return;
+        // 특수 좀비 프리펨 배열이 0이면 리턴
+        if (specialZombiePrefabs.Length <= 0) return;
+
+        // 특수 좀비 중 랜덤으로 1개 골라서 저장
+        int randomIndex = UnityEngine.Random.Range(0, specialZombiePrefabs.Length);
+        // 뽑인 특수좀비 프리펨 저장
+        GameObject selectedPrefab = specialZombiePrefabs[randomIndex];
+        // 프리펩 소환 위치 알아보는 함수 호출
+        Vector2 spawnPos = GetValidSpawnPosition();
+
+        // 특수 좀비 프리펩과 스폰위치 저장
+        GameObject newSpecialZombie = SpawnZombieSetup(selectedPrefab, spawnPos);
+        // 적 스탯 매니저에서 스탯 컴포넌트 가져와 저장
+        Enemy_StatManager stat = newSpecialZombie.GetComponent<Enemy_StatManager>();
+
+        if (stat != null) // 스탯이 있으면
         {
-            // 특수 좀비 배열이 비어있지 않다면
-            if (specialZombiePrefabs.Length > 0)
+            string id = stat.enemyId; // id 저장
+            // 게임데이터 매니저에서 맞는 id찾아 데이터 저장
+            DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(id);
+
+            if (data != null) // 데이터 있으면
             {
-                // 특수 좀비 중에서 랜덤으로 1나 골라서 저장
-                int randomIndex = Random.Range(0, specialZombiePrefabs.Length);
-
-                // 골라진 특수 좀비 프리팹 저장
-                GameObject selectedPrefab = specialZombiePrefabs[randomIndex];
-
-                // 스폰 위치 계산
-                Vector2 spawnPos = GetValidSpawnPosition();
-
-                // 특수좀비 생성
-                GameObject newSpecialZombie = SpawnZombieSetup(selectedPrefab, spawnPos);
-
-                // 생성된 특수 좀비 정보 적 스탯 매니저에서 가져오기
-                Enemy_StatManager stat = newSpecialZombie.GetComponent<Enemy_StatManager>();
-
-                if (stat != null) // 스탯이 있으면
-                {
-                    // 적 id 가져와서 저장
-                    string id = stat.enemyId;
-
-                    // 데이터 매니저에서 몬스터 id에 맞는 데이터 가져와 저장
-                    DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(id);
-
-                    if (data != null) // 데이터가 있으면
-                    {
-                        // 게임매니저에서 선택한 난이도 정보를 받아서 저장
-                        int currentDiff = GameManager.Instance.selectedDifficulty;
-                        // 현재 난이도에 맞게 스텟 적용
-                        stat.Initialize(data, currentDiff);
-                    }
-                    else
-                    {
-                        UtillLogRemove.Error("특수 좀비 ID [" + id + "]에 맞는 JSON 데이터를 찾지 못했습니다");
-                    }
-
-                    activeSpecialZombies.Add(stat); // 특수 좀비 리스트 추가
-                    ForceAggro(newSpecialZombie); // 강제 어그로 함수 호출
-                    UtillLogRemove.Log("특수 좀비 [" + stat.enemyName + "] 소환, 현재 특수 좀비 수: " + activeSpecialZombies.Count);
-                }
+                // 게임매니저에서 선택 난이도 가져와 저장
+                int currentDiff = GameManager.Instance.selectedDifficulty;
+                // 생성
+                stat.Initialize(data, currentDiff);
             }
+            else // 없으면
+            {
+                UtillLogRemove.Error("특수 좀비 ID [" + id + "]에 맞는 JSON 데이터를 찾지 못했습니다");
+            }
+
+            activeSpecialZombies.Add(stat); // 특수좀비 리스트에 추가
+            ForceAggro(newSpecialZombie); // 어그로 함수 호풀
+            UtillLogRemove.Log("특수 좀비 [" + stat.enemyName + "] 소환, 현재 수: " + activeSpecialZombies.Count);
         }
     }
 
     // 일반 좀비 소환 함수
-    private void HandleWaveSpawn()
+    private async UniTaskVoid HandleWaveSpawn()
     {
         // 일반 좀비 최대 숫자에서 현재 있는 숫자 빼서 저장
         int neededZombies = maxNormalZombies - activeNormalZombies.Count;
@@ -202,11 +197,14 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 필요한 숫자가 될때 까지 하나씩 꺼내서 확인
         for (int i = 0; i < neededZombies; i++)
         {
+            // 0.3초 유니테스크 대기
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+
             // 일반 좀비 프리팹 배열이 있다면
             if (normalZombiePrefabs.Length > 0) 
             {
                 // 일반 좀비 프리팹 중 랜덤 선택
-                int randomIndex = Random.Range(0, normalZombiePrefabs.Length);
+                int randomIndex = UnityEngine.Random.Range(0, normalZombiePrefabs.Length);
                 // 선택 된 일반 좀비 프리팹 저장
                 GameObject selectedPrefab = normalZombiePrefabs[randomIndex];
 
@@ -252,20 +250,27 @@ public class EnemyWaveSpawner : MonoBehaviour
     // 적 붕 뜨기 방지 구역 함수
     private Vector2 GetValidSpawnPosition()
     {
-        // 0도부터 360도 사이의 랜덤한 각도 저장
-        float randomAngle = Random.Range(0f, 360f);
-        // 유니티가 읽은 수있게 변환 저장
-        float radian = randomAngle * Mathf.Deg2Rad;
+        //  30 까지 하나씩 꺼내서 확인
+        for (int i = 0; i < 30; i++)
+        {
+            // 본인 위치 기준으로 x좌표 계산
+            float spawnX = transform.position.x + UnityEngine.Random.Range(-maxActiveRadius, maxActiveRadius);
+            // 본인 위치 기준으로 Y좌표 계산
+            float spawnY = transform.position.y + UnityEngine.Random.Range(-spawnHeight / 2f, spawnHeight / 2f);
+            // x,y 좌표 저장
+            Vector2 candidate = new Vector2(spawnX, spawnY);
 
-        // 최소 범위(15)와 최대 범위(40) 사이의 랜덤한 거리 저장
-        float randomDistance = Random.Range(noSpawnRadius, maxActiveRadius);
+            // 계산한 x 좌표 - 본인위치 값이 스폰 금지 구역 보다 크면
+            if (Mathf.Abs(candidate.x - transform.position.x) < noSpawnRadius)
+            {
+                continue; // 다시 좌표 계산
+            }
 
-        // 내 위치 기준으로 랜덤 각도와 거리만큼 떨어진 X 좌표 계산 저장
-        float spawnX = transform.position.x + (Mathf.Cos(radian) * randomDistance);
-        // 내 위치 기준으로 랜덤 각도와 거리만큼 떨어진 y 좌표 계산 저장
-        float spawnY = transform.position.y + (Mathf.Sin(radian) * randomDistance);
+            return candidate; // 작으면 저장해서 반환
+        }
 
-        return new Vector2(spawnX, spawnY); // 새 위치 반환
+        // 30번 실패 하면 본인 x위치에 스폰금지 구역을 더한 값에 1을 더해 좌표값 반환
+        return new Vector2(transform.position.x + noSpawnRadius + 1f, transform.position.y);
     }
 
     // 강제 어그로 함수
@@ -316,19 +321,13 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 플레이어의 현재 위치를 중심으로 그립니다.
         Vector3 center = transform.position;
 
-        // 스폰 방지 구역 (노란색 원)
+        // 스폰 방지 구역 (노란색 직사각형)
         Gizmos.color = Color.yellow;
-        DrawCircle(center, noSpawnRadius);
+        Gizmos.DrawWireCube(center, new Vector3(maxActiveRadius * 2f, spawnHeight, 0f));
 
-        // 적 붕 띄기 방기 범위  (빨간색 원)
+        // 적 붕 띄기 방기 범위  (빨간색 직사각형)
         Gizmos.color = Color.red;
-        DrawCircle(center, maxActiveRadius);
+        Gizmos.DrawWireCube(center, new Vector3(noSpawnRadius * 2f, spawnHeight, 0f));
     }
 
-    // 원을 그려주기 함수
-    private void DrawCircle(Vector3 center, float radius)
-    {
-        // 간단하게 원 테두리를 그려줍니다.
-        Gizmos.DrawWireSphere(center, radius);
-    }
 }

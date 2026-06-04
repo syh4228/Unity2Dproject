@@ -22,6 +22,9 @@ public class EnemySkill_Beast : MonoBehaviour
     private Rigidbody2D rb; // 리지드 바디 저장
     private Enemy_StatManager statManager; // 스탯 매니저 저장
 
+    public float postAttackCooldown = 4f; // 공격 후 재 점프 딜레이 시간
+    private float lastAttackTime = -99f; // 마지막으로 공격한 시간
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // 리지드바디 가져와 저장
@@ -33,6 +36,10 @@ public class EnemySkill_Beast : MonoBehaviour
     // 점프 공격 함수
     public async UniTask ExecuteBeastAttack(Transform player, Enemy_AnimationController anim)
     {
+        // 현재 시간이 마지막으로 공격한 시간 + 딜레이 시간보다 많으면 반환
+        // 첫 공격은 마지막 공격 시간 기본값이 -99 이기에 무조건 성공
+        if (Time.time < lastAttackTime + postAttackCooldown) return;
+
         UtillLogRemove.Log("비스트 점프 공격!");
         isLeaping = true; // 점프중 트루로 저장
 
@@ -155,6 +162,11 @@ public class EnemySkill_Beast : MonoBehaviour
             if (mashCount >= qteTargetMashes) // 연타 카운트가 필요한 연타 횟수이상이면
             {
                 BreakFree(); // 탈출 함수 호출
+
+                // 마지막 공격 시간을 현재시간으로 저장
+                // 그럼 얼마가 지나든 + 딜레이 값이 처음에는 더 클수 밖에 없음
+                lastAttackTime = Time.time;
+
                 break;
             }
 
