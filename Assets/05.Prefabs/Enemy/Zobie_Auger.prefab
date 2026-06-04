@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5062553723984575197
+--- !u!1 &2724083983908825110
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6834042406412544705}
-  - component: {fileID: 8560040329302404037}
-  - component: {fileID: 8542767186793301900}
-  - component: {fileID: 4706097148208783090}
-  m_Layer: 8
-  m_Name: Enemy_Zobie
+  - component: {fileID: 9139405490542896518}
+  - component: {fileID: 5031421687412730003}
+  - component: {fileID: 6607128698218018731}
+  - component: {fileID: 3810481475622284189}
+  m_Layer: 0
+  m_Name: Zobie_auger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6834042406412544705
+--- !u!4 &9139405490542896518
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062553723984575197}
+  m_GameObject: {fileID: 2724083983908825110}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.20888, y: 0.01918, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7139400166478719356}
+  m_Father: {fileID: 6047415675630762490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8560040329302404037
+--- !u!212 &5031421687412730003
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062553723984575197}
+  m_GameObject: {fileID: 2724083983908825110}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -83,27 +83,40 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8459020886050885815, guid: a265ff79cfb2f2c46b39a0a0d68a4ddc, type: 3}
+  m_Sprite: {fileID: 5434210607014798645, guid: b85345216c4c9e54387f4d8665f12f69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.05, y: 4.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &8542767186793301900
+--- !u!114 &6607128698218018731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724083983908825110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cdbe63ead000c4c8ddb6967de8e332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_AnimationController
+  Animator_Control: {fileID: 3810481475622284189}
+--- !u!95 &3810481475622284189
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062553723984575197}
+  m_GameObject: {fileID: 2724083983908825110}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f4da72896d92e5448f7dbc884bc8af2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 754882c037c6d9d438423085dae238ad, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -115,20 +128,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4706097148208783090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062553723984575197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1cdbe63ead000c4c8ddb6967de8e332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_AnimationController
-  Animator_Control: {fileID: 8542767186793301900}
---- !u!1 &6758127502043794990
+--- !u!1 &8324367043315381383
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,42 +136,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7139400166478719356}
-  - component: {fileID: 1295979549281215}
-  - component: {fileID: 182409205392005840}
-  - component: {fileID: 1716997328033491087}
-  - component: {fileID: 5408942040629497800}
-  m_Layer: 8
-  m_Name: Zobie
-  m_TagString: Enemy
+  - component: {fileID: 6047415675630762490}
+  - component: {fileID: 6691366839395040121}
+  - component: {fileID: 8020524197770539661}
+  - component: {fileID: 6357062566292455544}
+  - component: {fileID: 2084046184016813461}
+  - component: {fileID: 2735087350002191377}
+  m_Layer: 0
+  m_Name: Zobie_Auger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7139400166478719356
+--- !u!4 &6047415675630762490
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758127502043794990}
+  m_GameObject: {fileID: 8324367043315381383}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: -2, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.20888, y: -0.01918, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6834042406412544705}
+  - {fileID: 9139405490542896518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1295979549281215
+--- !u!50 &6691366839395040121
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758127502043794990}
+  m_GameObject: {fileID: 8324367043315381383}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -191,13 +192,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &182409205392005840
+--- !u!70 &8020524197770539661
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758127502043794990}
+  m_GameObject: {fileID: 8324367043315381383}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -225,16 +226,16 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 3.5}
+  m_Offset: {x: -0.2, y: 0}
+  m_Size: {x: 2.5, y: 2}
   m_Direction: 0
---- !u!114 &1716997328033491087
+--- !u!114 &6357062566292455544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758127502043794990}
+  m_GameObject: {fileID: 8324367043315381383}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df62a1d60f5745c43836932eadbca092, type: 3}
@@ -242,31 +243,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_AiManager
   moveSpeed: 1
   detectRange: 8
-  attackRange: 1
+  attackRange: 1.5
   attackCooldown: 2
   stunTime: 0.5
   isStunned: 0
-  animController: {fileID: 4706097148208783090}
-  statManager: {fileID: 5408942040629497800}
+  animController: {fileID: 6607128698218018731}
+  statManager: {fileID: 2084046184016813461}
   isKnockedBack: 0
   decoyTarget: {fileID: 0}
---- !u!114 &5408942040629497800
+--- !u!114 &2084046184016813461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758127502043794990}
+  m_GameObject: {fileID: 8324367043315381383}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e5613bb721dc574880c505a4388d9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_StatManager
   CurrentType: 0
-  enemyId: mob_zobie_1
-  enemyName: Zobie
+  enemyId: mob_variationzobie_5
+  enemyName: 
   MaxHp: 100
   currentHp: 0
-  Attack: 10
-  enemyAI: {fileID: 1716997328033491087}
-  animController: {fileID: 4706097148208783090}
+  Attack: 5
+  enemyAI: {fileID: 6357062566292455544}
+  animController: {fileID: 6607128698218018731}
+--- !u!114 &2735087350002191377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324367043315381383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71992ef024997fd4ba4da4fde0ca8774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySkill_auger
+  slowMultiplier: 0.5
+  slowDuration: 1
+  knockbackForce: 5
+  knockbackStunTime: 0.5

@@ -36,6 +36,9 @@ public class EnemySkill_Beast : MonoBehaviour
         UtillLogRemove.Log("비스트 점프 공격!");
         isLeaping = true; // 점프중 트루로 저장
 
+        // 애니메이션 점프공격 변경
+        anim.SetState(AllState.JumpAttack);
+
         float originalGravity = rb.gravityScale; // 중력값 저장
         rb.gravityScale = 0f; // 중력값 0으로 변경
         rb.linearVelocity = Vector2.zero; // 속도 0으로 변경
@@ -51,6 +54,9 @@ public class EnemySkill_Beast : MonoBehaviour
             {
                 elapsed += Time.deltaTime; // 경과시간 증가
                 float t = elapsed / jumpDuration; // 경과시간을 채공시간으로 나눠서 저장
+
+                // 애니메이션 공격으로 변경
+                anim.SetState(AllState.Attack);
 
                 // 현재위치와, 플레이어 위치 직선 경로, 시간 저장
                 Vector2 basePos = Vector2.Lerp(startPos, targetPos, t);
