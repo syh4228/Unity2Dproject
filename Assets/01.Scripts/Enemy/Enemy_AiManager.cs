@@ -9,6 +9,7 @@ public class Enemy_AiManager : MonoBehaviour
     public float detectRange = 8f; // 감지 범위
     public float attackRange = 1.5f; // 공격 범위
     public float attackCooldown = 2f; // 공격 쿨타임
+    private float lastAttackTime = 0f; // 공격 쿨타임 계산용
 
     [Header("경직 설정")]
     [SerializeField] private float stunTime = 0.5f; // 경직 시간
@@ -17,6 +18,7 @@ public class Enemy_AiManager : MonoBehaviour
     [Header("컴포넌트")]
     [SerializeField] private Enemy_AnimationController animController; // 애니메이터 컨트롤러 연결
     [SerializeField] private Enemy_StatManager statManager; // 스탯 매니저 연결
+
 
     private SpriteRenderer spriteRenderer; // 스프라이트 랜더러 받기
     private Rigidbody2D enemyRigidbody; // 리지드바디 받기
@@ -112,15 +114,11 @@ public class Enemy_AiManager : MonoBehaviour
             return;
         }
 
-        if (distanceToTarget <= 0.8f) // 타겟이 0.8 보다 가까우면(공격 범위)
+        if (distanceToTarget <= attackRange) // 타켓이 공격 범위 안에 있으면
         {
-            // 속도 0 고정
+            // 공격범위에 들어오면 속도 0 고정
             enemyRigidbody.linearVelocity = Vector2.zero;
-            // 대기애니메이션 으로 변경
-            animController.SetState(AllState.Idle);
-        }
-        else if (distanceToTarget <= attackRange) // 타켓이 공격 범위 안에 있으면
-        {
+
             if (bomberSkill != null) // 바머 스킬이 있으면
             {
                 // 바머 자폭 함수 호출
@@ -178,7 +176,17 @@ public class Enemy_AiManager : MonoBehaviour
             return; // 반환
         }
 
+        // 마지막 공격 시간과 공격 쿨타임 더한 시간이 현재시간보다 많으면
+        if (Time.time < lastAttackTime + attackCooldown)
+        {
+            // 애니메이션 대기로 변경
+            animController.SetState(AllState.Idle);
+            return; // 반환
+        }
+
         isAttack = true; //  공격 상태 변환
+        lastAttackTime = Time.time;
+
         // 공격 애니메이션 실행
         animController.SetState(AllState.Attack);
         // 공격 쿨타임 함수호출
@@ -339,14 +347,6 @@ public class Enemy_AiManager : MonoBehaviour
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: this.GetCancellationTokenOnDestroy());
             animController.SetState(AllState.Idle); // 애니메이션 대기로 변경
 
-            // 공격 쿨타임 저장
-            float debugCooldown = attackCooldown - 0.5f;
-
-            if (debugCooldown > 0) // 쿨타임이 0보다 크면
-            {
-                // 쿨타임 대기
-                await UniTask.Delay(TimeSpan.FromSeconds(debugCooldown), cancellationToken: this.GetCancellationTokenOnDestroy());
-            }
         }
         catch (OperationCanceledException)
         {
