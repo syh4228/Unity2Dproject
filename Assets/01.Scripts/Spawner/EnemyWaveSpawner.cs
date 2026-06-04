@@ -321,12 +321,12 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 플레이어의 현재 위치를 중심으로 그립니다.
         Vector3 center = transform.position;
 
-        // 스폰 방지 구역 (노란색 직사각형)
-        Gizmos.color = Color.yellow;
+        // 적 붕띄기 방지 구역 (빨간색 직사각형)
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(center, new Vector3(maxActiveRadius * 2f, spawnHeight, 0f));
 
-        // 적 붕 띄기 방기 범위  (빨간색 직사각형)
-        Gizmos.color = Color.red;
+        // 스폰 방지 구역 범위  (노란색 직사각형)
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, new Vector3(noSpawnRadius * 2f, spawnHeight, 0f));
     }
 

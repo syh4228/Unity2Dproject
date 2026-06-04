@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5613bb721dc574880c505a4388d9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_StatManager
-  CurrentType: 0
+  CurrentType: 1
   enemyId: mob_variationzobie_5
   enemyName: 
   MaxHp: 100
@@ -285,5 +285,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySkill_auger
   slowMultiplier: 0.5
   slowDuration: 1
-  knockbackForce: 5
+  knockbackForce: 2
   knockbackStunTime: 0.5

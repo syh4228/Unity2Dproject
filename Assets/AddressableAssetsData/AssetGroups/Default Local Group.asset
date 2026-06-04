@@ -190,6 +190,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96073fdd3959aa946891789c4ddc7422
+    m_Address: Assets/05.Prefabs/Map/Cp_01_Ct_02.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Map_Stage1_1
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96b038c71b603f94aae04cd6958db69c
     m_Address: Icon/Icon_Bullt
     m_ReadOnly: 0

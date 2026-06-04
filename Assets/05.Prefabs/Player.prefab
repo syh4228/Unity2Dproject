@@ -346,6 +346,7 @@ MonoBehaviour:
   itemCollector: {fileID: 1558962109383179413}
   playerMelee: {fileID: 3094818414612956667}
   playerShove: {fileID: 366781638553774889}
+  isPinned: 0
 --- !u!114 &8349504852532873552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +519,7 @@ MonoBehaviour:
   isSafeHouse: 0
   noSpawnRadius: 7
   maxActiveRadius: 15
+  spawnHeight: 4
   normalZombiePrefabs:
   - {fileID: 6758127502043794990, guid: d4f7d57fe96357941b55944b2869b57a, type: 3}
   - {fileID: 613117437269358444, guid: 5102391e5b98aa44482e436394dc1b16, type: 3}
