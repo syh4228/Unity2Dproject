@@ -25,6 +25,8 @@ public class EnemySkill_Beast : MonoBehaviour
     public float postAttackCooldown = 4f; // 공격 후 재 점프 딜레이 시간
     private float lastAttackTime = -99f; // 마지막으로 공격한 시간
 
+    private Player_Controller pinnedPlayer; // 마운트시 플레이어 컨트롤 뺏기
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // 리지드바디 가져와 저장
@@ -56,6 +58,8 @@ public class EnemySkill_Beast : MonoBehaviour
 
         try
         {
+            if (rb == null) return;
+
             // 경과시간이 점프중이고, 날아가는 채공 시간 보다 클때
             while (elapsed < jumpDuration && isLeaping == true)
             {
@@ -117,8 +121,33 @@ public class EnemySkill_Beast : MonoBehaviour
     private async UniTask StartMountAttack(Transform player, Enemy_AnimationController anim)
     {
         isMounting = true; // 마운트 트루로 변경
+
+        if (rb != null)
+        {
+            rb.simulated = false; 
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        if (BattleManager.Instance != null && BattleManager.Instance.GetUIManager() != null)
+        {
+            BattleManager.Instance.GetUIManager().SetMountAlert(true);
+        }
+
         // 플레이어 컴포넌트 가져와 저장
         Player_Character playerCharacter = player.GetComponent<Player_Character>();
+
+        // 플레이어 컨트롤러 컴포넌트 가져와 저장
+        pinnedPlayer = player.GetComponent<Player_Controller>();
+
+        if (pinnedPlayer != null) // 플레이어 컨트롤 있으면
+        {
+            pinnedPlayer.isPinned = true; // 플레이어 마운트 상태 트루
+        }
+
+        // 현재 위치 저장
+        transform.position = new Vector2(transform.position.x, player.position.y);
+        rb.linearVelocity = Vector2.zero; // 이동 불가
 
         UtillLogRemove.Log("비스트 마운트 성공! [좌우 방향키]를 연타하여 탈출하세요!");
 
@@ -128,6 +157,9 @@ public class EnemySkill_Beast : MonoBehaviour
 
         while (isMounting == true) // 마운트 중이면
         {
+            transform.position = player.position + new Vector3(0, 0.5f, 0);
+            transform.localScale = player.localScale;
+
             damageTimer += Time.deltaTime; // 당한시간 증가
 
             if (damageTimer >= 1f) // 당한시간이 1이상이면
@@ -181,8 +213,25 @@ public class EnemySkill_Beast : MonoBehaviour
         // 마운트 중이 아니면 반환
         if (isMounting == false) return;
 
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+
+        if (BattleManager.Instance != null && BattleManager.Instance.GetUIManager() != null)
+        {
+            BattleManager.Instance.GetUIManager().SetMountAlert(false);
+        }
+
         isMounting = false; // 마운트 중 거짓으로 변경
         UtillLogRemove.Log("탈출 성공");
+
+
+        if (pinnedPlayer != null)
+        {
+            pinnedPlayer.isPinned = false; // 마운트 상태 해제
+            pinnedPlayer = null; // 컨트롤러 반납
+        }
 
         // 적 Ai 컴포넌트 가져오기
         Enemy_AiManager ai = GetComponent<Enemy_AiManager>();
@@ -191,6 +240,17 @@ public class EnemySkill_Beast : MonoBehaviour
         {
             // 넉백과 스턴 당하기
             ai.ApplyShove(new Vector2(-Mathf.Sign(transform.localScale.x), 1f).normalized, breakShoveForce, breakStunTime);
+        }
+    }
+
+    // 사망시 생길 버그 방지
+    private void OnDestroy()
+    {
+        // 컨트롤러 있으면
+        if (pinnedPlayer != null)
+        {
+            // 마운트 상태 헤제
+            pinnedPlayer.isPinned = false;
         }
     }
 }

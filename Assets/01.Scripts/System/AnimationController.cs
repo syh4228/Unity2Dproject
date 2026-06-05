@@ -20,6 +20,7 @@ public class AnimationController : MonoBehaviour
     private static readonly int AnimationIsGrounded = Animator.StringToHash("isGrounded");
     private static readonly int AnimationIsDead = Animator.StringToHash("IsDead");
     private static readonly int AnimationIsHealing = Animator.StringToHash("IsHealing");
+    private static readonly int AnimationIsPinned = Animator.StringToHash("IsPinned");
 
     // Trigger 스위치 (한번씩만 재생하는 경우)
     private static readonly int AnimationIsAttack = Animator.StringToHash("IsAttack");
@@ -63,6 +64,17 @@ public class AnimationController : MonoBehaviour
     // 외부(플레이어, 적)에서 상태를 바꿀때 함수를 호출하는 함수
     public void SetState(AllState newState)
     {
+        // 상태가 마운트 중이고, 다음 상태가 피격이면
+        if (_currentState == AllState.Pinned && newState == AllState.Hit)
+        {
+            return; // 반환
+        }
+
+        if (_currentState == AllState.Pinned && newState != AllState.Pinned)
+        {
+            SafeSetBool(AnimationIsPinned, false);
+        }
+
         // 만약 바뀌는 상태와 현재상태가 같으면
         if (newState == _currentState)
         {
@@ -74,7 +86,8 @@ public class AnimationController : MonoBehaviour
                 newState != AllState.UseAD && // 아드
                 newState != AllState.Melee && // 근접 공격
                 newState != AllState.Shove && // 밀치기
-                newState != AllState.Drop) // 줍기
+                newState != AllState.Drop && // 줍기
+                newState != AllState.Pinned)
             {
                 return; // 반환
             }
@@ -85,6 +98,8 @@ public class AnimationController : MonoBehaviour
 
         switch (newState)
         {
+            case AllState.Pinned: SafeSetBool(AnimationIsPinned, true);
+                break;
             case AllState.Idle:
                 break;
             case AllState.Walk:
@@ -160,6 +175,7 @@ public class AnimationController : MonoBehaviour
         SafeSetBool(AnimationIsWalk, false);
         // 달리기 애니메이션 끄기
         SafeSetBool(AnimationIsRun, false);
+        SafeSetBool(AnimationIsPinned, false);
     }
 
     // 애니메이션 스위치 조작 함수

@@ -1,34 +1,31 @@
 fileFormatVersion: 2
-guid: b888d82d507745b488b9831d24b216ff
+guid: 28693cde17a2343499c9c722bf4d7f30
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6000337135008014845
-    second: Prey_MG_0
+      213: -102446906586267069
+    second: Prey_escape_0
   - first:
-      213: 1217479365792939231
-    second: Prey_MG_1
+      213: 5149567631662229976
+    second: Prey_escape_1
   - first:
-      213: -3826589316893551746
-    second: Prey_MG_2
+      213: -7538305700962734991
+    second: Prey_escape_2
   - first:
-      213: 7688972576533616741
-    second: Prey_MG_3
+      213: -642231540470438365
+    second: Prey_escape_3
   - first:
-      213: 7779160455407930440
-    second: Prey_MG_4
+      213: 7489680417977537522
+    second: Prey_escape_4
   - first:
-      213: 4555011725958387785
-    second: Prey_MG_5
+      213: -886927496997741182
+    second: Prey_escape_5
   - first:
-      213: -2884725419827909567
-    second: Prey_MG_6
+      213: 6882993583394860159
+    second: Prey_escape_6
   - first:
-      213: -1759933418692363070
-    second: Prey_MG_7
-  - first:
-      213: -439338908105279462
-    second: Prey_MG_8
+      213: -1686160353606505210
+    second: Prey_escape_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 40
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -150,177 +147,177 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prey_MG_0
+      name: Prey_escape_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 188
-        width: 108
-        height: 164
+        x: 7
+        y: 221
+        width: 153
+        height: 88
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: df1ecb845da754350800000000000000
-      internalID: 6000337135008014845
+      spriteID: 342869cc419049ef0800000000000000
+      internalID: -102446906586267069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_1
+      name: Prey_escape_1
       rect:
         serializedVersion: 2
-        x: 201
-        y: 188
-        width: 129
-        height: 164
+        x: 183
+        y: 210
+        width: 151
+        height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdcb47f580b55e010800000000000000
-      internalID: 1217479365792939231
+      spriteID: 8d9a3183a70f67740800000000000000
+      internalID: 5149567631662229976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_2
+      name: Prey_escape_2
       rect:
         serializedVersion: 2
-        x: 368
-        y: 187
-        width: 128
-        height: 165
+        x: 342
+        y: 214
+        width: 164
+        height: 94
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e7351495a4935eac0800000000000000
-      internalID: -3826589316893551746
+      spriteID: 17c60d597ee826790800000000000000
+      internalID: -7538305700962734991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_3
+      name: Prey_escape_3
       rect:
         serializedVersion: 2
-        x: 536
-        y: 188
-        width: 129
-        height: 164
+        x: 517
+        y: 213
+        width: 152
+        height: 112
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 84c0b5be73125fb60800000000000000
-      internalID: 7779160455407930440
+      spriteID: 32625be01d55617f0800000000000000
+      internalID: -642231540470438365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_4
+      name: Prey_escape_4
       rect:
         serializedVersion: 2
-        x: 39
-        y: 3
-        width: 105
-        height: 170
+        x: 12
+        y: 66
+        width: 152
+        height: 89
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9481d710807a63f30800000000000000
-      internalID: 4555011725958387785
+      spriteID: 2f310ca78a0b0f760800000000000000
+      internalID: 7489680417977537522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_5
+      name: Prey_escape_5
       rect:
         serializedVersion: 2
-        x: 205
-        y: 0
-        width: 108
-        height: 173
+        x: 184
+        y: 65
+        width: 151
+        height: 111
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 14c2e9cb38567f7d0800000000000000
-      internalID: -2884725419827909567
+      spriteID: 28d5ceff32001b3f0800000000000000
+      internalID: -886927496997741182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_6
+      name: Prey_escape_6
       rect:
         serializedVersion: 2
-        x: 372
-        y: 0
-        width: 110
-        height: 172
+        x: 342
+        y: 63
+        width: 165
+        height: 89
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2ccb08651e57397e0800000000000000
-      internalID: -1759933418692363070
+      spriteID: f7c2b89423e458f50800000000000000
+      internalID: 6882993583394860159
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prey_MG_7
+      name: Prey_escape_7
       rect:
         serializedVersion: 2
-        x: 546
-        y: 3
-        width: 102
-        height: 171
+        x: 526
+        y: 56
+        width: 150
+        height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a18706e379727e9f0800000000000000
-      internalID: -439338908105279462
+      spriteID: 60defe0971e8998e0800000000000000
+      internalID: -1686160353606505210
       vertices: []
       indices: 
       edges: []
@@ -329,7 +326,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fdaeaafafe9297f478fca460e63de26a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -339,14 +336,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Prey_MG_0: 6000337135008014845
-      Prey_MG_1: 1217479365792939231
-      Prey_MG_2: -3826589316893551746
-      Prey_MG_3: 7779160455407930440
-      Prey_MG_4: 4555011725958387785
-      Prey_MG_5: -2884725419827909567
-      Prey_MG_6: -1759933418692363070
-      Prey_MG_7: -439338908105279462
+      Prey_escape_0: -102446906586267069
+      Prey_escape_1: 5149567631662229976
+      Prey_escape_2: -7538305700962734991
+      Prey_escape_3: -642231540470438365
+      Prey_escape_4: 7489680417977537522
+      Prey_escape_5: -886927496997741182
+      Prey_escape_6: 6882993583394860159
+      Prey_escape_7: -1686160353606505210
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

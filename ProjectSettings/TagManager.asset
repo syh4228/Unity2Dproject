@@ -21,7 +21,7 @@ TagManager:
   - Bullet
   - Item
   - EnemyProjectile
-  - 
+  - MapBounds
   - 
   - 
   - 
@@ -43,6 +43,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 351634473
+    locked: 0
+  - name: Player
+    uniqueID: 2385499213
+    locked: 0
+  - name: Bullet
+    uniqueID: 1293866955
     locked: 0
   m_RenderingLayers:
   - Default

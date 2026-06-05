@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -28,8 +29,30 @@ public class Player_Controller : MonoBehaviour
     private bool _isFaceRight = true; // 오른쪽 보고 있는지 체크
     private bool _isDead = false; // 캐릭터 사망 체크
     private bool _isWalk = false; // 걷기 체크
+    private bool _isDoingAction = false; // 액션 중 이동 차단용
+    private bool _isPickingUp = false;  // 줍기 중 이동 차단용
 
-    public bool isPinned = false; // 마운트 당한 상태 체크
+    public bool _isPinned = false; // 마운트 당한 상태 체크
+
+    public bool isPinned // 마운트 상태 알리기
+    {
+        get { return _isPinned; } 
+        set
+        {
+            _isPinned = value;
+
+            if (_isPinned == true)
+            {
+                // 발버둥 애니메이션 실핼
+                AnimatorController.SetState(AllState.Pinned);
+            }
+            else
+            {
+                // 대기 애니메이션 실행
+                AnimatorController.SetState(AllState.Idle);
+            }
+        }
+    }
 
     private CancellationTokenSource _healCts; // 유니테스크 취소 토큰
 
@@ -107,9 +130,11 @@ public class Player_Controller : MonoBehaviour
             return;
         }
 
-        if (isPinned) // 마운트 중이면
+        // 마운트 중이거나, 액션(밀치기, 줍기, 공격)중이거나, 줍기 중이면
+        if (isPinned || _isDoingAction || _isPickingUp) 
         {
-            Rigidbody_Player.linearVelocity = Vector2.zero; // 움직임 멈춤
+            // 제자리 고정
+            Rigidbody_Player.linearVelocity = new Vector2(0, Rigidbody_Player.linearVelocity.y);
             return;
         }
 
@@ -151,6 +176,7 @@ public class Player_Controller : MonoBehaviour
             {
                 if (playerShove != null) // 플레이어가 밀치기가 있으면
                 {
+                    PerformPlayerAction(AllState.Shove, 0.5f).Forget();
                     // 밀치기 실행
                     playerShove.ExecuteShove(_isFaceRight);
                 }
@@ -162,6 +188,7 @@ public class Player_Controller : MonoBehaviour
         {
             if (itemCollector != null)
             {
+                PerformPlayerAction(AllState.Drop, 0.5f).Forget();
                 // 아이템 줍기 함수 호출
                 itemCollector.TryPickUp();
             }
@@ -175,6 +202,7 @@ public class Player_Controller : MonoBehaviour
             {
                 if (playerMelee != null) // 근접공격 있으면
                 {
+                    PerformPlayerAction(AllState.Melee, 0.5f).Forget();
                     // 근접공격 실행
                     playerMelee.ExecuteMelee(_isFaceRight);
                 }
@@ -275,6 +303,16 @@ public class Player_Controller : MonoBehaviour
             AnimatorController.SetHealing(false);
             AnimatorController.SetState(AllState.Idle);
         }
+    }
+
+    // 액션중일때 이동 제한 함수
+    private async UniTaskVoid PerformPlayerAction(AllState state, float duration)
+    {
+        _isDoingAction = true;
+        AnimatorController.SetState(state);
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
+        _isDoingAction = false;
+        AnimatorController.SetState(AllState.Idle);
     }
 
     void MoveOnUpdate() // 움직임 함수

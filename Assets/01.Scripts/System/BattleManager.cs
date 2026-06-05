@@ -33,6 +33,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public BattleUIManager GetUIManager()
+    {
+        return uiManager;
+    }
+
     // 플레이어가 총으로 적을 맞췄을 때 호출되는 함수
     // 적 스탯 정보, 공격 데미지량, 데미지 타입
     public bool ProcessPlayerAttack(Enemy_StatManager enemyStat, int rawDamage, DamageType damageType)

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4554474818636076557}
   - component: {fileID: 5707555980409462559}
   - component: {fileID: 120906493041559126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_Thromer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 829649043722848504}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.50318, y: -3.2649872, z: 0}
+  m_LocalPosition: {x: 20.549517, y: -1.2440343, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7923511257011494168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 2870701118013402689}
   - component: {fileID: 4449745887971270471}
   - component: {fileID: 2356749796825844293}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_Thromer_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,9 +269,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1909468083
+  m_SortingLayer: 2
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8564329369542072988, guid: eb935c0f2268acd4e8a8f1fc677f92d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -15,6 +15,10 @@ public class Player_CameraController : MonoBehaviour
     private float _minX; // 최소 x 좌표
     private float _maxX; // 최대 X 좌표
 
+    private float _camHeight;
+    private float _minY;
+    private float _maxY;
+
     private void Start()
     {
         // 마우스가 활동 자유롭게
@@ -22,6 +26,7 @@ public class Player_CameraController : MonoBehaviour
         Cursor.visible = true; // 마우스 커서 보임
 
         _mainCamera = Camera.main; // 카메라 정보 저장
+        _camHeight = _mainCamera.orthographicSize;
     }
 
     private void LateUpdate()
@@ -33,12 +38,14 @@ public class Player_CameraController : MonoBehaviour
         if (_target == null) return;
 
         // 카메라 위치 계산 및 이동
-        Vector3 currentPosition = _target.position + _CameraDistens;
+        Vector3 offset = _CameraDistens + new Vector3(0, 1f, 0);
+        Vector3 currentPosition = _target.position + offset;
 
         if (_mapBounds != null) // 맵 범위가 있으면
         {
             // 벗어나지 않을 x 범위 계산
             currentPosition.x = Mathf.Clamp(currentPosition.x, _minX, _maxX);
+            currentPosition.y = Mathf.Clamp(currentPosition.y, _minY, _maxY);
         }
 
         // 카메라 이동 속도 계산
@@ -75,6 +82,9 @@ public class Player_CameraController : MonoBehaviour
                 // 콜라이더 끝부분에서 카메라 화면 절반 크기만큼 뺀 값을 진짜 한계선으로 저장
                 _minX = _mapBounds.bounds.min.x + camWidth;
                 _maxX = _mapBounds.bounds.max.x - camWidth;
+
+                _minY = _mapBounds.bounds.min.y - _camHeight;
+                _maxY = _mapBounds.bounds.max.y + _camHeight;
 
                 UtillLogRemove.Log("카메라 맵 경계 설정 완료!");
             }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8553431327777217672}
   - component: {fileID: 2246372373557942941}
   - component: {fileID: 8526920677977626867}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_Beast_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,9 +79,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1909468083
+  m_SortingLayer: 2
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7632588172560896582, guid: 81c7bf0b377df8a4c89ff22c5848778d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -142,9 +142,9 @@ GameObject:
   - component: {fileID: 4179021171549594257}
   - component: {fileID: 1665386757270499849}
   - component: {fileID: 8026049736927231649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_Beast
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 5892133730152192660}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 38.368614, y: -4.205633, z: 0}
+  m_LocalPosition: {x: 15.636963, y: -3.3015602, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

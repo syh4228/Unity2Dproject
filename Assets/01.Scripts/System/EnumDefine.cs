@@ -34,7 +34,8 @@ public enum AllState // 행동(애니메이션)
     Reload, // 재장전
     UseMD, // 진통제 사용
     UseAD, // 아드 사용
-    JumpAttack // 점프 공격
+    JumpAttack, // 점프 공격
+    Pinned // 마운트 발버둥
 }
 
 public enum ESpawnMode

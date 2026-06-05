@@ -71,7 +71,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         if (normalWaveTimer >= normalWaveInterval)
         {
             // 웨이브 타이머에 웨이브 시간 주기만큼 빼기
-            normalWaveTimer = normalWaveInterval;
+            normalWaveTimer = 0;
             // 일반 좀비 스폰 함수 호출
             HandleWaveSpawn().Forget();
         }
@@ -256,7 +256,7 @@ public class EnemyWaveSpawner : MonoBehaviour
             // 본인 위치 기준으로 x좌표 계산
             float spawnX = transform.position.x + UnityEngine.Random.Range(-maxActiveRadius, maxActiveRadius);
             // 본인 위치 기준으로 Y좌표 계산
-            float spawnY = transform.position.y + UnityEngine.Random.Range(-spawnHeight / 2f, spawnHeight / 2f);
+            float spawnY = transform.position.y + UnityEngine.Random.Range(-spawnHeight / 2f, spawnHeight / 2f) + 0.8f;
             // x,y 좌표 저장
             Vector2 candidate = new Vector2(spawnX, spawnY);
 
@@ -270,7 +270,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         }
 
         // 30번 실패 하면 본인 x위치에 스폰금지 구역을 더한 값에 1을 더해 좌표값 반환
-        return new Vector2(transform.position.x + noSpawnRadius + 1f, transform.position.y);
+        return new Vector2(transform.position.x + noSpawnRadius + 1f, transform.position.y + 0.8f);
     }
 
     // 강제 어그로 함수

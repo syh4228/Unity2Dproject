@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2340987559436503555}
   - component: {fileID: 7610502312560009766}
   - component: {fileID: 3497473611447813112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_auger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,9 +79,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1909468083
+  m_SortingLayer: 2
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5434210607014798645, guid: b85345216c4c9e54387f4d8665f12f69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -142,9 +142,9 @@ GameObject:
   - component: {fileID: 1397874166427365321}
   - component: {fileID: 3771388494504643356}
   - component: {fileID: 489862873523738567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zobie_Auger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

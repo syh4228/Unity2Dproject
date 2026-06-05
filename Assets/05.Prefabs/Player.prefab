@@ -132,11 +132,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6846825146388784512}
   - component: {fileID: 2492066622681857464}
-  - component: {fileID: 3497923619780605515}
   - component: {fileID: 6208338145348089638}
+  - component: {fileID: 184475849816538933}
   m_Layer: 9
   m_Name: Character_Prey
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,9 +201,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1909468083
+  m_SortingLayer: 2
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6676428732689301270, guid: d11b5180d409fe04b862d98331c585cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -215,7 +215,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &3497923619780605515
+--- !u!114 &6208338145348089638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776522423843389768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526684153b710dd4db332ea874b5c411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationController
+  Animator_Control: {fileID: 184475849816538933}
+--- !u!95 &184475849816538933
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -237,19 +250,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6208338145348089638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3776522423843389768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 526684153b710dd4db332ea874b5c411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnimationController
-  Animator_Control: {fileID: 3497923619780605515}
 --- !u!1 &7916866841152336804
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ MonoBehaviour:
   itemCollector: {fileID: 1558962109383179413}
   playerMelee: {fileID: 3094818414612956667}
   playerShove: {fileID: 366781638553774889}
-  isPinned: 0
+  _isPinned: 0
 --- !u!114 &8349504852532873552
 MonoBehaviour:
   m_ObjectHideFlags: 0

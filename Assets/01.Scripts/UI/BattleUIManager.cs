@@ -33,6 +33,9 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private Image gun01_Image; // 1번 총기 이미지
     [SerializeField] private Image gun02_Image; // 2번 총기 이미지
 
+    [Header("마운트 알림")]
+    [SerializeField] private GameObject mountAlertImage;
+
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
     private Color warningColor = Color.yellow; // 주의 노랑
@@ -242,5 +245,13 @@ public class BattleUIManager : MonoBehaviour
         }
 
         UtillLogRemove.Log($"UI 갱신 {(isNormal ? "Normal" : "Special")}");
+    }
+
+    public void SetMountAlert(bool isActive)
+    {
+        if (mountAlertImage != null)
+        {
+            mountAlertImage.SetActive(isActive);
+        }
     }
 }
