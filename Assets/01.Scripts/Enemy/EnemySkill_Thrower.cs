@@ -7,11 +7,13 @@ public class EnemySkill_Thrower : MonoBehaviour
 {
     [Header("투척 세팅")]
     public GameObject projectilePrefab; // 투사체 프리팹
-    public Transform firePoint;         // 파편이 생성될 위치
-    public int poolSize = 5;            // 미리 만들 개수
+    public Transform firePoint; // 파편이 생성될 위치
+    public int poolSize = 5; // 미리 만들 개수
 
     private Enemy_StatManager statManager; // 적 스텟 매니저 저장
     private List<GameObject> projectilePool; // 투사체 리스트로 저장
+
+    private float lastAttackTime = -99f;
 
     private void Start()
     {
@@ -38,6 +40,9 @@ public class EnemySkill_Thrower : MonoBehaviour
     // 유니테스크 투사체 공격 함수
     public async UniTask ExecuteThrowAttack(Transform player, Enemy_AnimationController anim, float cooldown)
     {
+        if (Time.time < lastAttackTime + cooldown) return;
+        lastAttackTime = Time.time;
+
         // 애니메이션이 있으면, 공격으로 변환
         if (anim != null) anim.SetState(AllState.Attack);
 

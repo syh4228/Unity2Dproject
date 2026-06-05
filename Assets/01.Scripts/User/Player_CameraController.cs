@@ -10,14 +10,15 @@ public class Player_CameraController : MonoBehaviour
     // 카메라와 추적 대상의 Z값 거리
     [SerializeField] private Vector3 _CameraDistens = new Vector3(0, 0, -10);
 
+    [Header("카메라 경계 설정")]
+    [SerializeField] private bool _useAutoBounds = true; // 체크 해제 시 수동 입력값 사용
+    [SerializeField] private float _minX;
+    [SerializeField] private float _maxX;
+    [SerializeField] private float _minY;
+    [SerializeField] private float _maxY;
+
     private Collider2D _mapBounds; // 맵 범위
     private Camera _mainCamera; // 메인 카메라
-    private float _minX; // 최소 x 좌표
-    private float _maxX; // 최대 X 좌표
-
-    private float _camHeight;
-    private float _minY;
-    private float _maxY;
 
     private void Start()
     {
@@ -26,7 +27,15 @@ public class Player_CameraController : MonoBehaviour
         Cursor.visible = true; // 마우스 커서 보임
 
         _mainCamera = Camera.main; // 카메라 정보 저장
-        _camHeight = _mainCamera.orthographicSize;
+
+        if (_target == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                SetTarget(player.transform);
+            }
+        }
     }
 
     private void LateUpdate()
@@ -38,7 +47,7 @@ public class Player_CameraController : MonoBehaviour
         if (_target == null) return;
 
         // 카메라 위치 계산 및 이동
-        Vector3 offset = _CameraDistens + new Vector3(0, 1f, 0);
+        Vector3 offset = _CameraDistens + new Vector3(0, 2.5f, 0);
         Vector3 currentPosition = _target.position + offset;
 
         if (_mapBounds != null) // 맵 범위가 있으면
@@ -72,19 +81,17 @@ public class Player_CameraController : MonoBehaviour
             // 박스 콜라이더 2D 정보가져와 저장
             _mapBounds = boundsObj.GetComponent<BoxCollider2D>();
 
-            if (_mapBounds != null) // 박스 콜라이더 있으면
+            if (_mapBounds != null && _useAutoBounds) // 박스 콜라이더 있으면
             {
                 // 높이 계산
                 float camHeight = _mainCamera.orthographicSize;
                 // 가로 절반 길이 계산
                 float camWidth = camHeight * _mainCamera.aspect;
 
-                // 콜라이더 끝부분에서 카메라 화면 절반 크기만큼 뺀 값을 진짜 한계선으로 저장
                 _minX = _mapBounds.bounds.min.x + camWidth;
                 _maxX = _mapBounds.bounds.max.x - camWidth;
-
-                _minY = _mapBounds.bounds.min.y - _camHeight;
-                _maxY = _mapBounds.bounds.max.y + _camHeight;
+                _minY = _mapBounds.bounds.min.y + camHeight;
+                _maxY = _mapBounds.bounds.max.y - camHeight;
 
                 UtillLogRemove.Log("카메라 맵 경계 설정 완료!");
             }

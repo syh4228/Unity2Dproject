@@ -503,6 +503,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test_ItemSpawner
   dropPoint: {fileID: 8283192086226678584}
+  gunFirstDelay: 10
+  gunInterval: 35
+  consumablesInterval: 20
+  healsInterval: 30
 --- !u!114 &48703250938573965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,12 +523,12 @@ MonoBehaviour:
   isSafeHouse: 0
   noSpawnRadius: 7
   maxActiveRadius: 15
-  spawnHeight: 4
+  spawnHeight: 2
   normalZombiePrefabs:
   - {fileID: 6758127502043794990, guid: d4f7d57fe96357941b55944b2869b57a, type: 3}
   - {fileID: 613117437269358444, guid: 5102391e5b98aa44482e436394dc1b16, type: 3}
-  maxNormalZombies: 30
-  normalWaveInterval: 120
+  maxNormalZombies: 8
+  normalWaveInterval: 20
   activeNormalZombies:
   - {fileID: 5408942040629497800, guid: d4f7d57fe96357941b55944b2869b57a, type: 3}
   - {fileID: 5380148462663782814, guid: 5102391e5b98aa44482e436394dc1b16, type: 3}
@@ -533,8 +537,11 @@ MonoBehaviour:
   - {fileID: 5892133730152192660, guid: 0a57ccb7ed39ffb4f985f6301b24d63c, type: 3}
   - {fileID: 829649043722848504, guid: b61cd21ac3ed9334a90b9feb0a6faf67, type: 3}
   maxSpecialZombies: 4
-  specialWaveInterval: 20
+  specialWaveInterval: 30
+  firstSpecialWaveTime: 35
   activeSpecialZombies:
   - {fileID: 6183527327886107348, guid: a2538898138922f439627b9725f5316d, type: 3}
   - {fileID: 1665386757270499849, guid: 0a57ccb7ed39ffb4f985f6301b24d63c, type: 3}
   - {fileID: 5707555980409462559, guid: b61cd21ac3ed9334a90b9feb0a6faf67, type: 3}
+  ogrePrefab: {fileID: 4910633171438170464, guid: 51b7e3afcf1e07445a3dddfda0705f9b, type: 3}
+  ogreSpawnTime: 180

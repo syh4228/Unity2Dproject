@@ -243,8 +243,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_AiManager
   moveSpeed: 1
   detectRange: 8
-  attackRange: 1.5
-  attackCooldown: 2
+  attackRange: 2
+  attackCooldown: 4
   stunTime: 0.5
   isStunned: 0
   animController: {fileID: 7610502312560009766}
@@ -285,5 +285,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySkill_auger
   slowMultiplier: 0.5
   slowDuration: 1
-  knockbackForce: 2
+  knockbackForce: 3
   knockbackStunTime: 0.5

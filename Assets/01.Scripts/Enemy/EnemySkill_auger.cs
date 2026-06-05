@@ -9,7 +9,7 @@ public class EnemySkill_auger : MonoBehaviour
     public float slowDuration = 1f; // 슬로우 지속시간
 
     [Header("넉백 공격 세팅")]
-    public float knockbackForce = 5f;     // 넉백 힘
+    public float knockbackForce = 5f; // 넉백 힘
     public float knockbackStunTime = 0.5f; // 경직 시간
 
     private float originalSpeed; // 원래 이동속도 저장
@@ -18,6 +18,8 @@ public class EnemySkill_auger : MonoBehaviour
 
     private Enemy_AiManager ai; // 적Ai 컴포넌트
     private Enemy_StatManager statManager; // 적 스탯 컴포넌트
+
+    private float lastAttackTime = -99f;
 
     private void Start()
     {
@@ -67,6 +69,9 @@ public class EnemySkill_auger : MonoBehaviour
     //  오거 넉백 공격 함수
     public async UniTask ExecuteAugerAttack(Transform player, Enemy_AnimationController anim, float cooldown)
     {
+        if (Time.time < lastAttackTime + cooldown) return;
+        lastAttackTime = Time.time;
+
         // 애니메이션이 있으면, 공격 애니메이션으로 변경
         if (anim != null) anim.SetState(AllState.Attack);
 

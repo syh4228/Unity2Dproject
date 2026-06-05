@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -6,6 +8,71 @@ public class Test_ItemSpawner : MonoBehaviour
 {
     [Header("아이템 드롭 위치")]
     [SerializeField] private Transform dropPoint; // 아이템이 떨어질 위치 (플레이어 근처)
+
+    [Header("총기 설정")]
+    [SerializeField] private float gunFirstDelay = 10f; // 처음엔 이 시간 뒤에
+    [SerializeField] private float gunInterval = 30f; // 그 다음부턴 이 주기로
+
+    [Header("기타 설정")]
+    [SerializeField] private float consumablesInterval = 15f; // 소모품 주기
+    [SerializeField] private float healsInterval = 20f; // 힐템 주기
+
+    private void Start()
+    {
+        GunDropRoutine().Forget();
+        ConsumableDropRoutine().Forget();
+        HealDropRoutine().Forget();
+    }
+
+    private async UniTaskVoid GunDropRoutine()
+    {
+        // 총기는 첫 지연시간 적용
+        await UniTask.Delay(System.TimeSpan.FromSeconds(gunFirstDelay));
+        while (true)
+        {
+            SpawnRandomItem("Gun");
+            await UniTask.Delay(System.TimeSpan.FromSeconds(gunInterval));
+        }
+    }
+
+    private async UniTaskVoid ConsumableDropRoutine()
+    {
+        while (true)
+        {
+            await UniTask.Delay(System.TimeSpan.FromSeconds(consumablesInterval));
+            SpawnRandomItem("Consumable");
+        }
+    }
+
+    private async UniTaskVoid HealDropRoutine()
+    {
+        while (true)
+        {
+            await UniTask.Delay(System.TimeSpan.FromSeconds(healsInterval));
+            SpawnRandomItem("Heel");
+        }
+    }
+
+    private void SpawnRandomItem(string type)
+    {
+        if (GameDataManager.Instance == null) return;
+
+        var allItems = GameDataManager.Instance.WeaponDataList.Values.ToList();
+        List<WeaponData> targetList = new List<WeaponData>();
+
+        foreach (var item in allItems)
+        {
+            if (type == "Gun" && item.UseType == "Gun") targetList.Add(item);
+            else if (type == "Consumable" && (item.UseType == "Boom" || item.UseType == "AD" || item.UseType == "MD")) targetList.Add(item);
+            else if (type == "Heel" && item.UseType == "Heel") targetList.Add(item);
+        }
+
+        if (targetList.Count > 0)
+        {
+            WeaponData selectedData = targetList[Random.Range(0, targetList.Count)];
+            SpawnAsync(selectedData).Forget();
+        }
+    }
 
     private void Update()
     {
@@ -59,21 +126,11 @@ public class Test_ItemSpawner : MonoBehaviour
 
         if (realItem != null)
         {
-            // 위치 배치
-            realItem.transform.position = spawnPos;
-
-            // 필드 아이템 세팅 (없으면 추가)
+            realItem.transform.position = dropPoint != null ? dropPoint.position : transform.position;
             FieldItem fieldItem = realItem.GetComponent<FieldItem>() ?? realItem.AddComponent<FieldItem>();
             fieldItem.Setup(data.Id);
-
-            // 부모 해제
             realItem.transform.SetParent(null);
-
-            UtillLogRemove.Log($"[Test 치트] {data.Name} 어드레서블 소환 완료!");
-        }
-        else
-        {
-            UtillLogRemove.Error($"[Test] 프리팹 생성 실패! 어드레서블 주소({data.PrefabPath})를 확인하세요.");
+            UtillLogRemove.Log($"[Auto Drop] {data.Name} 소환됨!");
         }
     }
 }

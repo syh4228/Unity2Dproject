@@ -158,7 +158,6 @@ public class EnemySkill_Beast : MonoBehaviour
         while (isMounting == true) // 마운트 중이면
         {
             transform.position = player.position + new Vector3(0, 0.5f, 0);
-            transform.localScale = player.localScale;
 
             damageTimer += Time.deltaTime; // 당한시간 증가
 

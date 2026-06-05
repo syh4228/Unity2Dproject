@@ -36,10 +36,58 @@ public class BattleUIManager : MonoBehaviour
     [Header("마운트 알림")]
     [SerializeField] private GameObject mountAlertImage;
 
+    [Header("튜토리얼 UI")]
+    [SerializeField] private GameObject tutorialBK; // 튜토리얼 배경 (BK)
+    [SerializeField] private GameObject tt_01;      // 첫 번째 튜토리얼 오브젝트
+    [SerializeField] private GameObject tt_02;      // 두 번째 튜토리얼 오브젝트
+
+    private int tutorialStep = 0;
+
     // 체력바에서 사용할 색깔 
     private Color healthyColor = Color.green;  // 안전 그린
     private Color warningColor = Color.yellow; // 주의 노랑
     private Color dangerColor = Color.red; // 경고 빨강
+
+    private void Update()
+    {
+        // 튜토리얼이 진행 중일 때 엔터키(Return) 혹은 숫자패드 엔터(KeypadEnter) 입력 감지
+        if (tutorialStep > 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        {
+            NextTutorialStep();
+        }
+    }
+
+    private void Start()
+    {
+        // 게임 시작 시 튜토리얼을 강제로 1단계부터 시작하게 만듭니다.
+        StartTutorial();
+    }
+
+    public void StartTutorial()
+    {
+        tutorialStep = 1; // 1단계로 설정
+        if (tutorialBK != null) tutorialBK.SetActive(true);
+        if (tt_01 != null) tt_01.SetActive(true);
+        if (tt_02 != null) tt_02.SetActive(false);
+    }
+
+    private void NextTutorialStep()
+    {
+        if (tutorialStep == 1)
+        {
+            // 1단계 완료 -> 2단계 시작
+            if (tt_01 != null) tt_01.SetActive(false);
+            if (tt_02 != null) tt_02.SetActive(true);
+            tutorialStep = 2;
+        }
+        else if (tutorialStep == 2)
+        {
+            // 2단계 완료 -> 튜토리얼 최종 종료
+            if (tt_02 != null) tt_02.SetActive(false);
+            if (tutorialBK != null) tutorialBK.SetActive(false); // 배경도 함께 끄기
+            tutorialStep = 0;
+        }
+    }
 
     // 체력 UI함수(현재체력, 임시체력, 최대체력)
     public void UpdateHealthUI(int currentHp, int tempHp, int maxHp)

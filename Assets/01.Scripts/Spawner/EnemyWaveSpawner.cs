@@ -28,13 +28,21 @@ public class EnemyWaveSpawner : MonoBehaviour
     public int maxSpecialZombies = 4; // 특수 좀비 최대 유지 수
     public float specialWaveInterval = 20f; // 특수 좀비 소환 주기
     private float specialWaveTimer = 0f; // 특수 좀비 시간 측정용 타이머
-    // 적 스텟 매니저에서 정보받아와 특수 좀비 리스트로 저장
+
+    public float firstSpecialWaveTime = 60f;
+    private bool isFirstSpecialSpawnDone = false;
 
     // 적 스탯 매니저에서 특수 좀비 정보 받아와 리스트로 저장
     public List<Enemy_StatManager> activeSpecialZombies = new List<Enemy_StatManager>();
 
     // 좀비 숫자 카운트
     public static int totalZombieCount = 0;
+
+    [Header("오거(보스) 소환 설정")]
+    public GameObject ogrePrefab;       // 오거 프리팹 연결
+    public float ogreSpawnTime = 180f;  // 게임 시작 후 오거가 소환될 시간
+    private bool isOgreSpawned = false; // 한 번만 소환하기 위한 체크 변수
+    private float totalPlayTimer = 0f;  // 오거 소환을 위한 전체 플레이 시간 타이머
 
     private void Update()
     {
@@ -50,6 +58,16 @@ public class EnemyWaveSpawner : MonoBehaviour
             return;
         }
 
+        // 오거 소환을 위한 전체 타이머 증가
+        totalPlayTimer += Time.deltaTime;
+
+        // 오거 소환 타이밍 체크 (지정된 시간이 지났고, 아직 소환 안 했다면 딱 한 번 실행)
+        if (isOgreSpawned == false && totalPlayTimer >= ogreSpawnTime)
+        {
+            isOgreSpawned = true; // 다신 안 나오게 막음
+            SpawnOgreOnce(); // 오거 소환 함수 실행
+        }
+
         // 일반 좀비 웨이브 타이머 시간 증가
         normalWaveTimer = normalWaveTimer + Time.deltaTime;
         // 특수 좀비 웨이브 타이머 시간 증가
@@ -58,11 +76,15 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 좀비 위치 관리 함수 호출
         ManageZombieDistances();
 
-        // 특수 좀비 웨이브 타이머가 특수 좀비 웨이브 시간 주기 이상이면
-        if (specialWaveTimer >= specialWaveInterval)
+        //  첫 스폰 여부에 따라 대기 시간 다르게 설정
+        float currentSpecialInterval = isFirstSpecialSpawnDone ? specialWaveInterval : firstSpecialWaveTime;
+
+        // 특수 좀비 웨이브 타이머가 현재 목표 주기 이상이면
+        if (specialWaveTimer >= currentSpecialInterval)
         {
-            // 웨이브 타이머에 웨이브 시간 주기만큼 빼기
-            specialWaveTimer -= specialWaveInterval;
+            specialWaveTimer = 0f; // 타이머 초기화
+            isFirstSpecialSpawnDone = true; // 첫 스폰 완료 처리
+
             // 특수 좀비 스폰 함수 호출
             HandleSpecialZombieSpawn();
         }
@@ -70,12 +92,24 @@ public class EnemyWaveSpawner : MonoBehaviour
         // 일반 좀비 웨이브 타이머가 일반 좀비 웨이브 시간 주기 이상이면
         if (normalWaveTimer >= normalWaveInterval)
         {
-            // 웨이브 타이머에 웨이브 시간 주기만큼 빼기
+            // 웨이브 타이머 초기화
             normalWaveTimer = 0;
             // 일반 좀비 스폰 함수 호출
             HandleWaveSpawn().Forget();
         }
     }
+
+    private void Start()
+    {
+        // 게임 시작 시 인스펙터에 저장된 값을 무시하고 강제로 false 초기화
+        isTutorialArea = false;
+        normalWaveTimer = 0f;
+        specialWaveTimer = 0f;
+        totalPlayTimer = 0f; // 오거 타이머 초기화
+        isOgreSpawned = false; // 오거 스폰 상태 초기화
+        UtillLogRemove.Log("웨이브 스포너 작동 시작 (튜토리얼 영역 초기화 완료)");
+    }
+
 
     // 좀비 위치 관리 함수
     private void ManageZombieDistances()
@@ -313,6 +347,45 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         // 오브젝트 반환
         return obj;
+    }
+
+    private void SpawnOgreOnce()
+    {
+        if (ogrePrefab == null)
+        {
+            UtillLogRemove.Error("오거 프리팹이 인스펙터에 비어있습니다! 넣어주세요.");
+            return;
+        }
+
+        // 스폰 위치 가져오기
+        Vector2 spawnPos = GetValidSpawnPosition();
+
+        // 프리팹 소환
+        GameObject newOgre = SpawnZombieSetup(ogrePrefab, spawnPos);
+
+        Enemy_StatManager stat = newOgre.GetComponent<Enemy_StatManager>();
+
+        if (stat != null)
+        {
+            string id = stat.enemyId;
+            DNMonsterData data = GameDataManager.Instance.GetDNMonsterData(id);
+
+            if (data != null)
+            {
+                int currentDiff = GameManager.Instance.selectedDifficulty;
+                stat.Initialize(data, currentDiff);
+            }
+            else
+            {
+                UtillLogRemove.Error("오거 ID [" + id + "]에 맞는 JSON 데이터를 찾지 못했습니다");
+            }
+
+            // 거리가 멀어지면 알아서 따라오도록 특수 좀비 리스트에 추가해서 관리
+            activeSpecialZombies.Add(stat);
+            ForceAggro(newOgre);
+
+            UtillLogRemove.Log("지정된 시간이 되어 오거[" + stat.enemyName + "]가 소환되었습니다!");
+        }
     }
 
     // 기즈모로 범위 그려주는 함수
